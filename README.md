@@ -1,0 +1,2 @@
+# ICT2106-2018T2-P2
+SMART Home Manager
