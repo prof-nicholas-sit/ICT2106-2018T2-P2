@@ -33,7 +33,7 @@ namespace SmartHome
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Device/Error");
             }
 
             app.UseStaticFiles();

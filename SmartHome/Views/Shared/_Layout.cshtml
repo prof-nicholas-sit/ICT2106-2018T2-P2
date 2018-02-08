@@ -8,6 +8,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/device.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -32,7 +33,10 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Device" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Device" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Device" asp-action="Contact">Contact</a></li>
+                    <!--Testing: To be removed-->
+                    <li><a asp-area="" asp-controller="Device" asp-action="SelectType">Select</a></li>
+                    <li><a asp-area="" asp-controller="Device" asp-action="Create">Create</a></li>
+                    <!--End of testing: To be removed-->
                 </ul>
             </div>
         </div>
