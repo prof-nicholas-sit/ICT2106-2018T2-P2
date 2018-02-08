@@ -8,7 +8,7 @@ using SmartHome.Models;
 
 namespace SmartHome.Controllers
 {
-    public class HomeController : Controller
+    public class DeviceController : Controller
     {
         public IActionResult Index()
         {
