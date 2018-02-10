@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace SmartHome.Models
 {
     public class Device
     {
+        [Required]
         private int DeviceID;
         private int HouseholdID;
         private String DeviceName;
@@ -18,6 +20,7 @@ namespace SmartHome.Models
         private double UsageKwH;
         private int favourite;
         private DateTime timestamp;
+
 
         public Device(int DeviceID, int HouseholdID, String DeviceName,
             String Brand, String Model, String Type, String Location,

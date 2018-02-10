@@ -7,7 +7,8 @@
 <p>Use this area to provide additional information.</p>
 
 
-<form class="form-horizontal">
+<form asp-action="Create" class="form-horizontal">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <fieldset>
 
         <!-- Form Name -->
@@ -17,8 +18,8 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">Name:</label>
             <div class="col-md-4">
-                <input id="name" name="name" type="text" placeholder="Light 001" class="form-control input-md">
-
+                <input id="DeviceName" name="DeviceName" type="text" placeholder="Room Ceiling Light" class="form-control input-md">
+                
             </div>
         </div>
 
@@ -50,6 +51,10 @@
 
             </div>
         </div>
+
+        <!--HIDDEN FIELD-->
+        <!--Hide the device type in a hidden field-->
+        <input type="hidden" name="deviceType" value="@ViewData["Message"]">
 
         <!-- Button -->
         <div class="form-group">
