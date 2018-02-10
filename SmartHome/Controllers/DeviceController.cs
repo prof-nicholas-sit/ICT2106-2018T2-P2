@@ -36,9 +36,12 @@ namespace SmartHome.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public IActionResult Create(String deviceType)
         {
-            ViewData["Message"] = "Your create page.";
+
+            // ViewData["Message"] = "Your create page.";
+            ViewData["Message"] = deviceType;
+
 
             return View();
         }
