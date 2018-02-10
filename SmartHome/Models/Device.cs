@@ -36,8 +36,59 @@ namespace SmartHome.Models
             this.timestamp = timestamp;
         }
 
+        public int getDeviceID()
+        {
+            return this.DeviceID;
+        }
 
+        public int getHouseholdID()
+        {
+            return this.HouseholdID;
+        }
 
+        public String getDeviceName()
+        {
+            return this.DeviceName;
+        }
 
+        public String getBrand()
+        {
+            return this.Brand;
+        }
+
+        public String getModel()
+        {
+            return this.Model;
+        }
+
+        public String getType()
+        {
+            return this.Type;
+        }
+
+        public String getLocation()
+        {
+            return this.Location;
+        }
+
+        public String getState()
+        {
+            return this.State;
+        }
+
+        public double getUsageKwH()
+        {
+            return this.UsageKwH;
+        }
+
+        public int getFavourite()
+        {
+            return this.favourite;
+        }
+
+        public DateTime getTimestamp()
+        {
+            return this.timestamp;
+        }
     }
 }
