@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.DeviceName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @Html.DisplayNameFor(model => model.favourite)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Location)
@@ -30,6 +30,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.timestamp)
             </th>
             <th></th>
         </tr>
@@ -50,7 +53,7 @@ else
                 @Html.DisplayFor(modelItem => item.DeviceName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type)
+                @Html.DisplayFor(modelItem => item.favourite)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Location)
@@ -61,7 +64,9 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Model)
             </td>
-
+            <th>
+                @Html.DisplayFor(modelItem => item.timestamp)
+            </th>
 
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

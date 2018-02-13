@@ -54,11 +54,14 @@ namespace SmartHome.Controllers
             return View();
         }
 
+        //GET METHOD
         public IActionResult Create()
         {
             return View();
         }
 
+
+        //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(String param, Device device)
@@ -67,6 +70,7 @@ namespace SmartHome.Controllers
             try
             {
                 // TODO: Add insert logic here
+
                 model.Add(device);
                 ViewData["Message"] = param;
                 //return View("Index", device);
