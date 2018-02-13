@@ -1,6 +1,9 @@
-﻿@{
-    ViewData["Title"] = "About";
+﻿@model SmartHome.Models.Device;
+
+@{
+    ViewData["Title"] = "Create";
 }
+
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
@@ -16,45 +19,45 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="name">Name:</label>
+            <label asp-for="DeviceName" class="col-md-4 control-label" for="DeviceName"></label>
             <div class="col-md-4">
-                <input id="DeviceName" name="DeviceName" type="text" placeholder="Room Ceiling Light" class="form-control input-md">
-                
+                <input asp-for="DeviceName" id="DeviceName" name="DeviceName" type="text" placeholder="Room Ceiling Light" class="form-control input-md">
+                <span asp-validation-for="DeviceName" class="text-danger"></span>
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="location">Location:</label>
+            <label asp-for="Location" class="col-md-4 control-label" for="location"></label>
             <div class="col-md-4">
-                <input id="location" name="location" type="text" placeholder="Living Room" class="form-control input-md">
-
+                <input asp-for="Location" id="Location" name="location" type="text" placeholder="Living Room" class="form-control input-md">
+                <span asp-validation-for="Location" class="text-danger"></span>
             </div>
         </div>
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="selectbasic">Brand: </label>
+            <label asp-for="Brand" class="col-md-4 control-label" for="selectbasic"></label>
             <div class="col-md-4">
-                <select id="selectbasic" name="selectbasic" class="form-control">
-                    <option value="1">Option one</option>
-                    <option value="2">Option two</option>
+                <select asp-for="Brand" id="selectbasic" name="selectbasic" class="form-control">
+                    <option  value="Samsung">Samsung</option>
+                    <option value="LG">LG</option>
                 </select>
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="model">Model:</label>
+            <label asp-for="Model" class="col-md-4 control-label" for="model"></label>
             <div class="col-md-4">
-                <input id="model" name="model" type="text" placeholder="" class="form-control input-md">
-
+                <input asp-for="Model" id="model" name="model" type="text" placeholder="" class="form-control input-md">
+                <span asp-validation-for="Model" class="text-danger"></span>
             </div>
         </div>
 
         <!--HIDDEN FIELD-->
         <!--Hide the device type in a hidden field-->
-        <input type="hidden" name="deviceType" value="@ViewData["Message"]">
+        <input asp-for="Type" type="hidden" name="deviceType" value="@ViewData["Message"]">
 
         <!-- Button -->
         <div class="form-group">
@@ -66,3 +69,9 @@
 
     </fieldset>
 </form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

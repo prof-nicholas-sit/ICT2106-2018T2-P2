@@ -1,4 +1,10 @@
-﻿
+﻿@model IEnumerable<SmartHome.Models.Device>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
 
 <center>
     <h2>Devices</h2>
@@ -6,6 +12,66 @@
 </center>
 
 
-<!--To make device stuffs-->
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@if (Model == null)
+    {
+        <span>no items found</span>
+}
+else
+{
+
+    @foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeviceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            </td>
+        </tr>
+    }
+}
+    </tbody>
+</table>
+
+
+<!--To make device stuffs-->
 <!--End of To make device stuffs-->

@@ -8,19 +8,47 @@ namespace SmartHome.Models
 {
     public class Device
     {
-        [Required]
-        private int DeviceID;
-        private int HouseholdID;
-        private String DeviceName;
-        private String Brand;
-        private String Model;
-        private String Type;
-        private String Location;
-        private String State;
-        private double UsageKwH;
-        private int favourite;
-        private DateTime timestamp;
 
+        public int DeviceID { get; set; }
+        public int HouseholdID { get; set; }
+
+        [Required]
+        [Display(Name = "Device Name")]
+        public String DeviceName { get; set; }
+
+        [Required]
+        [Display(Name = "Location")]
+        public String Location { get; set; }
+
+        [Required]
+        [Display(Name = "Brand")]
+        public String Brand { get; set; }
+
+        [Required]
+        [Display(Name = "Model")]
+        public String Model { get; set; }
+
+        [Required]
+        public String Type { get; set; }
+        public String State { get; set; }
+        public double UsageKwH { get; set; }
+        public int favourite { get; set; }
+        public DateTime timestamp { get; set; }
+
+
+        //Empty Constructor
+        public Device()
+        {
+        }
+
+
+        public Device(String DeviceName, String Location, String Brand, String Model)
+        {
+            this.DeviceName = DeviceName;
+            this.Location = Location;
+            this.Brand = Brand;
+            this.Model = Model;
+        }
 
         public Device(int DeviceID, int HouseholdID, String DeviceName,
             String Brand, String Model, String Type, String Location,
@@ -39,6 +67,7 @@ namespace SmartHome.Models
             this.timestamp = timestamp;
         }
 
+        /*
         public int getDeviceID()
         {
             return this.DeviceID;
@@ -51,7 +80,7 @@ namespace SmartHome.Models
 
         public String getDeviceName()
         {
-            return this.DeviceName;
+            return DeviceName;
         }
 
         public String getBrand()
@@ -93,5 +122,6 @@ namespace SmartHome.Models
         {
             return this.timestamp;
         }
+        */
     }
 }
