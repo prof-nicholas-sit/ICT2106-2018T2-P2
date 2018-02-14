@@ -12,5 +12,20 @@ namespace UsageStatistics.Models
         public String Type;
         public String State;
         public String PowerUsage;
+        
+        public double IndividualEnergyUsage(string location, string deviceType, string timePeriod)
+        {
+            return 0;
+        }
+
+        public double TotalEnergyUsage(string timePeriod)
+        {
+            return 0;
+        }
+
+        private double CalculateEnergyUsage(double energy, DateTime on, DateTime off)
+        {
+            return 0;
+        }
     }
 }

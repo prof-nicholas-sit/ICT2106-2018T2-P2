@@ -12,5 +12,25 @@ namespace UsageStatistics.Models
         public int DevicePageCount;
         public int SchedulePageCount;
         public string CurrentLoginDuration;
+
+        public string CalculateLoginDuration(DateTime login, DateTime logoff)
+        {
+            return null;
+        }
+
+        public DateTime GetLastLogin()
+        {
+            return DateTime.Now;
+        }
+
+        public int GetLoginCount()
+        {
+            return 0;
+        }
+
+        public int GetPageCount(string page)
+        {
+            return 0;
+        }
     }
 }

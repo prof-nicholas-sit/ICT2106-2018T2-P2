@@ -11,5 +11,10 @@ namespace UsageStatistics.Models
         public double AverageConsumption;
         public double Target;
         public double PreviousMonthConsumption;
+
+        public double CalculateAverageConsumption()
+        {
+            return 0;
+        }
     }
 }
