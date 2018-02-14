@@ -7,10 +7,10 @@ namespace SmartHome.Models
 {
     public class Device
     {
-        int Id;
-        string Location;
-        double Energy;
-        string Type;
+        public int Id { get; set; }
+        public string Location { get; set; }
+        public double Energy { get; set; }
+        public string Type { get; set; }
 
         public Device(int id, string location, double energy, string type)
         {

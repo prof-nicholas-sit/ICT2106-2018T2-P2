@@ -7,10 +7,10 @@ namespace SmartHome.Models
 {
     public class DeviceLogs
     {
-        int Id;
-        int DeviceId;
-        DateTime Datetime;
-        string Status;
+        public int Id { get; set; }
+        public int DeviceId { get; set; }
+        public DateTime Datetime { get; set; }
+        public string Status { get; set; }
 
         public DeviceLogs(int id, int deviceId, DateTime datetime, string status)
         {
