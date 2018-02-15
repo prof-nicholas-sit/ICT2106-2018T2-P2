@@ -12,6 +12,11 @@ namespace SmartHome.Models
         public double Energy { get; set; }
         public string Type { get; set; }
 
+        public Device ()
+        {
+
+        }
+
         public Device(int id, string location, double energy, string type)
         {
             Id = id;
