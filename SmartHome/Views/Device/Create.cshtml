@@ -2,6 +2,12 @@
 
 @{
     ViewData["Title"] = "Create";
+
+
+   @ViewBag.device;
+   var tempValue = @Html.Raw(ViewBag.deviceType);
+ 
+
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -39,9 +45,10 @@
         <div class="form-group">
             <label asp-for="Brand" class="col-md-4 control-label" for="selectbasic"></label>
             <div class="col-md-4">
-                <select asp-for="Brand" id="selectbasic" name="selectbasic" class="form-control">
-                    <option  value="Samsung">Samsung</option>
+                <select asp-for="Brand" id="Brand" name="Brand" class="form-control">
+                    <option value="Samsung">Samsung</option>
                     <option value="LG">LG</option>
+                    <option value="Panasonic">Panasonic</option>
                 </select>
             </div>
         </div>
@@ -57,7 +64,9 @@
 
         <!--HIDDEN FIELD-->
         <!--Hide the device type in a hidden field-->
-        <input asp-for="Type" type="hidden" name="deviceType" value="@ViewData["Message"]">
+        <div class="form-group">
+            <input asp-for="Type" type="hidden" name="Type" value="@tempValue">
+        </div>
 
         <!-- Button -->
         <div class="form-group">
@@ -69,6 +78,7 @@
 
     </fieldset>
 </form>
+
 
 
 @section Scripts {

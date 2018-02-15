@@ -55,8 +55,10 @@ namespace SmartHome.Controllers
         }
 
         //GET METHOD
-        public IActionResult Create()
+        public IActionResult Create(String param)
         {
+            string deviceType = Request.Query["deviceType"].ToString();
+            ViewBag.deviceType = deviceType;
             return View();
         }
 
@@ -86,6 +88,17 @@ namespace SmartHome.Controllers
 
 
             //return View();
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            Device device = new Device();
+            return View(device);
         }
 
         public IActionResult Error()

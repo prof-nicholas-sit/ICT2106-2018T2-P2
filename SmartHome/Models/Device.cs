@@ -31,6 +31,7 @@ namespace SmartHome.Models
         public String Model { get; set; }
 
         [Required]
+        [Display(Name = "Type")]
         public String Type { get; set; }
         public String State { get; set; }
         public double UsageKwH { get; set; }
