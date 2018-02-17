@@ -17,6 +17,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.DeviceID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DeviceName)
             </th>
             <th>
@@ -47,6 +50,9 @@ else
 {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.DeviceID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DeviceName)
             </td>
             <td>
@@ -63,7 +69,8 @@ else
             </th>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.DeviceID  }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.DeviceID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DeviceID })
             </td>
         </tr>
     }

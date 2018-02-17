@@ -10,6 +10,7 @@ namespace SmartHome.Models
     public class Device
     {
         //Might auto increment once we have the DATABASE working
+        static int count = 0;
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DeviceID { get; set; }
         public int HouseholdID { get; set; }
@@ -36,18 +37,19 @@ namespace SmartHome.Models
         public String State { get; set; }
         public double UsageKwH { get; set; }
         //Default Values
-        public int favourite { get; }
+        public int favourite { get; set; }
 
         //Default Values
         //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime timestamp { get; }
+        public DateTime timestamp { get; set; }
 
 
         //Empty Constructor
         public Device()
         {
-                this.DeviceID = DeviceID;
-                this.HouseholdID = HouseholdID;
+                this.DeviceID = count;
+                //Temp placeholder for household ID
+                this.HouseholdID = 1419;
                 this.DeviceName = DeviceName;
                 this.Brand = Brand;
                 this.Model = Model;
@@ -57,6 +59,7 @@ namespace SmartHome.Models
                 this.UsageKwH = UsageKwH;
                 this.favourite = 0;
                 this.timestamp = DateTime.Now;
+                count++;
         }
 
 

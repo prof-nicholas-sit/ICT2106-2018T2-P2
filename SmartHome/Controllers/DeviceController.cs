@@ -12,6 +12,8 @@ namespace SmartHome.Controllers
     {
         static List<Device> model = new List<Device>();
 
+ 
+
         public IActionResult Index()
         {
             //Device t = new Device("1", "1", "1","1");
@@ -82,14 +84,11 @@ namespace SmartHome.Controllers
             {
                 return View();
             }
-         
-            // ViewData["Message"] = "Your create page.";
-            //ViewData["Message"] = param;
-
-
-            //return View();
+            
         }
 
+
+        // GET: Tours/Edit/5
         public IActionResult Edit(int? id)
         {
             if(id == null)
@@ -97,9 +96,88 @@ namespace SmartHome.Controllers
                 return NotFound();
             }
 
-            Device device = new Device();
-            return View(device);
+            Device result = model.FirstOrDefault();
+            //Lamda function to find ID
+            model.ForEach(x =>
+            {
+                if (id == x.DeviceID) { 
+                    result = x;
+                }
+            });
+
+            return View(result);
         }
+
+        
+        //Post Form
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("DeviceID", "HouseholdID", "DeviceName", "Location", "Brand", "Model", "Type", "State", "UsageKwH", "favourite", "timestamp")] Device device)
+        {
+            //Device obj = model.FirstOrDefault(x => x.DeviceID == id);
+            //obj = device;
+            Device result = model.FirstOrDefault();
+            //Lamda function to find ID
+            model.ForEach(x =>
+            {
+                if (id == x.DeviceID) { 
+                    result.HouseholdID = device.HouseholdID;
+                    result.DeviceName = device.DeviceName;
+                    result.Location = device.Location;
+                    result.Brand = device.Brand;
+                    result.Model = device.Model;
+                    result.Type = device.Type;
+                    result.HouseholdID = device.HouseholdID;
+                    result.State = device.State;
+                    result.UsageKwH = device.UsageKwH;
+                    result.favourite = device.favourite;
+                    result.timestamp = device.timestamp;
+                }
+            });
+
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+        // GET: Tours/Delete/5
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Device result = model.FirstOrDefault();
+            //Lamda function to find ID
+            model.ForEach(x =>
+            {
+                if (id == x.DeviceID)
+                {
+                    result = x;
+                }
+            });
+
+            return View(result);
+        }
+
+        // POST: Tours/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var itemToRemove = model.Single(x => x.DeviceID == id);
+            model.Remove(itemToRemove);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+
+
+
 
         public IActionResult Error()
         {
