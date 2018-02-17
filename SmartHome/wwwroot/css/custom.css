@@ -1,0 +1,80 @@
+body {
+    background-color: #f5f9fc;
+}
+
+a {
+    color: #7d9bd1;
+}
+
+a:hover {
+    text-decoration:none;
+}
+
+#page-wrapper {
+    background-color: #f4f5f7;
+}
+
+.panel, .well {
+    border-radius: 1px;
+}
+
+.panel-default > .panel-heading {
+    color: #fff;
+    background-color: #7a9ece;
+}
+
+.well-info {
+    text-align: center;
+    background-color: #f5f9fc;
+}
+
+hr {
+    border-color: #ddd;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.mb0 {
+    margin-bottom: 0px !important;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.mb30 {
+    margin-bottom: 30px;
+}
+
+.text-big {
+    color: #ffcb54;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.sidebar {
+    background-color: #f5f9fc;
+}
+
+a > .circle-icon {
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 4px solid #ddd;
+    vertical-align: middle;
+    padding: 32px;
+    line-height: 42px;
+}
+
+a.active > .circle-icon {
+    border-color: #7d9bd1;
+}
+
+.panel-warning {
+    border-color: #ffcb54;
+}
+
+.panel-advisor > .panel-heading {
+    background-color: #ffcb54;
+}

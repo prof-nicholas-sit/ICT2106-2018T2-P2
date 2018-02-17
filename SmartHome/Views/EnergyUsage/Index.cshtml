@@ -4,10 +4,73 @@
     ViewData["Title"] = "Energy Usage";
 }
 
-<div class="row">
-    <div class="col-md-4">
+
+<div id="page-wrapper">
+    <div class="row">
+	<div class="col-md-4">
         <h2>Energy Usage</h2>
     </div>
-    <p>Energy Usage: @Model.TotalEnergyUsage("")</p>
-    <p>Individual Energy Usage (Living Room, Fridge): @Model.IndividualEnergyUsage("Kitchen","Fridge","")</p>
+        <div class="col-lg-12">
+            <h3>Usage Statistics</h3>
+            <div class="panel panel-default mt30 mb0">
+              <div class="panel-heading">
+                <h3 class="panel-title">Devices Installed</h3>
+              </div>
+              <div class="panel-body text-center">
+                <div class="row" id="eu-dev-list">
+                     
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div id="device_1" class="panel panel-default mt30">
+      <div class="panel-body">
+          <div class="well well-lg well-info">
+              <div class="row" id="eu-dev-info-basic"></div>
+
+              <hr>
+
+              <div class="row" id="eu-dev-info"></div>
+          </div>
+          <!-- end well -->
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Energy Usage</b>
+                <div class="pull-right">
+                    <b>Today: 21/01/18 &nbsp;</b>
+                    <div class="btn-group btn-group-xs" id="tab_toggle" role="tablist" aria-label="...">
+                      <a href="#daily" type="button" class="btn btn-default" role="tab" data-toggle="tab">Daily</a>
+                      <a href="#weekly" type="button" class="btn btn-default" role="tab" data-toggle="tab">Weekly</a>
+                      <a href="#monthly" type="button" class="btn btn-default" role="tab" data-toggle="tab">Monthly</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="daily">
+                        <canvas id="daily_1" class="mb30"></canvas>
+                        <canvas id="daily_2"></canvas>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="weekly">
+                        <canvas id="weekly_1" class="mb30"></canvas>
+                        <canvas id="weekly_2"></canvas>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="monthly">
+                        <canvas id="monthly_1" class="mb30"></canvas>
+                        <canvas id="monthly_2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+          </div>
+      </div>
+    </div>
 </div>
+
+
+
