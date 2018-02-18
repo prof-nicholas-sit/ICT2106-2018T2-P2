@@ -7,7 +7,10 @@ namespace SmartHome.Models
 {
     public class Light : DeviceLog
     {
+
         private int brightness { get; set; }
         private int colorTemperature { get; set; }
+
+      
     }
 }
