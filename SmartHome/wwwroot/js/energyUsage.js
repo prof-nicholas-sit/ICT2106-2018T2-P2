@@ -1,4 +1,5 @@
-function initialLoad(){
+/**
+function initialLoad() {
 	var currDevice = "0"
 
 	$.getJSON("../js/tempData.json", function(json) {
@@ -25,5 +26,6 @@ $( document ).ready(function() {
 });
 
 
-initialLoad();
 
+initialLoad();
+**/

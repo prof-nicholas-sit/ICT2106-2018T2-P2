@@ -12,9 +12,13 @@ namespace UsageStatistics.Controllers
     public class EnergyUsageController : Controller
     {    
         // GET: EnergyUsage
-        public ActionResult Index()
+        public ActionResult Index(string location, string type, string timePeriod)
         {
-            return View(new EnergyUsage());
+            EnergyUsage result = new EnergyUsage();
+            // gets individal energy usage in kwh and rounding it off to 2dp
+            ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type, timePeriod), 2);
+
+            return View(result);
         }
         
         // GET: EnergyUsage/Details/5

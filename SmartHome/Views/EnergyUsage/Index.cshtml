@@ -17,9 +17,24 @@
                 <h3 class="panel-title">Devices Installed</h3>
               </div>
               <div class="panel-body text-center">
-                <div class="row" id="eu-dev-list">
-                     
-                </div>
+                  <div class="row" id="eu-dev-list">
+                      <div class="col-xs-6 col-sm-2">
+                          <!-- set default time period as daily -->
+                          <a href="@Url.Action("Index", new { location = "Living room", type = "Lightbulb", timePeriod = "daily"})" class="active" >
+                              <div class="circle-icon"><i class="far fa-lightbulb fa-3x"></i></div>
+                              <strong>Lightbulb</strong>
+                          </a>
+                      </div>
+                      <div class="col-xs-6 col-sm-2">
+                          <!-- set default time period as daily -->
+                          <a href="@Url.Action("Index", new { location = "Kitchen", type = "Fridge", timePeriod = "daily" })">
+                              <div class="circle-icon"><i class="far fa-lightbulb fa-3x"></i></div>
+                              <strong>Fridge</strong>
+                          </a>
+                      </div>
+                  </div>
+                  </div>
+              </div>
               </div>
             </div>
         </div>
@@ -30,9 +45,8 @@
       <div class="panel-body">
           <div class="well well-lg well-info">
               <div class="row" id="eu-dev-info-basic"></div>
-
+              @ViewBag.sum
               <hr>
-
               <div class="row" id="eu-dev-info"></div>
           </div>
           <!-- end well -->

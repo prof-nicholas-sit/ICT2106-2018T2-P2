@@ -55,6 +55,7 @@ namespace UsageStatistics.Models
             double sum = 0;
 
             // for each device log, call calculateEnergyUsage
+            // MISSING TO CHECK IF WITHIN TIME PERIOD (or can it be done during retrieval?)
             foreach (DeviceLogs log in allDeviceLogs)
             {
                 if (log.DeviceId == tDevice.Id)
