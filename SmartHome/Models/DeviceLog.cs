@@ -45,7 +45,8 @@ namespace SmartHome.Models
             this.type = type;
             this.state = state;
             this.kWh = kWh;
-            this.dateTime = DateTime.Now;
+            String date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            this.dateTime = Convert.ToDateTime(date);
         }
 
         public DeviceLog()
@@ -56,7 +57,8 @@ namespace SmartHome.Models
             this.type = type;
             this.state = state;
             this.kWh = kWh;
-            this.dateTime = DateTime.Now;
+            String date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            this.dateTime = Convert.ToDateTime(date);
         }
     }
 }
