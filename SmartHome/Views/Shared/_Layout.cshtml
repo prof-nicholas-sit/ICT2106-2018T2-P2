@@ -43,61 +43,62 @@
             </div>
             <!-- /.navbar-header -->
 
-           <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                     <!-- Needs to remove default value for type in next iteration-->
-                    <li><a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Living room" asp-route-type="Lightbulb">Energy Usage</a></li>
-                    <li><a asp-area="" asp-controller="EnergyAdvise" asp-action="Index">Energy Advise</a></li>
-                    <li><a asp-area="" asp-controller="ApplicationUsage" asp-action="Index">Application Usage</a></li>
-                </ul>
-            <!-- /.navbar-top-links -->
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                <!-- Needs to remove default value for type in next iteration-->
+                <li><a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Living room" asp-route-type="Lightbulb">Energy Usage</a></li>
+                <li><a asp-area="" asp-controller="EnergyAdvise" asp-action="Index">Energy Advise</a></li>
+                <li><a asp-area="" asp-controller="ApplicationUsage" asp-action="Index">Application Usage</a></li>
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
+            </ul>
+                    <!-- /.navbar-top-links -->
 
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <!-- Needs to remove default values for type in next iteration -->
-                            <a asp-area="" asp-controller="EnergyUsage"  asp-action="Index" asp-route-location="Living room" asp-route-type="Lightbulb"><i class="fas fa-cubes fa-fw"></i> Living Room</a>
-                        </li>
-                        <li>
-                            <!-- Needs to remove default values for type in next iteration -->
-                            <a asp-area="" asp-controller="EnergyUsage"  asp-action="Index" asp-route-location="Kitchen" asp-route-type="Fridge"><i class="fas fa-utensils fa-fw"></i> Kitchen</a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="EnergyUsage"  asp-action="Index" asp-route-location="Master Bedroom"><i class="fas fa-bed fa-fw"></i> Master Bedroom</a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="EnergyUsage"  asp-action="Index" asp-route-location="Bedroom 1"><i class="fas fa-bed fa-fw"></i> Bedroom 1</a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="EnergyUsage"  asp-action="Index" asp-route-location="Bedroom 2"><i class="fas fa-bed fa-fw"></i> Bedroom 2</a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="EnergyUsage"  asp-action="Index" asp-route-location="Bathroom"><i class="fas fa-bath fa-fw"></i> Bathroom</a>
-                        </li>
-<!--
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                    <div class="navbar-default sidebar" role="navigation">
+                        <div class="sidebar-nav navbar-collapse">
+
+                            <ul class="nav" id="side-menu">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <!-- Needs to remove default values for type in next iteration -->
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Living room" asp-route-type="Lightbulb"><i class="fas fa-cubes fa-fw"></i> Living Room</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <!-- Needs to remove default values for type in next iteration -->
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Kitchen" asp-route-type="Fridge"><i class="fas fa-utensils fa-fw"></i> Kitchen</a>
                                 </li>
+                                <li>
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Master Bedroom"><i class="fas fa-bed fa-fw"></i> Master Bedroom</a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Bedroom 1"><i class="fas fa-bed fa-fw"></i> Bedroom 1</a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Bedroom 2"><i class="fas fa-bed fa-fw"></i> Bedroom 2</a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Bathroom"><i class="fas fa-bath fa-fw"></i> Bathroom</a>
+                                </li>
+                                <!--
+                                            <li>
+                                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-second-level">
+                                                    <li>
+                                                        <a href="flot.html">Flot Charts</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="morris.html">Morris.js Charts</a>
+                                                    </li>
+                                                </ul>
+                                                 /.nav-second-level
+                                            </li>
+                    -->
                             </ul>
-                             /.nav-second-level 
-                        </li>
--->
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+                        </div>
+                        <!-- /.sidebar-collapse -->
+                    </div>
+                    <!-- /.navbar-static-side -->
+</nav>
 
     <div class="container body-content">
         @RenderBody()

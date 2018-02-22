@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.Models;
 
 namespace UsageStatistics.Controllers
 {
@@ -12,6 +13,11 @@ namespace UsageStatistics.Controllers
         // GET: EnergyUsage
         public ActionResult Index()
         {
+            AppLog appLog = new AppLog("user.login", DateTime.Now, 2);
+            Console.WriteLine(appLog.ToString());
+
+            AppLog appLog1 = new AppLog("user.login", DateTime.Now, values: "yolo");
+            Console.WriteLine(appLog1.ToString());
             return View();
         }
 
