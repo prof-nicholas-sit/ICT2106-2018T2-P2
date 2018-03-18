@@ -18,21 +18,25 @@
                     <div class="row" id="eu-dev-list">
                         @if (ViewBag.location == "Living room")
                         {
-                            <div class="col-xs-6 col-sm-2">
-                                <a href="@Url.Action("Index", new { location = "Living room", type = "Lightbulb", timePeriod = "daily"})" class="active">
-                                    <div class="circle-icon"><i class="far fa-lightbulb fa-3x"></i></div>
-                                    <strong>Lightbulb</strong>
+                            <div class="col-xs-6 col-sm-4 col-lg-2">
+                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "Living room", type = "Lightbulb", timePeriod = "daily"})" class="active">
+                                    <div class="wrap-icon">
+                                        <i class="far fa-lightbulb fa-3x"></i><br>
+                                        <strong>Lightbulb</strong>
+                                    </div>
                                 </a>
                             </div>
 
                         }
                         else if (ViewBag.location == "Kitchen")
                         {
-                            <div class="col-xs-6 col-sm-2">
+                            <div class="col-xs-6 col-sm-4 col-lg-2">
                                 <!-- set default time period as daily -->
-                                <a href="@Url.Action("Index", new { location = "Kitchen", type = "Fridge", timePeriod = "daily"})" class="active">
-                                    <div class="circle-icon"><i class="far fa-lightbulb fa-3x"></i></div>
-                                    <strong>Fridge</strong>
+                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "Kitchen", type = "Fridge", timePeriod = "daily"})" class="active">
+                                    <div class="wrap-icon">
+                                        <i class="far fa-lightbulb fa-3x"></i><br>
+                                        <strong>Fridge</strong>
+                                    </div>
                                 </a>
                             </div>
 
