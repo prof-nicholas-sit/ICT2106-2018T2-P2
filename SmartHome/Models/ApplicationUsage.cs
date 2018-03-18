@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿using SmartHome.Models;
+using System;
 namespace UsageStatistics.Models
 {
-    public class ApplicationUsage
+    public class ApplicationUsage : Filter
     {
         public DateTime LastLogin;
         public int LoginCount;
@@ -13,24 +10,47 @@ namespace UsageStatistics.Models
         public int SchedulePageCount;
         public string CurrentLoginDuration;
 
+        private string page;
+
+        public ApplicationUsage(string page)
+        {
+            this.page = page;
+        }
+
+        public override void DoFilter(string timePeriod)
+        {
+            LastLogin = GetLastLogin(timePeriod);
+            LoginCount = GetLoginCount(timePeriod);
+
+            if (page.Equals("Device"))
+            {
+                DevicePageCount = GetPageCount(page, timePeriod);
+            }
+
+            if (page.Equals("Schedule"))
+            {
+                SchedulePageCount = GetPageCount(page, timePeriod);
+            }
+        }
+
         public string CalculateLoginDuration(DateTime login, DateTime logoff)
         {
             return null;
         }
 
-        public DateTime GetLastLogin()
+        private DateTime GetLastLogin(string timePeriod)
         {
             return DateTime.Now;
         }
 
-        public int GetLoginCount()
+        private int GetLoginCount(string timePeriod)
         {
             return 0;
         }
 
-        public int GetPageCount(string page)
+        private int GetPageCount(string page, string timePeriod)
         {
             return 0;
-        }
+        }        
     }
 }

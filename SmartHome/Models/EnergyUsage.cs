@@ -1,19 +1,34 @@
 ﻿using SmartHome.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace UsageStatistics.Models
 {
-    public class EnergyUsage
+    public class EnergyUsage : Filter
     {
-        public String Name { get; set; }
-        public String Model { get; set; }
-        public String Type { get; set; }
-        public String State { get; set; }
+        public string Name { get; set; }
+        public string Model { get; set; }
+        public string Type { get; set; }
+        public string State { get; set; }
 
-        public double IndividualEnergyUsage(string location, string deviceType, string timePeriod)
+        public double individualEnergyUsage { get; set; }
+        public double totalEnergyUsage { get; set; }
+
+        private string location;
+
+        public EnergyUsage(string location, string deviceType)
+        {
+            this.location = location;
+            Type = deviceType;
+        }
+
+        public override void DoFilter(string timePeriod)
+        {
+            individualEnergyUsage = IndividualEnergyUsage(location, Type, timePeriod);
+            totalEnergyUsage = TotalEnergyUsage(timePeriod);
+        }
+        
+        private double IndividualEnergyUsage(string location, string deviceType, string timePeriod)
         {            
             // creating fake devices and device logs for that device
             List<Device> allDevices = new List<Device>();
@@ -83,7 +98,7 @@ namespace UsageStatistics.Models
             return sum;
         }
 
-        public double TotalEnergyUsage(string timePeriod)
+        private double TotalEnergyUsage(string timePeriod)
         {
             // creating fake devices and device logs for that device
             List<Device> allDevices = new List<Device>();
