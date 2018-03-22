@@ -2,7 +2,7 @@
 using System;
 namespace UsageStatistics.Models
 {
-    public class ApplicationUsage : Filter
+    public class ApplicationUsage
     {
         public DateTime LastLogin;
         public int LoginCount;
@@ -15,22 +15,6 @@ namespace UsageStatistics.Models
         public ApplicationUsage(string page)
         {
             this.page = page;
-        }
-
-        public override void DoFilter(string timePeriod)
-        {
-            LastLogin = GetLastLogin(timePeriod);
-            LoginCount = GetLoginCount(timePeriod);
-
-            if (page.Equals("Device"))
-            {
-                DevicePageCount = GetPageCount(page, timePeriod);
-            }
-
-            if (page.Equals("Schedule"))
-            {
-                SchedulePageCount = GetPageCount(page, timePeriod);
-            }
         }
 
         public string CalculateLoginDuration(DateTime login, DateTime logoff)

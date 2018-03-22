@@ -11,16 +11,11 @@ namespace UsageStatistics.Models
         public string Type { get; set; }
         public string State { get; set; }
  
-        private string location;
-
         List<DeviceLogs> allDeviceLogs = new List<DeviceLogs>();
         List<Device> allDevices = new List<Device>();
         
-        public EnergyUsage(string location, string deviceType)
+        public EnergyUsage()
         {
-            this.location = location;
-            Type = deviceType;
-
             // --- DEVICE STUBS
             // Creating fake devices and device logs for that device
             int device1 = 1;
