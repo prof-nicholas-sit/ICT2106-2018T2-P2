@@ -12,10 +12,9 @@ namespace UsageStatistics.Controllers
         public ActionResult Index(string location, string type, string timePeriod)
         {
             EnergyUsage result = new EnergyUsage(location, type);
-            result.DoFilter(timePeriod);
-
+            
             // gets individal energy usage in kwh and rounding it off to 2dp
-            ViewBag.sum = Math.Round(result.individualEnergyUsage, 2);
+            ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type, timePeriod), 2);
             ViewBag.location = location;
 
             return View(result);
