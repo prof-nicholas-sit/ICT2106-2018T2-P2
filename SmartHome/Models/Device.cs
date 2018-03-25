@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// TO BE DELETED, PLACEHOLDER DEVICE LOGS 
 namespace SmartHome.Models
 {
     public class Device
