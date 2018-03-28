@@ -7,5 +7,6 @@ namespace SmartHome.Models
 {
     public class ScheduleAppLog : AppLog
     {
+        public String DeviceName { get; set; }
     }
 }

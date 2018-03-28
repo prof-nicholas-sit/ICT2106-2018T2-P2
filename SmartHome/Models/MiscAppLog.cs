@@ -7,5 +7,6 @@ namespace SmartHome.Models
 {
     public class MiscAppLog : AppLog
     {
+        public String Value { get; set; }
     }
 }
