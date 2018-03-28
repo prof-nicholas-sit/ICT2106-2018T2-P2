@@ -15,7 +15,9 @@ using Microsoft.AspNetCore.Hosting;
 using OfficeOpenXml;
 using SmartHome.Models;
 using SmartHome.Utility;
-
+using Newtonsoft;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace SmartHome.Controllers
 {
@@ -23,10 +25,26 @@ namespace SmartHome.Controllers
     {
         static List<DeviceLog> logList = new List<DeviceLog>();
 		private readonly IHostingEnvironment _hostingEnvironment;
-        
+
         List<DeviceLog> dataList = new List<DeviceLog>();
-		
-		public DeviceLogController(IHostingEnvironment hostingEnvironment)
+
+        
+
+        string jsonDummy = @"{
+   'ID': 1001,
+   'householdID': 200,
+   'name': 'Mitsubishi',
+   'location': 'Living Room',
+   'type': 'aircon',
+   'state': 'ON',
+    'kWh': 120.0,
+   'dateTime': '1/6/2013 12:32:00 PM'
+   
+}
+
+";
+
+        public DeviceLogController(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
@@ -36,19 +54,18 @@ namespace SmartHome.Controllers
             // Dummy data
             // Temporary commented out due to protected access type for DeviceLog
             // If need to use change it to public 
-            var log1 = new DeviceLog(1, 1001, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
-            var log2 = new DeviceLog(2, 1001, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
-            var log3 = new DeviceLog(3, 1011, "Toshiba Fan", "Living room", "Fan", "ON", 0);
-            var log4 = new DeviceLog(4, 1011, "Toshiba fan ", "Living room", "Fan", "OFF", 0);
-            var log5 = new DeviceLog(5, 1011, "Led light", "Kitchen", "Light", "ON", 0);
-            var log6 = new DeviceLog(6, 1011, "Led light", "Kitchen", "Light", "OFF", 200.0);
+            //var log1 = new DeviceLog(1, 1001, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
+            //var log2 = new DeviceLog(2, 1001, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
+            //var log3 = new DeviceLog(3, 1011, "Toshiba Fan", "Living room", "Fan", "ON", 0);
+            //var log4 = new DeviceLog(4, 1011, "Toshiba fan ", "Living room", "Fan", "OFF", 0);
+            //var log5 = new DeviceLog(5, 1011, "Led light", "Kitchen", "Light", "ON", 0);
+            //var log6 = new DeviceLog(6, 1011, "Led light", "Kitchen", "Light", "OFF", 200.0);
 
 
-            var logList = new List<DeviceLog> { log1, log2, log3, log4, log5, log6 };
+            //var logList = new List<DeviceLog> { log1, log2, log3, log4, log5, log6 };
 
 
-
-            return View(logList);
+            return View(JsonToDeviceObject(jsonDummy));
         }
 
         public IActionResult LogManagement()
@@ -147,5 +164,19 @@ namespace SmartHome.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public List<DeviceLog> JsonToDeviceObject(string j) {
+           
+            List<DeviceLog> temp = new List<DeviceLog>();
+           
+            DeviceLog newDeviceLoggy = JsonConvert.DeserializeObject<DeviceLog>(j);
+
+            temp.Add(newDeviceLoggy);
+
+            return temp;
+        }
+
+      
     }
 }
