@@ -30,7 +30,7 @@ namespace SmartHome.Controllers
 
         
 
-        string jsonDummy = @"{
+        string jsonDummy = @"[{
    'ID': 1001,
    'householdID': 200,
    'name': 'Mitsubishi',
@@ -38,9 +38,18 @@ namespace SmartHome.Controllers
    'type': 'aircon',
    'state': 'ON',
     'kWh': 120.0,
+   'dateTime': '1/6/2013 12:32:00 PM'},
+{'ID': 1002,
+   'householdID': 300,
+   'name': 'Mitsubishi',
+   'location': 'Bedroom',
+   'type': 'light',
+   'state': 'ON',
+    'kWh': 200.0,
    'dateTime': '1/6/2013 12:32:00 PM'
-   
 }
+]
+  
 
 ";
 
@@ -166,15 +175,17 @@ namespace SmartHome.Controllers
         }
 
         [HttpPost]
-        public List<DeviceLog> JsonToDeviceObject(string j) {
+        public IList<DeviceLog> JsonToDeviceObject(string j) {
            
-            List<DeviceLog> temp = new List<DeviceLog>();
-           
-            DeviceLog newDeviceLoggy = JsonConvert.DeserializeObject<DeviceLog>(j);
+           // List<DeviceLog> temp = new List<DeviceLog>();
 
-            temp.Add(newDeviceLoggy);
+            IList<DeviceLog> TeamsList = new List<DeviceLog>();
 
-            return temp;
+            TeamsList = JsonConvert.DeserializeObject<List<DeviceLog>>(j);
+
+            //temp.Add(newDeviceLoggy);
+
+            return TeamsList;
         }
 
       
