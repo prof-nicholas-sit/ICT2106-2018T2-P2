@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using MongoDB.Bson;
+using SmartHome.DAL.DataSource;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.UnitOfWork
 {
     public class UnitOfWork<T> : IUnitOfWork<T> where T : class
     {
@@ -17,8 +18,24 @@ namespace SmartHome.DAL
             // initialise DataSource
         }
 
-        // Retrieve json string based on the retrieve query
-        public string ExecuteSelection(IQueryable<T> query)
+        // append query to Queries
+        public void RegisterNew(IQueryable<T> createQuery)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterDirty(IQueryable<T> updateQuery)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterDeleted(IQueryable<T> deleteQuery)
+        {
+            throw new NotImplementedException();
+        }
+        
+        // Retrieve document based on the retrieve query
+        BsonDocument IUnitOfWork<T>.ExecuteSelection(IQueryable<T> retrieveQuery)
         {
             // execute query, store result in var
             // convert var to json string
@@ -26,15 +43,8 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        // Inserts mongo queries into the unit of work
-        public void RegisterQuery(IQueryable<T> query)
-        {
-            // append query to Queries
-            throw new NotImplementedException();
-        }
-
         // Perform all the registered queries to MongoDB database
-        public void SaveChanges()
+        public void Commit()
         {
             // loop through the Queries
             // for each query, execute the query

@@ -1,13 +1,10 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.DataSource
 {
-    interface IMongoDataSource
+    public interface IMongoDataSource
     {
-        MongoCollection GetCollection(string collection);
+        IMongoCollection<BsonDocument> GetCollection(string collection);
     }
 }

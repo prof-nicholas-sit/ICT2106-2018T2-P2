@@ -1,15 +1,12 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.DataSource
 {
     public class MongoDataSource : IMongoDataSource
     {
         private static MongoDataSource Instance;
-        private MongoDatabase Database;
+        private IMongoDatabase Database;
         
         // Singleton Class Other classes not allowed to instantiate an object of this class
         private MongoDataSource()
@@ -18,23 +15,23 @@ namespace SmartHome.DAL
             // establish connection to mongodb by specifying URL and Port
         }
 
+        private void Initialise()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            Database = client.GetDatabase("smart-home-ict2106");
+        }
 
         // If instance already exist return instance else create a new instance.
         public static MongoDataSource GetInstance()
         {
-            if (Instance == null)
-            {
-                Instance = new MongoDataSource();
-            }
-            return Instance;
+            return Instance ?? (Instance = new MongoDataSource());
         }
 
 
         // Returns a user specifed collection
-        public MongoCollection GetCollection(string collection)
+        public IMongoCollection<BsonDocument> GetCollection(string collection)
         {
-            // return database.getCollection(collection);
-            throw new NotImplementedException();
+            return Database.GetCollection<BsonDocument>(collection);
         }
     }
 }
