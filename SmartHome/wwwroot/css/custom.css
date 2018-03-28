@@ -58,18 +58,21 @@ hr {
     background-color: #f5f9fc;
 }
 
-a > .circle-icon {
+.wrap-icon-href {
     margin-bottom: 10px;
-    border-radius: 50%;
-    height: !important 120px;
-    width: !important 120px;
-    border: 4px solid #ddd;
-    vertical-align: middle;
-    padding: 32px;
-    line-height: 42px;
+    border-radius: 4px;
+    height: 120px;
+    width: 100%;
+    border: 2px dashed #ddd;
+    display: table;
 }
 
-a.active > .circle-icon {
+.wrap-icon {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.wrap-icon-href.active {
     border-color: #7d9bd1;
 }
 
