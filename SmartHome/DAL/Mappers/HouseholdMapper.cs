@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using SmartHome.DAL.UnitOfWork;
 using SmartHome.Models;
 
 namespace SmartHome.DAL

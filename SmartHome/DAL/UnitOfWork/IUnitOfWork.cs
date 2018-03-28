@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using MongoDB.Bson;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.UnitOfWork
 {
-    interface IUnitOfWork<T> where T : class
+    public interface IUnitOfWork<T> where T : class
     {
-        void RegisterQuery(IQueryable<T> query);
-        string ExecuteSelection(IQueryable<T> query);
-        void SaveChanges();
+        void RegisterNew(IQueryable<T> createQuery);
+        void RegisterDirty(IQueryable<T> updateQuery);
+        void RegisterDeleted(IQueryable<T> deleteQuery);
+        BsonDocument ExecuteSelection(IQueryable<T> retrieveQuery);
+        void Commit();
     }
 }
