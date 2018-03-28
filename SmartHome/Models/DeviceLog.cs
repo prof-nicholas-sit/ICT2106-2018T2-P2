@@ -38,20 +38,23 @@ namespace SmartHome.Models
         [Display(Name = "Log Date and Time")]
         public DateTime dateTime { get; set; }
 
-        public DeviceLog(int Id,string name,string location,string type,string state,double kWh) {
+        protected DeviceLog(int Id, int householdId, string name,string location,string type,string state,double kWh, DateTime dateStamp) {
             this.Id = Id;
+            this.householdId = householdId;
             this.name = name;
             this.location = location;
             this.type = type;
             this.state = state;
             this.kWh = kWh;
-            String date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-            this.dateTime = Convert.ToDateTime(date);
+            //String date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            //this.dateTime = Convert.ToDateTime(date);
+            this.dateTime = dateStamp;
         }
 
-        public DeviceLog()
+        public DeviceLog(int Id, int householdId, string name, string location, string type, string state, double kWh)
         {
             this.Id = Id;
+            this.householdId = householdId;
             this.name = name;
             this.location = location;
             this.type = type;

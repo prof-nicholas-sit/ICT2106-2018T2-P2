@@ -34,17 +34,19 @@ namespace SmartHome.Controllers
         public ActionResult Index()
         {
             // Dummy data
-            var log1 = new DeviceLog(1, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON",0);
-            var log2 = new DeviceLog(2, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
-            var log3 = new DeviceLog(3, "Toshiba Fan", "Living room", "Fan", "ON", 0);
-            var log4 = new DeviceLog(4, "Toshiba fan ", "Living room", "Fan", "OFF", 100.0);
-            var log5 = new DeviceLog(5, "Led light", "Kitchen", "Light", "ON", 0);
-            var log6 = new DeviceLog(6, "Led light", "Kitchen", "Light", "OFF", 200.0);
+            // Temporary commented out due to protected access type for DeviceLog
+            // If need to use change it to public 
+            var log1 = new DeviceLog(1, 1001, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
+            var log2 = new DeviceLog(2, 1001, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
+            var log3 = new DeviceLog(3, 1011, "Toshiba Fan", "Living room", "Fan", "ON", 0);
+            var log4 = new DeviceLog(4, 1011, "Toshiba fan ", "Living room", "Fan", "OFF", 0);
+            var log5 = new DeviceLog(5, 1011, "Led light", "Kitchen", "Light", "ON", 0);
+            var log6 = new DeviceLog(6, 1011, "Led light", "Kitchen", "Light", "OFF", 200.0);
 
 
-            var logList = new List<DeviceLog> { log1,log2,log3,log4,log5,log6 };
-           
-           
+            var logList = new List<DeviceLog> { log1, log2, log3, log4, log5, log6 };
+
+
 
             return View(logList);
         }
@@ -92,17 +94,20 @@ namespace SmartHome.Controllers
                     var sb = new StringBuilder(); //this is your your data
                     sb.AppendLine(string.Join(",", row));
                     string[] tokens = sb.ToString().Split(",");
-                    DeviceLog dataset = new DeviceLog();
-                    dataset.Id = Convert.ToInt32(tokens[0]);
-                    dataset.householdId = Convert.ToInt32(tokens[1]);
-                    dataset.name = tokens[2];
-                    dataset.location = tokens[3];
-                    dataset.type = tokens[4];
-                    dataset.state = tokens[5];
-                    dataset.kWh = Convert.ToDouble(tokens[6]);
-                    dataset.dateTime = DateTime.Parse(tokens[7]);
-                    //dataset.dateTime = DateTime.ParseExact(tokens[7], "dd/MM/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-                    dataList.Add(dataset);
+                    DeviceLogFactory dlf = new DeviceLogFactory(tokens);
+                    dlf.CreateClass();
+
+                    //DeviceLog dataset = new DeviceLog();
+                    //dataset.Id = Convert.ToInt32(tokens[0]);
+                    //dataset.householdId = Convert.ToInt32(tokens[1]);
+                    //dataset.name = tokens[2];
+                    //dataset.location = tokens[3];
+                    //dataset.type = tokens[4];
+                    //dataset.state = tokens[5];
+                    //dataset.kWh = Convert.ToDouble(tokens[6]);
+                    //dataset.dateTime = DateTime.Parse(tokens[7]);
+                    ////dataset.dateTime = DateTime.ParseExact(tokens[7], "dd/MM/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+                    //dataList.Add(dataset);
                 }
             }
             return View(dataList);
@@ -121,12 +126,13 @@ namespace SmartHome.Controllers
         public FileContentResult ExportToExcel()
         {
             //List<DeviceLog> technologies = TempData["test"];'
-            var log1 = new DeviceLog(1, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
-            var log2 = new DeviceLog(2, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
-            var log3 = new DeviceLog(3, "Toshiba Fan", "Living room", "Fan", "ON", 0);
-            var log4 = new DeviceLog(4, "Toshiba fan ", "Living room", "Fan", "OFF", 100.0);
-            var log5 = new DeviceLog(5, "Led light", "Kitchen", "Light", "ON", 0);
-            var log6 = new DeviceLog(6, "Led light", "Kitchen", "Light", "OFF", 200.0);
+            // Added household ID
+            var log1 = new DeviceLog(1, 1001, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
+            var log2 = new DeviceLog(2, 1001, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
+            var log3 = new DeviceLog(3, 1011, "Toshiba Fan", "Living room", "Fan", "ON", 0);
+            var log4 = new DeviceLog(4, 1011, "Toshiba fan ", "Living room", "Fan", "OFF", 100.0);
+            var log5 = new DeviceLog(5, 1011, "Led light", "Kitchen", "Light", "ON", 0);
+            var log6 = new DeviceLog(6, 1011, "Led light", "Kitchen", "Light", "OFF", 200.0);
 
 
             List<DeviceLog> logList = new List<DeviceLog> { log1, log2, log3, log4, log5, log6 };
