@@ -16,6 +16,7 @@ namespace SmartHome.DAL.UnitOfWork
         public UnitOfWork(string collection)
         {
             // initialise DataSource
+            DataSource = MongoDataSource.GetInstance();
         }
 
         // append query to Queries

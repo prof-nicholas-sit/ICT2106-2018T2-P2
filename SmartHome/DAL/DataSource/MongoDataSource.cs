@@ -11,10 +11,11 @@ namespace SmartHome.DAL.DataSource
         // Singleton Class Other classes not allowed to instantiate an object of this class
         private MongoDataSource()
         {
-            // initialise MongoDatabase
-            // establish connection to mongodb by specifying URL and Port
+            Initialise(); 
         }
 
+        // initialise MongoDatabase
+        // establish connection to mongodb by specifying URL and Port
         private void Initialise()
         {
             var client = new MongoClient("mongodb://localhost:27017");
