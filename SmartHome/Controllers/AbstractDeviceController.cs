@@ -62,14 +62,14 @@ namespace SmartHome.Controllers
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(String param, String yo)
+        public IActionResult Create(String param, SmartDevice device)
         {
             //Device
             try
             {
-                DeviceFactory FD = new DeviceFactory();
-                SmartDevice testDevice = FD.getDevice(param);
-                model.Add(testDevice);
+                //DeviceFactory FD = new DeviceFactory();
+                //SmartDevice testDevice = FD.getDevice(param);
+                model.Add(device);
                 ViewData["Message"] = param;
                 //return View("Index", device);
                 return RedirectToAction(nameof(Index));
