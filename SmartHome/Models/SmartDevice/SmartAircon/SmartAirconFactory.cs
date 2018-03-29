@@ -7,5 +7,6 @@ namespace SmartHome.Models.SmartDevice.SmartAircon
 {
     public class SmartAirconFactory : IDeviceFactory
     {
+
     }
 }

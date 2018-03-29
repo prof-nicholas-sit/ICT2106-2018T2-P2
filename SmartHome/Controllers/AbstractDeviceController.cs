@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartHome.Models.SmartDevice
+namespace SmartHome.Controllers
 {
     public class AbstractDeviceController
     {
+
+
     }
 }
