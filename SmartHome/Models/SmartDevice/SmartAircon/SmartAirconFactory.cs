@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartHome.Models.SmartDevice.SmartAircon
 {
@@ -47,6 +44,11 @@ String mode,String windspeed,String swing)
             this.mode = mode;
             this.windspeed = windspeed;
             this.swing = swing;
-        }        
+        }
+
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

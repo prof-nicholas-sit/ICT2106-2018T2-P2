@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models.SmartDevice
 {
-    public class ISmartDevice
+    public interface ISmartDevice
     {
+
     }
 }

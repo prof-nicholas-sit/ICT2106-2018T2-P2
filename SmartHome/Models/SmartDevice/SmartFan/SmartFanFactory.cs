@@ -7,5 +7,9 @@ namespace SmartHome.Models.SmartDevice.SmartFan
 {
     public class SmartFanFactory : IDeviceFactory
     {
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

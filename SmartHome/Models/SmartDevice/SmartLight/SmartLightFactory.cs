@@ -7,5 +7,9 @@ namespace SmartHome.Models.SmartDevice.SmartLight
 {
     public class SmartLightFactory : IDeviceFactory
     {
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

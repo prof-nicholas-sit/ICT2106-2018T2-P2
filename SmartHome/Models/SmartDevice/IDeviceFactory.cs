@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models.SmartDevice
 {
-    public class IDeviceFactory
+    public interface IDeviceFactory
     {
+        //void SelectAll();
+        //int SelectById();
+        void Create();
     }
 }
