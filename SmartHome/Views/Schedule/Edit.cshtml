@@ -1,0 +1,58 @@
+﻿@model SmartHome.Models.Schedule
+<link href="~/css/scheduler.css" rel="Stylesheet"/>
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Supposed to be device name</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4"  id="content" >
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="scheduleId" />
+            <div class="form-group">
+                <label asp-for="deviceId" class="control-label">Device ID</label>
+                <input asp-for="deviceId" class="form-control" value="" readonly />
+                <span asp-validation-for="deviceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="deviceName" class="control-label">Device name</label>
+                <input asp-for="deviceName" class="form-control" value="" readonly />
+                <span asp-validation-for="deviceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Starting time</label>
+                <input asp-for="startTime" class="form-control" />
+                <span asp-validation-for="startTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ending time</label>
+                <input asp-for="endTime" class="form-control" />
+                <span asp-validation-for="endTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="applyToEveryWeek" /> Schedule every week
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Day</label>
+                <input asp-for="dayOfWeek" class="form-control" />
+                <span asp-validation-for="dayOfWeek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

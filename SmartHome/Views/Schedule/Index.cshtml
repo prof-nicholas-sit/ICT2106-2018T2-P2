@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SmartHome.Models.Schedule>
+<link href="~/css/scheduler.css" rel="Stylesheet" />
+
+@{
+    ViewData["Title"] = "All Schedules";
+}
+
+<div id="top">
+    <h2>< Weekly Settings ></h2>
+</div>
+
+<div id="left">
+    <div style="display:inline-flex; ">
+        <h2 style="color:dimgrey;">Today</h2>
+        <img style="padding-left:10px;" src="~/images/calender.png" />
+    </div>
+    <h3 >@DateTime.Today.ToLongDateString()</h3>
+</div>
+
+
+<div id="right">
+    @if (Model != null)
+    {
+
+        for (int i = 0; i < 7; i++)
+        {
+            String day = "";
+
+            switch (i)
+            {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+                    break;
+            }
+
+
+    <div id="daySchedule">
+        <thead>
+            <tr>
+                <th style="display: inline-block;">
+                    <h2>
+                    @Html.DisplayName(day)
+                    <a asp-action="SelectDay" asp-controller="Schedule" asp-route-day="@day"><img src="~/images/addButton.png" /></a>
+                    </h2>               
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <table class="table">
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    if (item.dayOfWeek.Equals(day))
+                    {
+                        <tr>
+
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.scheduleId">
+                                    @Html.DisplayFor(modelItem => item.device.deviceName)
+                                </a>
+                                    <div style="float:right; padding-right:3px;">
+                                        <a asp-action="Edit" asp-route-id="@item.scheduleId">
+                                            <img width="15" height="15" src="~/images/editButton.png" />
+                                        </a> 
+                                        <a asp-action="Delete" asp-route-id="@item.scheduleId">
+                                            <img width="15" height="15" src="~/images/deleteButton.png" />
+                                        </a>
+                                    </div>
+                            </td>
+                        </tr>
+                        
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+        }
+    }
+
+</div>
