@@ -22,12 +22,13 @@ namespace SmartHome.Controllers.api
             List<Models.DeviceLog> lstItems = GetData();
             
             var list = ProcessCollection(lstItems, requestFormData);
+            int recFiltered = GetTotalRecordsFiltered(requestFormData, lstItems, list);
 
             dynamic response = new
             {
                 Data = list,
                 Draw = requestFormData["draw"],
-                RecordsFiltered = lstItems.Count,
+                RecordsFiltered = list.Count,
                 RecordsTotal = lstItems.Count
             };
 
@@ -49,6 +50,7 @@ namespace SmartHome.Controllers.api
             return logList;
         }
 
+        // Get a property info object from Item class filtering by property name.
         private PropertyInfo getProperty(string name)
         {
             var properties = typeof(Models.DeviceLog).GetProperties();
@@ -64,11 +66,18 @@ namespace SmartHome.Controllers.api
             return prop;
         }
 
+        // Process a list of items according to Form data parameters
         private List<Models.DeviceLog> ProcessCollection(List<Models.DeviceLog> lstElements, IFormCollection requestFormData)
         {
+            string searchText = string.Empty;
+            Microsoft.Extensions.Primitives.StringValues tempOrder = new[] { "" };
+            if (requestFormData.TryGetValue("search[value]", out tempOrder))
+            {
+                searchText = requestFormData["search[value]"].ToString();
+            }
+            tempOrder = new[] { "" };
             var skip = Convert.ToInt32(requestFormData["start"].ToString());
             var pageSize = Convert.ToInt32(requestFormData["length"].ToString());
-            Microsoft.Extensions.Primitives.StringValues tempOrder = new[] { "" };
 
             if (requestFormData.TryGetValue("order[0][column]", out tempOrder))
             {
@@ -84,16 +93,51 @@ namespace SmartHome.Controllers.api
                         var prop = getProperty(columName);
                         if (sortDirection == "asc")
                         {
-                            return lstElements.OrderBy(prop.GetValue).Skip(skip).Take(pageSize).ToList();
+                            return lstElements
+                                .Where(x => x.name.ToLower().Contains(searchText.ToLower())
+                                       || x.location.ToLower().Contains(searchText.ToLower())
+                                       || x.type.ToLower().Contains(searchText.ToLower())
+                                       || x.state.ToLower().Contains(searchText.ToLower()))
+                                .Skip(skip)
+                                .Take(pageSize)
+                                .OrderBy(prop.GetValue).ToList();
                         }
                         else
-                            return lstElements.OrderByDescending(prop.GetValue).Skip(skip).Take(pageSize).ToList();
+                        {
+                            return lstElements
+                                .Where(x => x.name.ToLower().Contains(searchText.ToLower())
+                                       || x.location.ToLower().Contains(searchText.ToLower())
+                                       || x.type.ToLower().Contains(searchText.ToLower())
+                                       || x.state.ToLower().Contains(searchText.ToLower()))
+                                .Skip(skip)
+                                .Take(pageSize)
+                                .OrderByDescending(prop.GetValue).ToList();
+                        }
                     }
                     else
                         return lstElements;
                 }
             }
             return null;
+        }
+
+        // Gets Total number of records filtered in a collection
+        private int GetTotalRecordsFiltered(IFormCollection requestFormData, List<Models.DeviceLog> lstItems, List<Models.DeviceLog> listProcessedItems)
+        {
+            var recFiltered = 0;
+            Microsoft.Extensions.Primitives.StringValues tempOrder = new[] { "" };
+            if (requestFormData.TryGetValue("search[value]", out tempOrder))
+            {
+                if (string.IsNullOrEmpty(requestFormData["search[value]"].ToString().Trim()))
+                {
+                    recFiltered = lstItems.Count;
+                }
+                else
+                {
+                    recFiltered = listProcessedItems.Count;
+                }
+            }
+            return recFiltered;
         }
     }
 }
