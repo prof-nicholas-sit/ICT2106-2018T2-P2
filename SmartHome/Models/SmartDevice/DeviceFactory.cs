@@ -15,7 +15,7 @@ namespace SmartHome.Models.SmartDevice
         {
             switch (type)
             {
-                case "Aircon":
+                case "aircon":
                     return new MySmartAircon();
                 default:
                     return null;

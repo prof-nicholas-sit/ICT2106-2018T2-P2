@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using SmartHome.Models.SmartDevice;
+using SmartHome.Models.SmartDevice.SmartAircon;
 //using SmartHome.Models.SmartDevice.SmartAirconFactory;
 using SmartHome.Models;
 
@@ -61,13 +62,14 @@ namespace SmartHome.Controllers
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(String param, SmartDevice device)
+        public IActionResult Create(String param, String yo)
         {
-
+            //Device
             try
             {
-
-                model.Add(device);
+                DeviceFactory FD = new DeviceFactory();
+                SmartDevice testDevice = FD.getDevice(param);
+                model.Add(testDevice);
                 ViewData["Message"] = param;
                 //return View("Index", device);
                 return RedirectToAction(nameof(Index));

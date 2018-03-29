@@ -42,10 +42,16 @@ namespace SmartHome.Models.SmartDevice.SmartAircon
         DateTime timestamp, int temperature, string mode, string windspeed, string swing)
         :base(DeviceID, HouseholdID, DeviceName, Location, Brand, Model, Type, State, UsageKwH, favourite, timestamp)
         {
+            /*
             this.temperature = temperature;
             this.mode = mode;
             this.windspeed = windspeed;
             this.swing = swing;
+            */
+            this.temperature = 12;
+            this.mode = "a";
+            this.windspeed = "a";
+            this.swing = "a";
         }
 
     }

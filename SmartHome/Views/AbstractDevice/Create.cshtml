@@ -1,4 +1,4 @@
-﻿@model SmartHome.Models.Device;
+﻿@model SmartHome.Models.SmartDevice.SmartDevice;
 
 @{
     ViewData["Title"] = "Create";
@@ -16,7 +16,7 @@
 <p>Use this area to provide additional information.</p>
 
 
-<form asp-action="Create" class="form-horizontal">
+<form asp-action="Create" class="form-horizontal" asp-antiforgery="false">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <fieldset>
 
