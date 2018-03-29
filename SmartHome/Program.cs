@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using SmartHome.Models.SmartDevice;
 
 namespace SmartHome
 {
@@ -15,6 +16,11 @@ namespace SmartHome
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            /*
+            DeviceFactory myStuffs = new DeviceFactory();
+            SmartDevice sd = myStuffs.getDevice("Aircon");
+            Console.WriteLine(sd);
+            */
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

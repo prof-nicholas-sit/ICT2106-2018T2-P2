@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using SmartHome.Models.SmartDevice.SmartAircon;
+
 namespace SmartHome.Models.SmartDevice
 {
     public class DeviceFactory
@@ -14,8 +16,9 @@ namespace SmartHome.Models.SmartDevice
             switch (type)
             {
                 case "Aircon":
-                    return new SmartAircon();
-                
+                    return new MySmartAircon();
+                default:
+                    return null;
             }
         }
 

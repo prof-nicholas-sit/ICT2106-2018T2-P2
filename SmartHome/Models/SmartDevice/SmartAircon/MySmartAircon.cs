@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models.SmartDevice.SmartAircon
 {
-    public class SmartAircon : SmartDevice
+    public class MySmartAircon : SmartDevice
     {
 
         //Might auto increment once we have the DATABASE working
@@ -33,11 +33,11 @@ namespace SmartHome.Models.SmartDevice.SmartAircon
         public string swing { get; set; }
 
         //Empty Constructor
-        public SmartAircon() { }
+        public MySmartAircon() { }
 
 
         //Constructor
-        public SmartAircon(int DeviceID, int HouseholdID, String DeviceName, String Location,
+        public MySmartAircon(int DeviceID, int HouseholdID, String DeviceName, String Location,
         String Brand, String Model, String Type, String State, double UsageKwH, int favourite, 
         DateTime timestamp, int temperature, string mode, string windspeed, string swing)
         :base(DeviceID, HouseholdID, DeviceName, Location, Brand, Model, Type, State, UsageKwH, favourite, timestamp)
