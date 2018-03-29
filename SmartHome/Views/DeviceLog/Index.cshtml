@@ -3,98 +3,120 @@
 @{
     ViewData["Title"] = "Index";
 }
-@if (Model.Count() > 0)
-{
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#btnExport").click(function (e) {
-
-                window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('div[id$=dvData]').html()));
-                e.preventDefault();
-            });
-        });
-    </script>
+@section styles {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+}
     <h2>Device Log</h2>
 
     <p>
-
         <a href="@Url.Action("ExportToExcel")" class="btn btn-primary">Export</a>
         <a href="@Url.Action("..//DeviceLog//UploadToDB")" class="btn btn-primary">Import</a>
     </p>
     <div id="dvData">
-        <table class="table">
-            <thead>
+        <table id="example" class="table table-striped table-bordered table-hover responsive">
+            <thead class="thin-border-bottom">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Id)
+                        ID
+                        @*@Html.DisplayNameFor(model => model.Id)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.householdId)
+                        householdId
+                        @*@Html.DisplayNameFor(model => model.householdId)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.name)
+                        name
+                        @*@Html.DisplayNameFor(model => model.name)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.location)
+                        location
+                        @*@Html.DisplayNameFor(model => model.location)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.type)
+                        type
+                        @*@Html.DisplayNameFor(model => model.type)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.state)
+                        state
+                        @*@Html.DisplayNameFor(model => model.state)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.kWh)
+                        kwh
+                        @*@Html.DisplayNameFor(model => model.kWh)*@
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.dateTime)
+                        datetime
+                        @*@Html.DisplayNameFor(model => model.dateTime)*@
                     </th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            @*<tbody>
                 @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.householdId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.location)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.state)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.kWh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dateTime)
-                    </td>
-                    @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>*@
-                </tr>
-        }
-            </tbody>
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.householdId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.state)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.kWh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateTime)
+                        </td>
+                        <td>
+                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            </td>
+                    </tr>
+                }
+            </tbody>*@
         </table>
     </div>
 
-}
-else
-{
-    <h1>No data</h1>
-
+@section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+        (function ($) {
+            var generateCustomerTable = $("#example")
+                .dataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": "/api/apiController",
+                        "method": "POST"
+                    },
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "householdId" },
+                        { "data": "name" },
+                        { "data": "location" },
+                        { "data": "type" },
+                        { "data": "state" },
+                        { "data": "kWh" },
+                        { "data": "dateTime"}
+                    ],
+                    "ordering": true,
+                    "paging": true,
+                    "pagingType": "full_numbers",
+                    "pageLength": 10
+                });
+        })(jQuery);
+    </script>
 }

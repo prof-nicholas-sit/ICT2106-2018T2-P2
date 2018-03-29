@@ -9,8 +9,6 @@ namespace SmartHome.Models
 {
     public class DeviceLog
     {
-       
-        
         public int Id { get; set; }
         public int householdId { get; set; }
 
