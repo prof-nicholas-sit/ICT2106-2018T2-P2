@@ -32,10 +32,10 @@ namespace SmartHome.Models.SmartDevice.SmartAircon
         public string swing { get; set; }
 
         //Empty Constructor
-        /*
+        
         public SmartAircon()
         {
-            this.DeviceID = count;
+            //this.DeviceID = count;
             //Temp placeholder for household ID
             this.HouseholdID = 1419;
             this.DeviceName = DeviceName;
@@ -53,8 +53,8 @@ namespace SmartHome.Models.SmartDevice.SmartAircon
             this.windspeed = windspeed;
             this.swing = swing;
 
-            count++;
+            //count++;
         }
-        */
+        
     }
 }

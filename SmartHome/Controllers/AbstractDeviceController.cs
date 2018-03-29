@@ -28,7 +28,9 @@ namespace SmartHome.Controllers
             1, 1, DateTime.Now, 2, "A", "A", "A");
 
 
-        static List<Device> modelTest = new List<Device>();
+
+
+       //static List<Device> modelTest = new List<Device>();
         //Device deviceOld = new Device(1, 1, "A", "A", "A", "A", "A", "A",1 , 1, DateTime.Now);
 
 
@@ -37,7 +39,7 @@ namespace SmartHome.Controllers
         {
             //return View(model);
             model.Add(deviceNew);
-            return View(modelTest);
+            return View(model);
         }
 
 
