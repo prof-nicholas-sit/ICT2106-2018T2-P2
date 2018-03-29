@@ -11,8 +11,8 @@ namespace SmartHome.Models.SmartDevice.SmartAircon
     {
 
         //Might auto increment once we have the DATABASE working
-        static int count = 0;
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //static int count = 0;
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DeviceID { get; set; }
         public int HouseholdID { get; set; }
         public String DeviceName { get; set; }
