@@ -42,7 +42,7 @@ namespace SmartHome
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Device}/{action=Index}/{id?}");
+                    template: "{controller=AbstractDevice}/{action=Index}/{id?}");
             });
         }
     }

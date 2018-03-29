@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
+using SmartHome.Models.SmartDevice.SmartAircon;
+//using SmartHome.Models.SmartDevice.SmartAirconFactory;
 using SmartHome.Models;
 
 namespace SmartHome.Controllers
@@ -11,13 +13,31 @@ namespace SmartHome.Controllers
     public class AbstractDeviceController : Controller
     {
 
-        static List<Device> model = new List<Device>();
+
+
+        //static List<Device> model = new List<Device>();
+        /*
+        SmartAircon aircon = new SmartAircon(1,1,"A", "A", "A", "A", "A", "A",
+            1.0,1,DateTime.Now, 2, "A", "A", "A");
+            */
+
+        //static List<Device> model = new List<Device>();
+        static List<SmartAirconFactory> model = new List<SmartAirconFactory>();
+
+        SmartAirconFactory deviceNew = new SmartAirconFactory(1, 1, "A", "A", "A", "A", "A", "A",
+            1, 1, DateTime.Now, 2, "A", "A", "A");
+
+
+        static List<Device> modelTest = new List<Device>();
+        //Device deviceOld = new Device(1, 1, "A", "A", "A", "A", "A", "A",1 , 1, DateTime.Now);
 
 
 
         public IActionResult Index()
         {
-            return View(model);
+            //return View(model);
+            model.Add(deviceNew);
+            return View(modelTest);
         }
 
 
@@ -40,7 +60,7 @@ namespace SmartHome.Controllers
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(String param, Device device)
+        public IActionResult Create(String param, SmartAirconFactory device)
         {
 
             try
@@ -67,7 +87,7 @@ namespace SmartHome.Controllers
                 return NotFound();
             }
 
-            Device result = model.FirstOrDefault();
+            SmartAirconFactory result = model.FirstOrDefault();
             //Lamda function to find ID
             model.ForEach(x =>
             {
@@ -84,11 +104,11 @@ namespace SmartHome.Controllers
         //Post Form
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("DeviceID", "HouseholdID", "DeviceName", "Location", "Brand", "Model", "Type", "State", "UsageKwH", "favourite", "timestamp")] Device device)
+        public IActionResult Edit(int id, [Bind("DeviceID", "HouseholdID", "DeviceName", "Location", "Brand", "Model", "Type", "State", "UsageKwH", "favourite", "timestamp")] SmartAirconFactory device)
         {
             //Device obj = model.FirstOrDefault(x => x.DeviceID == id);
             //obj = device;
-            Device result = model.FirstOrDefault();
+            SmartAirconFactory result = model.FirstOrDefault();
             //Lamda function to find ID
             model.ForEach(x =>
             {
@@ -123,7 +143,7 @@ namespace SmartHome.Controllers
                 return NotFound();
             }
 
-            Device result = model.FirstOrDefault();
+            SmartAirconFactory result = model.FirstOrDefault();
             //Lamda function to find ID
             model.ForEach(x =>
             {
@@ -148,12 +168,6 @@ namespace SmartHome.Controllers
 
 
 
-
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
 
     }
