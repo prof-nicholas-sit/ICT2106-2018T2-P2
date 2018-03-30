@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SmartHome.Models.HouseholdModel>
+
+@{
+    ViewData["Title"] = "adminRequest";
+}
+
+<h2>adminRequest</h2>
+
+<p>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.street)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.postalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.unitNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.contactNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.password)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.postalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unitNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contactNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.password)
+            </td>
+            <td>
+       
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

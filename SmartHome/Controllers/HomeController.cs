@@ -5,30 +5,127 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
+using System.Text.RegularExpressions;
 
 namespace SmartHome.Controllers
 {
     public class HomeController : Controller
     {
+        public static List<HouseholdModel> model = new List<HouseholdModel>();
+        public static HouseholdModel householduser = new HouseholdModel("111111-07-328", "password", "koh@email.com", 1, "148 Peitr road", 1111, "#07-328", "Koh", "98765432");
+        public static AdminModel AdminUser = new AdminModel("admin01", "password", "admin01@email.com", 1);
+
         public IActionResult Index()
         {
             return View();
         }
 
+        
+
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return View();
+        }
 
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Login()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(String username, String password)
         {
-            throw new NotImplementedException();
+            char firstChar = username[0];
+
+            if (Char.IsLetter(firstChar))
+            {
+
+                if (username.Equals(AdminUser.Username) && password.Equals(AdminUser.password))
+                {
+                    var household2 = new HouseholdModel("213810-10-128", "password", "Kangfamily@email.com", 1, "810 Yio Chu Kang Avenue 11", 213810, "#10-128", "Kang", "8194029");
+
+
+                    var household3 = new HouseholdModel("423432-08-231", "password", "Ongfamily@email.com", 2, "421 Dover Avenue 11", 423432, "#08-231", "Ong", "92555235");
+
+
+
+                    model.Add(household2);
+
+
+                    model.Add(household3);
+                    AdminUser.isLogin = true;
+                    try
+                    {
+
+
+                        // TODO: Add insert logic here
+
+
+                        return RedirectToAction("Profile","Admin");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
+            else if (Char.IsDigit(firstChar))
+            {
+                if (username == householduser.Username && password == householduser.password)
+                {
+                    householduser.isLogin = true;
+                    try
+                    {
+                        // TODO: Add insert logic here
+                        return RedirectToAction("Profile","Household");
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return View("Index");
+                }
+
+            
+            }
+
+            return View();
         }
 
-        public IActionResult ForgotPassword()
+        public ActionResult Profile()
+        {
+            if (householduser.isLogin == true)
+            {
+
+                return View(householduser);
+            }
+            else if (AdminUser.isLogin == true)
+            {
+                return View(AdminUser);
+            }
+
+            return View("Login");
+        }
+
+        public ActionResult ForgotPassword()
         {
             return View();
         }
+
+       
+       
+
+
     }
 }
