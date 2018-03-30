@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models
 {
-    public class Household
+    public class Household : User
     {
-        public ObjectId _id { get; set; }
-        public String Username { get; set; }
-        public String Password { get; set; }
-        public String Email { get; set; }
         public String Street { get; set; }
         public String PostalCode { get; set; }
         public String UnitNo { get; set; }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SmartHome.DAL
 {
-    interface IAdminMapper : IBaseMapper<Administrator>
+    interface IAdminMapper : IBaseMapper<Household>
     {
-        Administrator Login(string username, string password);
+        Household Login(string username, string password);
     }
 }

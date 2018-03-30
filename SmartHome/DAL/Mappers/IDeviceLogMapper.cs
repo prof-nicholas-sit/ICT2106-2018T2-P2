@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SmartHome.DAL
 {
-    interface IDeviceLogMapper : IBaseMapper<DeviceAppLog>
+    interface IDeviceLogMapper : IBaseMapper<AppLog>
     {
-        List<DeviceAppLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate);
-        DeviceAppLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate, DateTime endDate);
-        void CreateLogs(List<DeviceAppLog> logs);
+        List<AppLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate);
+        AppLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate, DateTime endDate);
+        void CreateLogs(List<AppLog> logs);
     }
 }

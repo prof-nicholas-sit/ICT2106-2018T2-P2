@@ -24,7 +24,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void CreateDeviceLogs(List<DeviceAppLog> logs)
+        public void CreateDeviceLogs(List<AppLog> logs)
         {
             // create deviceapplog object query
             // use insertMany to create multiple at a time
@@ -32,7 +32,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void CreateMiscLogs(List<MiscAppLog> logs)
+        public void CreateMiscLogs(List<AppLog> logs)
         {
             // create misceapplog object query
             // use insertMany to create multiple at a time
@@ -40,7 +40,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void CreateScheduleLogs(List<ScheduleAppLog> logs)
+        public void CreateScheduleLogs(List<AppLog> logs)
         {
             // create scheduleapplog object query
             // use insertMany to create multiple at a time
@@ -48,7 +48,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void CreateUserLogs(List<UserAppLog> logs)
+        public void CreateUserLogs(List<AppLog> logs)
         {
             // create userapplog object query
             // use insertMany to create multiple at a time
@@ -117,7 +117,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public UserAppLog SelectLastUserLog(ObjectId householdId, string logType)
+        public AppLog SelectLastUserLog(ObjectId householdId, string logType)
         {
             // make query for selecting userapplog based on logtype
             // only retrieve latest timestamp
@@ -126,7 +126,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public List<UserAppLog> SelectUserLogFromType(ObjectId householdId, string logType)
+        public List<AppLog> SelectUserLogFromType(ObjectId householdId, string logType)
         {
             // make query for selecting userapplog based on logtype
             // Uow.ExecuteSelection(query)
@@ -141,7 +141,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void UpdateDeviceLogs(List<DeviceAppLog> logs)
+        public void UpdateDeviceLogs(List<AppLog> logs)
         {
             // update deviceapplog object query from a list of logs
             // update multiple documents at once
@@ -149,7 +149,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void UpdateMiscLogs(List<MiscAppLog> logs)
+        public void UpdateMiscLogs(List<AppLog> logs)
         {
             // update miscapplog object query from a list of logs
             // update multiple documents at once
@@ -157,7 +157,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void UpdateScheduleLogs(List<ScheduleAppLog> logs)
+        public void UpdateScheduleLogs(List<AppLog> logs)
         {
             // update scheduleapplog object query from a list of logs
             // update multiple documents at once
@@ -165,7 +165,7 @@ namespace SmartHome.DAL
             throw new NotImplementedException();
         }
 
-        public void UpdateUserLogs(List<UserAppLog> logs)
+        public void UpdateUserLogs(List<AppLog> logs)
         {
             // update userapplog object query from a list of logs
             // update multiple documents at once

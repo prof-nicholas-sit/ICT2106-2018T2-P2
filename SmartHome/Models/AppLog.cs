@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models
 {
-    // [BsonKnownTypes(typeof(DeviceAppLog), typeof(MiscAppLog) , typeof(ScheduleAppLog), typeof(UserApplog)]
     public class AppLog
     {
         public ObjectId _id { get; set; }
@@ -15,5 +14,7 @@ namespace SmartHome.Models
         public String LogType { get; set; }
         public String Date { get; set; }
         public String Timestamp { get; set; }
+        public String DeviceName { get; set; }
+        public int Value { get; set; }
     }
 }
