@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using SmartHome.DAL.Transactions;
 using SmartHome.Models;
 
@@ -14,10 +15,10 @@ namespace SmartHome.DAL.Mappers
 
         public Administrator Login(string username, string password)
         {
-            // collection.Find() any document that has the same username and password given in the parameters
-            // If exists retrieve json document file and map into the Administrator Object
-
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
+            filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            return DeserializeDocument<Administrator>(document);
         }
     }
 }

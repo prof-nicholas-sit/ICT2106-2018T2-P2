@@ -18,27 +18,29 @@ namespace SmartHome.DAL.Mappers
             // initialise Uow
             Uow = new UnitOfWork(collectionName);
         }
-        
+
         public IEnumerable<T> SelectAll()
         {
-            IEnumerable<BsonDocument> documentList =  Uow.ExecuteRetrieveAll(Builders<BsonDocument>.Filter.Empty);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(Builders<BsonDocument>.Filter.Empty);
             List<T> objectList = new List<T>();
             foreach (BsonDocument document in documentList)
             {
                 objectList.Add(DeserializeDocument<T>(document));
             }
+
             return objectList;
         }
 
         public T SelectById(ObjectId id)
         {
-            BsonDocument document =  Uow.ExecuteRetrieveFirst(Builders<BsonDocument>.Filter.Eq("_id", id));
+            BsonDocument document = Uow.ExecuteRetrieveFirst(Builders<BsonDocument>.Filter.Eq("_id", id));
             return DeserializeDocument<T>(document);
         }
 
         public IBaseMapper<T> Create(T obj)
         {
             AddToBsonClassMap(obj);
+            obj._id = ObjectId.GenerateNewId();
             Uow.RegisterNew(obj.ToBsonDocument());
             return this;
         }
@@ -64,25 +66,29 @@ namespace SmartHome.DAL.Mappers
         /**
          * TODO comments on reflection
          */
-        protected static TD DeserializeDocument<TD>(BsonDocument document) where TD : MongoDbObject
+        protected TD DeserializeDocument<TD>(BsonDocument document) where TD : MongoDbObject
         {
-            string classTypeName = document.GetValue("_td").AsString;
+            string classTypeName = document.GetValue("_t").AsString;
             MethodInfo method = typeof(BsonSerializer).GetMethod("Deserialize");
             method = method.MakeGenericMethod(Type.GetType(classTypeName));
             return (TD) method.Invoke(null, new object[] {document});
         }
-        
+
         /**
          * TODO
          * https://stackoverflow.com/a/27858497
          */
-        protected static void AddToBsonClassMap(MongoDbObject obj)
+        protected void AddToBsonClassMap(MongoDbObject obj)
         {
             Type objType = obj.GetType();
+            Console.WriteLine(objType);
             if (BsonClassMap.IsClassMapRegistered(objType))
             {
+                Console.WriteLine("ClassMap registered.");
                 return;
             }
+
+            Console.WriteLine("Registering ClassMap...");
             BsonClassMap.LookupClassMap(objType);
         }
     }
