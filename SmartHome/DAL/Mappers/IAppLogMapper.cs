@@ -5,21 +5,18 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
-    interface IAppLogMapper : IBaseMapper<AppLog>
+    interface IAppLogMapper : IBaseMapper<IAppLog>
     {
-        List<string> SelectDistinctUserLogTypes();
-        List<string> SelectDistinctDeviceLogTypes();
-        List<string> SelectDistinctScheduleLogTypes();
-        List<string> SelectDistinctMiscLogTypes();
-//        UserAppLog SelectLastUserLog(ObjectId householdId, String logType);
-//        List<UserAppLog> SelectUserLogFromType(ObjectId householdId, string logType);
-//        void CreateUserLogs(List<UserAppLog> logs);
-//        void CreateDeviceLogs(List<DeviceLog> logs);
-//        void CreateScheduleLogs(List<ScheduleAppLog> logs);
-//        void CreateMiscLogs(List<MiscAppLog> logs);
-//        void UpdateUserLogs(List<UserAppLog> logs);
-//        void UpdateDeviceLogs(List<DeviceLog> logs);
-//        void UpdateScheduleLogs(List<ScheduleAppLog> logs);
-//        void UpdateMiscLogs(List<MiscAppLog> logs);
+        void InsertMany(IEnumerable<IAppLog> newAppLog);
+
+        int AggregateQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
+            string deviceType = null);
+
+        IEnumerable<IAppLog> SelectQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
+            string deviceType = null);
+
+        IEnumerable<string> ListLogTypes(ObjectId householdId, DateTime start, DateTime end, string deviceType = null);
+
+        IEnumerable<string> ListDeviceTypes(ObjectId householdId, DateTime start, DateTime end, string logType = null);
     }
 }

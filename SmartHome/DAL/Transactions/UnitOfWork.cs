@@ -45,6 +45,13 @@ namespace SmartHome.DAL.Transactions
             Queries.Add(query);
         }
 
+        public void RegisterDirty(FilterDefinition<BsonDocument> filterDefinition, BsonDocument document)
+        {
+            ReplaceMongoDbQuery replaceQuery = new ReplaceMongoDbQuery(Collection, filterDefinition, document);
+            LoggingMongoDbQuery query = new LoggingMongoDbQuery(replaceQuery);
+            Queries.Add(query);
+        }
+
         /**
          * Add delete query to list of queries
          */
@@ -60,7 +67,7 @@ namespace SmartHome.DAL.Transactions
          * Does not require commit() since retrieval does not modify the database
          * Retrieval done synchronously, so data is return without needing callbacks
          */
-        public List<BsonDocument> ExecuteRetrieveAll(FilterDefinition<BsonDocument> filterDefinition)
+        public IEnumerable<BsonDocument> ExecuteRetrieveAll(FilterDefinition<BsonDocument> filterDefinition)
         {
             return Collection.Find(filterDefinition).ToList();
         }
