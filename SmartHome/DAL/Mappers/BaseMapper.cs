@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -41,6 +42,13 @@ namespace SmartHome.DAL.Mappers
         {
             AddToBsonClassMap(obj);
             obj._id = ObjectId.GenerateNewId();
+            // sometimes adding to classmap does not add _t property to the document
+            // this ensures that the type discriminator will always be added to the document
+            // type discriminator added to allow flexibility with filtering queries
+            obj._t = obj.GetType().Name;
+            // will also need to define our own type discriminator as we need to retrieve the value of it to do 
+            // reflection, it requires namespace and class name, otherwise Type.GetType() may return null.
+            obj.ClassType = obj.GetType().FullName;
             Uow.RegisterNew(obj.ToBsonDocument());
             return this;
         }
@@ -68,10 +76,17 @@ namespace SmartHome.DAL.Mappers
          */
         protected TD DeserializeDocument<TD>(BsonDocument document) where TD : MongoDbObject
         {
-            string classTypeName = document.GetValue("_t").AsString;
-            MethodInfo method = typeof(BsonSerializer).GetMethod("Deserialize");
-            method = method.MakeGenericMethod(Type.GetType(classTypeName));
-            return (TD) method.Invoke(null, new object[] {document});
+            if (document != null)
+            {
+                string classTypeName = document.GetValue("ClassType").AsString;
+                MethodInfo method = typeof(BsonSerializer).GetMethods().Single(m =>
+                    m.Name == "Deserialize" && m.ContainsGenericParameters &&
+                    m.GetParameters()[0].ParameterType == typeof(BsonDocument));
+                method = method.MakeGenericMethod(Type.GetType(classTypeName));
+                return (TD) method.Invoke(null, new object[] {document, null});
+            }
+
+            return null;
         }
 
         /**
@@ -81,7 +96,6 @@ namespace SmartHome.DAL.Mappers
         protected void AddToBsonClassMap(MongoDbObject obj)
         {
             Type objType = obj.GetType();
-            Console.WriteLine(objType);
             if (BsonClassMap.IsClassMapRegistered(objType))
             {
                 Console.WriteLine("ClassMap registered.");
