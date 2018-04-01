@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Bson;
 
 namespace SmartHome.DAL.UnitOfWork
@@ -8,7 +9,8 @@ namespace SmartHome.DAL.UnitOfWork
         void RegisterNew(IQueryable<T> createQuery);
         void RegisterDirty(IQueryable<T> updateQuery);
         void RegisterDeleted(IQueryable<T> deleteQuery);
-        BsonDocument ExecuteSelection(IQueryable<T> retrieveQuery);
+        List<BsonDocument> ExecuteRetrieveAll(IQueryable<T> retrieveQuery);
+        BsonDocument ExecuteRetrieveFirst(IQueryable<T> retrieveQuery);
         void Commit();
     }
 }

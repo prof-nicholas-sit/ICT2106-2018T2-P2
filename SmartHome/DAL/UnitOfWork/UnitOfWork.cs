@@ -8,7 +8,6 @@ namespace SmartHome.DAL.UnitOfWork
 {
     public class UnitOfWork<T> : IUnitOfWork<T> where T : class
     {
-        
         // All mapper classes methods will add queries into this list
         private List<IQueryable<T>> Queries;
         private MongoDataSource DataSource;

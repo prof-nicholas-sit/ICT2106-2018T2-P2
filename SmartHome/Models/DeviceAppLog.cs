@@ -7,5 +7,6 @@ namespace SmartHome.Models
 {
     public class DeviceAppLog : AppLog
     {
+        public int deviceapplog { get; set; }
     }
 }
