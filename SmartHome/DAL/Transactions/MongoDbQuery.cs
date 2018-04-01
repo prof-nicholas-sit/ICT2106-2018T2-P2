@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
-    public abstract class MongoDbQuery
+    public abstract class MongoDbQuery : IMongoDbQuery
     {
         public IMongoCollection<BsonDocument> Collection { get; }
         
