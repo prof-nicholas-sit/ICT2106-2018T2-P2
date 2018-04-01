@@ -37,5 +37,10 @@ namespace SmartHome.Models
         {
             return this.password;
         }
+
+        public string getEmail()
+        {
+            return this.email;
+        }
     }
 }

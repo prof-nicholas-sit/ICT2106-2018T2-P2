@@ -6,7 +6,8 @@ namespace SmartHome.Models
     {
         String getUsername();
         String getPassword();
-
+        String getEmail();
+        
 
 
     }

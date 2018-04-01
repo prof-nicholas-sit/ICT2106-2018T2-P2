@@ -78,15 +78,23 @@ namespace SmartHome.Controllers
         // POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("street", "postalCode", "unitNo", "surname", "contactNo","Username", "email", "password")]HouseholdModel household)
+        public IActionResult Create(string street,int postalCode,string unitNo,string surname,string contactNo,string email, string password)
         {
             if (AdminUser.isLogin == true)
             {
                 try
                 {
-                    HouseholdModel newHouseholdUser = new HouseholdModel(household.Username, household.password, household.email, model.Count() + 1, household.street, household.postalCode, household.unitNo, household.surname, household.contactNo);
-                    model.Add(newHouseholdUser);
+                    int householdID = model.Count()+1;
+                    string [] unitNoArray = unitNo.Split("#");
+                    string householdUsername = postalCode.ToString() + "-" + unitNoArray[1];
+                    User createNewUser = new User(householdUsername,email,password);
+                    IUser newHouseHold = UserTypeFactory.CreateHousehold(createNewUser,householdID,street,postalCode,unitNo,surname,contactNo);
+                   /* HouseholdModel newHouseholdUser = new HouseholdModel(household.Username, 
+                        household.password, household.email, model.Count() + 1, household.street,
+                        household.postalCode, household.unitNo, household.surname, household.contactNo);
+                    model.Add(newHouseholdUser);*/
                     // TODO: Add insert logic here
+                    model.Add((HouseholdModel)newHouseHold);
 
                     return RedirectToAction(nameof(DashBoard));
                 }

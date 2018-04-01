@@ -23,5 +23,13 @@ namespace SmartHome.Models
             }
 
         }
+
+        public static IUser CreateHousehold(User user,int householdId,string street,int postalCode,string unitNo,string surname,string contactNo )
+        {
+            return new HouseholdModel(user.getUsername(),user.getPassword(),user.getEmail(),householdId,street,postalCode,unitNo,surname,contactNo);
+            
+        }
+        
+        
     }
 }
