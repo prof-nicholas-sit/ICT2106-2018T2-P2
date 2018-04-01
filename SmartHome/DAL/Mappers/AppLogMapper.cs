@@ -6,13 +6,13 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
-    public class AppLogMapper : BaseMapper<IAppLog>, IAppLogMapper
+    public class AppLogMapper : BaseMapper<AppLog>, IAppLogMapper
     {
         public AppLogMapper() : base("applogs")
         {
         }
 
-        public void InsertMany(IEnumerable<IAppLog> newAppLog)
+        public void InsertMany(IEnumerable<AppLog> newAppLog)
         {
             throw new NotImplementedException();
         }
@@ -22,7 +22,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IAppLog> SelectQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
+        public IEnumerable<AppLog> SelectQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
             string deviceType = null)
         {
             throw new NotImplementedException();

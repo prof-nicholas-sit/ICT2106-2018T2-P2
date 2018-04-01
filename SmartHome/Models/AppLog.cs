@@ -6,7 +6,7 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
-    public class AppLog : MongoDbObject, IAppLog
+    public class AppLog : MongoDbObject
     {
         public string LogType { get; set; }
         public DateTime Timestamp { get; set; }
