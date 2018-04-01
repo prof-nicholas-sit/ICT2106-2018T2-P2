@@ -42,7 +42,7 @@ namespace SmartHome.Controllers
             }
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -57,7 +57,7 @@ namespace SmartHome.Controllers
             }
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -71,7 +71,7 @@ namespace SmartHome.Controllers
             }
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -97,7 +97,7 @@ namespace SmartHome.Controllers
             }
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -157,12 +157,12 @@ namespace SmartHome.Controllers
                 }
                 catch
                 {
-                    return View();
+                    return View("DashBoard");
                 }
             }
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -190,7 +190,7 @@ namespace SmartHome.Controllers
       
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 

@@ -67,7 +67,7 @@ namespace SmartHome.Controllers
             }
             else
             {
-                return View("Login");
+                return RedirectToAction("Index", "Home");
             }
         }
 

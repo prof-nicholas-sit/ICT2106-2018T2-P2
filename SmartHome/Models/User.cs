@@ -26,7 +26,16 @@ namespace SmartHome.Models
         [Required]
         public string Username { get; set; }
         public string email { get; set; }
-        [Required]
-        public string password { get; set; }
+        [Required] public string password { get; set; }
+
+        public String getUsername()
+        {
+            return this.Username;
+        }
+
+        public string getPassword()
+        {
+            return this.password;
+        }
     }
 }

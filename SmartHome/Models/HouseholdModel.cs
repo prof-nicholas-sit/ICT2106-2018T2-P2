@@ -7,6 +7,10 @@ namespace SmartHome.Models
 {
     public class HouseholdModel:User
     {
+        public HouseholdModel(String Username,String password) : base(Username,password)
+        {
+            this.isLogin = false;
+        }
         public HouseholdModel(string Username, string password, string email, int houseHoldID,string street,int postalCode,string unitNo,string surname,string contactNo) : base(Username, email, password)
         {
             this.houseHoldID = houseHoldID;

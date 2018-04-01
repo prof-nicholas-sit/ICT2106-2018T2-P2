@@ -22,29 +22,23 @@ namespace SmartHome.Controllers
 
         
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(String username, String password)
         {
-            char firstChar = username[0];
 
-            if (Char.IsLetter(firstChar))
+            User loginUser = new User(username, password);
+
+            IUser user = UserTypeFactory.CreateUser(loginUser);
+            
+
+            if (user.GetType()==typeof(AdminModel))
             {
 
-                if (username.Equals(AdminUser.Username) && password.Equals(AdminUser.password))
+                if (user.getUsername().Equals(AdminUser.Username) && user.getPassword().Equals(AdminUser.password))
                 {
                     var household2 = new HouseholdModel("213810-10-128", "password", "Kangfamily@email.com", 1, "810 Yio Chu Kang Avenue 11", 213810, "#10-128", "Kang", "8194029");
 
@@ -69,7 +63,7 @@ namespace SmartHome.Controllers
                     }
                     catch
                     {
-                        return View();
+                        return View("Index");
                     }
                 }
                 else
@@ -77,9 +71,9 @@ namespace SmartHome.Controllers
                     return View("Index");
                 }
             }
-            else if (Char.IsDigit(firstChar))
+            else if (user.GetType() == typeof(HouseholdModel))
             {
-                if (username == householduser.Username && password == householduser.password)
+                if (user.getUsername() == householduser.Username && user.getPassword() == householduser.password)
                 {
                     householduser.isLogin = true;
                     try
@@ -89,7 +83,7 @@ namespace SmartHome.Controllers
                     }
                     catch
                     {
-                        return View();
+                        return View("Index");
                     }
                 }
                 else
@@ -100,7 +94,7 @@ namespace SmartHome.Controllers
             
             }
 
-            return View();
+            return View("Index");
         }
 
         public ActionResult Profile()
@@ -115,7 +109,7 @@ namespace SmartHome.Controllers
                 return View(AdminUser);
             }
 
-            return View("Login");
+            return RedirectToAction("Index","Home");
         }
 
         public ActionResult ForgotPassword()
