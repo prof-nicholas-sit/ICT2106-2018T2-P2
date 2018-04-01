@@ -23,7 +23,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void CreateDeviceLogs(List<DeviceAppLog> logs)
+        public void CreateDeviceLogs(List<DeviceLog> logs)
         {
             // create deviceapplog object query
             // use insertMany to create multiple at a time
@@ -31,29 +31,29 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void CreateMiscLogs(List<MiscAppLog> logs)
-        {
-            // create misceapplog object query
-            // use insertMany to create multiple at a time
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
-        }
-
-        public void CreateScheduleLogs(List<ScheduleAppLog> logs)
-        {
-            // create scheduleapplog object query
-            // use insertMany to create multiple at a time
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
-        }
-
-        public void CreateUserLogs(List<UserAppLog> logs)
-        {
-            // create userapplog object query
-            // use insertMany to create multiple at a time
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
-        }
+//        public void CreateMiscLogs(List<MiscAppLog> logs)
+//        {
+//            // create misceapplog object query
+//            // use insertMany to create multiple at a time
+//            // Uow.RegisterQuery(query)
+//            throw new NotImplementedException();
+//        }
+//
+//        public void CreateScheduleLogs(List<ScheduleAppLog> logs)
+//        {
+//            // create scheduleapplog object query
+//            // use insertMany to create multiple at a time
+//            // Uow.RegisterQuery(query)
+//            throw new NotImplementedException();
+//        }
+//
+//        public void CreateUserLogs(List<UserAppLog> logs)
+//        {
+//            // create userapplog object query
+//            // use insertMany to create multiple at a time
+//            // Uow.RegisterQuery(query)
+//            throw new NotImplementedException();
+//        }
 
         public AppLog Delete(ObjectId id)
         {
@@ -116,22 +116,22 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public UserAppLog SelectLastUserLog(ObjectId householdId, string logType)
-        {
-            // make query for selecting userapplog based on logtype
-            // only retrieve latest timestamp
-            // Uow.ExecuteSelection(query)
-            // return result
-            throw new NotImplementedException();
-        }
-
-        public List<UserAppLog> SelectUserLogFromType(ObjectId householdId, string logType)
-        {
-            // make query for selecting userapplog based on logtype
-            // Uow.ExecuteSelection(query)
-            // return result
-            throw new NotImplementedException();
-        }
+//        public UserAppLog SelectLastUserLog(ObjectId householdId, string logType)
+//        {
+//            // make query for selecting userapplog based on logtype
+//            // only retrieve latest timestamp
+//            // Uow.ExecuteSelection(query)
+//            // return result
+//            throw new NotImplementedException();
+//        }
+//
+//        public List<UserAppLog> SelectUserLogFromType(ObjectId householdId, string logType)
+//        {
+//            // make query for selecting userapplog based on logtype
+//            // Uow.ExecuteSelection(query)
+//            // return result
+//            throw new NotImplementedException();
+//        }
 
         public void Update(AppLog obj)
         {
@@ -140,7 +140,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void UpdateDeviceLogs(List<DeviceAppLog> logs)
+        public void UpdateDeviceLogs(List<DeviceLog> logs)
         {
             // update deviceapplog object query from a list of logs
             // update multiple documents at once
@@ -148,28 +148,28 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void UpdateMiscLogs(List<MiscAppLog> logs)
-        {
-            // update miscapplog object query from a list of logs
-            // update multiple documents at once
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
-        }
-
-        public void UpdateScheduleLogs(List<ScheduleAppLog> logs)
-        {
-            // update scheduleapplog object query from a list of logs
-            // update multiple documents at once
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
-        }
-
-        public void UpdateUserLogs(List<UserAppLog> logs)
-        {
-            // update userapplog object query from a list of logs
-            // update multiple documents at once
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
-        }
+//        public void UpdateMiscLogs(List<MiscAppLog> logs)
+//        {
+//            // update miscapplog object query from a list of logs
+//            // update multiple documents at once
+//            // Uow.RegisterQuery(query)
+//            throw new NotImplementedException();
+//        }
+//
+//        public void UpdateScheduleLogs(List<ScheduleAppLog> logs)
+//        {
+//            // update scheduleapplog object query from a list of logs
+//            // update multiple documents at once
+//            // Uow.RegisterQuery(query)
+//            throw new NotImplementedException();
+//        }
+//
+//        public void UpdateUserLogs(List<UserAppLog> logs)
+//        {
+//            // update userapplog object query from a list of logs
+//            // update multiple documents at once
+//            // Uow.RegisterQuery(query)
+//            throw new NotImplementedException();
+//        }
     }
 }

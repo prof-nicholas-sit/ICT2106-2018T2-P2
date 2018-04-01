@@ -6,28 +6,13 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
-    public class Household
+    public class Household : Account
     {
-        public ObjectId _id { get; set; }
-        public String Username { get; set; }
-        public String Password { get; set; }
-        public String Email { get; set; }
-        public String Street { get; set; }
-        public String PostalCode { get; set; }
-        public String UnitNo { get; set; }
-        public String Surname { get; set; }
-        public String ContactNo { get; set; }
-        public Boolean IsResetPassword { get; set; }
-
-        public Household()
-        {
-            
-        }
-
-        public Household(string username, string password)
-        {
-            Username = username;
-            Password = password;
-        }
+        public string Street { get; set; }
+        public int PostalCode { get; set; }
+        public string UnitNo { get; set; }
+        public string Surname { get; set; }
+        public string ContactNo { get; set; }
+        public bool IsResetPassword { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models
 {
-    public class Administrator
+    public class Administrator : Account
     {
     }
 }

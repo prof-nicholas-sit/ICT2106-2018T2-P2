@@ -16,7 +16,7 @@ namespace SmartHome.DAL.Mappers
             Uow = new UnitOfWork("devicelogs");
         }
 
-        public void Create(DeviceAppLog obj)
+        public void Create(DeviceLog obj)
         {
             // The obj parameter can be of class Fan/AirCon/Light with different properties
             // Reflection will be used to determine the properties of the obj at runtime
@@ -30,14 +30,14 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void CreateLogs(List<DeviceAppLog> logs)
+        public void CreateLogs(List<DeviceLog> logs)
         {
             // Similar to Create() but inserts a list of logs
             // Used when user import a file containing logs
             throw new NotImplementedException();
         }
 
-        public DeviceAppLog Delete(ObjectId id)
+        public DeviceLog Delete(ObjectId id)
         {
             // delete deviceapplog object query
             // Uow.RegisterQuery(query)
@@ -50,7 +50,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<DeviceAppLog> SelectAll()
+        public IEnumerable<DeviceLog> SelectAll()
         {
             // make query for selecting all deviceapplog
             // Uow.ExecuteSelection(query)
@@ -58,7 +58,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public DeviceAppLog SelectById(ObjectId id)
+        public DeviceLog SelectById(ObjectId id)
         {
             // make query for selecting deviceapplog by _id
             // Uow.ExecuteSelection(query)
@@ -66,7 +66,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public List<DeviceAppLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate)
+        public List<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate)
         {
             // make query for selecting deviceapplog within the date range
             // Uow.ExecuteSelection(query)
@@ -74,7 +74,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public DeviceAppLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate, DateTime endDate)
+        public DeviceLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate, DateTime endDate)
         {
             // make query for selecting 1 deviceapplog based on all parameters
             // Uow.ExecuteSelection(query)
@@ -82,7 +82,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void Update(DeviceAppLog obj)
+        public void Update(DeviceLog obj)
         {
             // update deviceapplog object query
             // Uow.RegisterQuery(query)

@@ -6,9 +6,11 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
-    public class Schedule
+    public class Schedule : MongoDbObject
     {
-        public ObjectId _id { get; set; }
-        public string schedule { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public bool ApplyToEveryWeek { get; set; }
+        public List<String> DayOfWeek { get; set; }
     }
 }
