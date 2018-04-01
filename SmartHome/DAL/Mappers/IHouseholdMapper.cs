@@ -8,7 +8,7 @@ namespace SmartHome.DAL.Mappers
         Household Login();
         Household SelectByUsername(string username);
         Household SelectByAddress(string street, int postalCode, string unitNo);
-        Boolean CheckRequestingResetPW(string username);
+        bool CheckRequestingResetPw(string username);
         void RequestPasswordReset(string username);
         void ResetPassword(string username, string password);
     }

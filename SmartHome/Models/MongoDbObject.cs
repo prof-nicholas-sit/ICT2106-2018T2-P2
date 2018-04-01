@@ -2,7 +2,7 @@
 
 namespace SmartHome.Models
 {
-    public abstract class MongoDbObject : IMongoDbObject
+    public abstract class MongoDbObject
     {
         public ObjectId _id { get; set; }
     }
