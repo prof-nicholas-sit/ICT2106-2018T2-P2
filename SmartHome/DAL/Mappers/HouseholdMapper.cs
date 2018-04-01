@@ -44,14 +44,14 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
         
-        public void RequestPasswordReset(string username)
+        public IHouseholdMapper RequestPasswordReset(string username)
         {
             // update household isResetPassword flag
             // Uow.RegisterQuery(query)
             throw new NotImplementedException();
         }
 
-        public void ResetPassword(string username, string password)
+        public IHouseholdMapper ResetPassword(string username, string password)
         {
             // update password for household with username
             // Uow.RegisterQuery(query)

@@ -12,7 +12,7 @@ namespace SmartHome.DAL.Mappers
         {
         }
 
-        public void CreateLogs(List<DeviceLog> logs)
+        public IDeviceLogMapper CreateLogs(List<DeviceLog> logs)
         {
             // Similar to Create() but inserts a list of logs
             // Used when user import a file containing logs

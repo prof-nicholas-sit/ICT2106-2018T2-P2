@@ -28,7 +28,7 @@ namespace SmartHome.DAL.Mappers
             throw new NotImplementedException();
         }
 
-        public void ToggleFavourite(ObjectId _id)
+        public IDeviceMapper ToggleFavourite(ObjectId _id)
         {
             // update device object query
             // toggles whether device is favourited

@@ -5,10 +5,10 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
-    interface IDeviceLogMapper : IBaseMapper<DeviceLog>
+    public interface IDeviceLogMapper : IBaseMapper<DeviceLog>
     {
         List<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate);
         DeviceLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate, DateTime endDate);
-        void CreateLogs(List<DeviceLog> logs);
+        IDeviceLogMapper CreateLogs(List<DeviceLog> logs);
     }
 }

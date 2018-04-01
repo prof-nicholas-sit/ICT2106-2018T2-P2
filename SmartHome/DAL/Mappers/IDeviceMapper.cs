@@ -4,10 +4,10 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
-    interface IDeviceMapper : IBaseMapper<Device>
+    public interface IDeviceMapper : IBaseMapper<Device>
     {
         List<Device> SelectByName(string name);
         List<Device> SelectByHouseholdId(ObjectId householdId);
-        void ToggleFavourite(ObjectId _id);
+        IDeviceMapper ToggleFavourite(ObjectId _id);
     }
 }

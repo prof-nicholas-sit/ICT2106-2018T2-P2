@@ -12,7 +12,7 @@ namespace SmartHome.DAL.Mappers
         {
         }
 
-        public void InsertMany(IEnumerable<AppLog> newAppLog)
+        public IAppLogMapper InsertMany(IEnumerable<AppLog> newAppLog)
         {
             throw new NotImplementedException();
         }

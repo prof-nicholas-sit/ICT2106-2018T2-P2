@@ -5,9 +5,9 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
-    interface IAppLogMapper : IBaseMapper<AppLog>
+    public interface IAppLogMapper : IBaseMapper<AppLog>
     {
-        void InsertMany(IEnumerable<AppLog> newAppLog);
+        IAppLogMapper InsertMany(IEnumerable<AppLog> newAppLog);
 
         int AggregateQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
             string deviceType = null);
