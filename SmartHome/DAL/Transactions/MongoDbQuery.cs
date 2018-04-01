@@ -5,15 +5,16 @@ namespace SmartHome.DAL.Transactions
 {
     public abstract class MongoDbQuery
     {
-        public FilterDefinition<BsonDocument> FilterDefinition { get; }
-
-        public MongoDbQuery(FilterDefinition<BsonDocument> filterDefinition)
+        public IMongoCollection<BsonDocument> Collection { get; }
+        
+        public MongoDbQuery(IMongoCollection<BsonDocument> collection)
         {
-            FilterDefinition = filterDefinition;
+            Collection = collection;
         }
         
         public abstract void Execute();
         // This method is for future enhancement, to allow commands to be reverted. Currently does not have impl
         public abstract void Undo();
+        public abstract override string ToString();
     }
 }

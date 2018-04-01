@@ -3,20 +3,29 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
-    public class CreateMongoDbQuery :  MongoDbQuery
+    public class CreateMongoDbQuery : MongoDbQuery
     {
-        public CreateMongoDbQuery(FilterDefinition<BsonDocument> filterDefinition) : base(filterDefinition)
+        private BsonDocument NewDocument;
+        
+        public CreateMongoDbQuery(IMongoCollection<BsonDocument> collection, BsonDocument bsonDocument) : base(
+            collection)
         {
+            NewDocument = bsonDocument;
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            Collection.InsertOne(NewDocument);
         }
 
         public override void Undo()
         {
             throw new System.NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return NewDocument.ToJson();
         }
     }
 }

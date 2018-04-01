@@ -9,7 +9,7 @@ namespace SmartHome.DAL.Transactions
     {
         protected MongoDbQuery DecoratedMongoDbQuery;
 
-        protected MongoDbQueryDecorator(MongoDbQuery mongoDbQuery) : base(mongoDbQuery.FilterDefinition)
+        protected MongoDbQueryDecorator(MongoDbQuery mongoDbQuery) : base(mongoDbQuery.Collection)
         {
             DecoratedMongoDbQuery = mongoDbQuery;
         }

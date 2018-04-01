@@ -12,7 +12,7 @@ namespace SmartHome.DAL.Transactions
         private List<MongoDbQuery> Queries = new List<MongoDbQuery>();
         private IMongoCollection<BsonDocument> Collection;     
 
-        /*
+        /**
          * This design implementation assumes that the UoW only handles queries from 1 specified collection.
          * If requirements changed such that need to support querying from multiple collections within 1 UoW, then
          * collection should be specified in all RegisterNew, RegisterDirty, RegisterDeleted functions.
@@ -24,32 +24,35 @@ namespace SmartHome.DAL.Transactions
             // get specified collection
             Collection = DataSource.GetCollection(collection);
         }
-
+        
+        /**
+         * Add creation query to list of queries
+         */
         public void RegisterNew(BsonDocument document)
         {
-            // .InsertOne()
-            throw new NotImplementedException();
+            CreateMongoDbQuery createQuery = new CreateMongoDbQuery(Collection, document);
+            LoggingMongoDbQuery query = new LoggingMongoDbQuery(createQuery);
+            Queries.Add(query);
         }
 
+        /**
+         * Add update query to list of queries
+         */
         public void RegisterDirty(FilterDefinition<BsonDocument> filterDefinition, UpdateDefinition<BsonDocument> updateDefinition)
         {
-            // .UpdateMany()
-            // var result = collection.UpdateOne(filter, update);
-
-//            if (result.IsModifiedCountAvailable)
-//            {
-//                Console.WriteLine(result.ModifiedCount);
-//            }
-            
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("i", 71);
-            UpdateDefinition<BsonDocument> s = Builders<BsonDocument>.Update.Set("i", 110).Set("a", 1);
-            throw new NotImplementedException();
+            UpdateMongoDbQuery updateQuery = new UpdateMongoDbQuery(Collection, filterDefinition, updateDefinition);
+            LoggingMongoDbQuery query = new LoggingMongoDbQuery(updateQuery);
+            Queries.Add(query);
         }
 
+        /**
+         * Add delete query to list of queries
+         */
         public void RegisterDeleted(FilterDefinition<BsonDocument> filterDefinition)
         {
-            // .DeleteMany()
-            throw new NotImplementedException();
+            DeleteMongoDbQuery deleteQuery = new DeleteMongoDbQuery(Collection, filterDefinition);
+            LoggingMongoDbQuery query = new LoggingMongoDbQuery(deleteQuery);
+            Queries.Add(query);
         }
 
         /**
