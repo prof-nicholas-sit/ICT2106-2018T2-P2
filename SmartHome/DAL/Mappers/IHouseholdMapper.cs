@@ -1,10 +1,7 @@
-﻿using SmartHome.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using SmartHome.Models;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.Mappers
 {
     interface IHouseholdMapper : IBaseMapper<Household>
     {

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MongoDB.Bson;
-using SmartHome.DAL.UnitOfWork;
+using SmartHome.DAL.Transactions;
 using SmartHome.Models;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.Mappers
 {
     public class HouseholdMapper : IHouseholdMapper
     {
-        private UnitOfWork<Household> Uow;
+        private IUnitOfWork Uow;
 
         public HouseholdMapper() 
         {
-            // initialise Uow   
+            // initialise Uow
+            Uow = new UnitOfWork("accounts");
         }
 
         public bool CheckRequestingResetPW(string username)

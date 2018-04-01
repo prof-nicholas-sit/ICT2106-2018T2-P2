@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using SmartHome.DAL.DataSource;
 using SmartHome.Models;
 
 namespace SmartHome
@@ -22,6 +22,7 @@ namespace SmartHome
         public static void Main(string[] args)
         {
             Console.WriteLine("Starting Program");
+            Console.WriteLine(DateTime.Now.ToString(CultureInfo.CurrentCulture));
             BuildWebHost(args).Run();
 //            MongoDataSource dataSource = MongoDataSource.GetInstance();
 //            IMongoCollection<BsonDocument> collection = dataSource.GetCollection("household");

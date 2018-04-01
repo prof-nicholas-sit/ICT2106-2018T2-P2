@@ -1,23 +1,22 @@
-﻿using MongoDB.Bson;
-using SmartHome.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SmartHome.DAL.UnitOfWork;
+using MongoDB.Bson;
+using SmartHome.DAL.Transactions;
+using SmartHome.Models;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.Mappers
 {
     public class DeviceMapper : IDeviceMapper
     {
         // for retrieves, creation and updating, will use reflection to get subclass properties
         // and manual mapping of these properties upon retrieval
 
-        private UnitOfWork<Device> Uow;
+        private IUnitOfWork Uow;
 
         public DeviceMapper() 
         {
-            // initialise DeviceMapper    
+            // initialise DeviceMapper
+            Uow = new UnitOfWork("devices");
         }
 
         public void Create(Device obj)

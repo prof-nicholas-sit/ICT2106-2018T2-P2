@@ -1,10 +1,7 @@
-﻿using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using MongoDB.Bson;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.Mappers
 {
     interface IBaseMapper<T> where T : class
     {

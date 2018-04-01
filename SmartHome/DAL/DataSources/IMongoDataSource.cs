@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace SmartHome.DAL.DataSource
+namespace SmartHome.DAL.DataSources
 {
     public interface IMongoDataSource
     {

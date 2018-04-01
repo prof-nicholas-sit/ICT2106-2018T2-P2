@@ -1,17 +1,17 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace SmartHome.DAL.DataSource
+namespace SmartHome.DAL.DataSources
 {
     public class MongoDataSource : IMongoDataSource
     {
         private static MongoDataSource Instance;
         private IMongoDatabase Database;
-        
+
         // Singleton Class Other classes not allowed to instantiate an object of this class
         private MongoDataSource()
         {
-            Initialise(); 
+            Initialise();
         }
 
         // initialise MongoDatabase
@@ -23,7 +23,7 @@ namespace SmartHome.DAL.DataSource
         }
 
         // If instance already exist return instance else create a new instance.
-        public static MongoDataSource GetInstance()
+        public static IMongoDataSource GetInstance()
         {
             return Instance ?? (Instance = new MongoDataSource());
         }

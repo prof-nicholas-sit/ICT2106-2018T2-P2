@@ -1,20 +1,19 @@
-﻿using MongoDB.Bson;
-using SmartHome.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SmartHome.DAL.UnitOfWork;
+using MongoDB.Bson;
+using SmartHome.DAL.Transactions;
+using SmartHome.Models;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.Mappers
 {
     public class ScheduleMapper : IScheduleMapper
     {
-        private UnitOfWork<Schedule> Uow;
+        private IUnitOfWork Uow;
 
         public ScheduleMapper() 
         {
-            // initialise Uow    
+            // initialise Uow  
+            Uow = new UnitOfWork("schedules");
         }
 
         public void Create(Schedule obj)

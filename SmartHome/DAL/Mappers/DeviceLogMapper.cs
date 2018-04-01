@@ -1,20 +1,19 @@
-﻿using MongoDB.Bson;
-using SmartHome.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SmartHome.DAL.UnitOfWork;
+using MongoDB.Bson;
+using SmartHome.DAL.Transactions;
+using SmartHome.Models;
 
-namespace SmartHome.DAL
+namespace SmartHome.DAL.Mappers
 {
     public class DeviceLogMapper : IDeviceLogMapper
     {
-        private UnitOfWork<DeviceAppLog> Uow;
+        private IUnitOfWork Uow;
 
         public DeviceLogMapper()
         {
             // initialise Uow
+            Uow = new UnitOfWork("devicelogs");
         }
 
         public void Create(DeviceAppLog obj)
