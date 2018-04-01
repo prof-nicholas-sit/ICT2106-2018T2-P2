@@ -34,18 +34,59 @@
 			</div>
 			</div>
 			<div id="stats-device-cont" class="panel panel-default mt30">
-			<div class="panel-heading">
-				<h3 class="panel-title">Device page</h3>
-			</div>
-				<div class="row">
-					<div class="panel-body">
-						<div class="col-sm-6">
-							<p class="text-big">5</p>
-							Access count
+				<div class="panel-heading">
+					<h3 class="panel-title">Device page</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
+								<span class="caret"></span></button>
+								<ul class="dropdown-menu">
+								<li><a href="#">Device</a></li>
+								<li><a href="#">Name</a></li>
+								<li><a href="#">Count</a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
+					<!--Table to display application usage for device usage-->
+					<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Count</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr>
+							<td>Clement's Fridge</td>
+							<td>Fridge</td>
+							<td>5</td>
+						  </tr>
+						  <tr>
+							<td>Shan Han's Toaster</td>
+							<td>Toaster</td>
+							<td>5</td>
+						  </tr>
+						  <tr>
+							<td>Iffah's Fan</td>
+							<td>Fan</td>
+							<td>6</td>
+						  </tr>
+						  <tr>
+							<td>Yi Ning's Washing Machine</td>
+							<td>Washing Machine</td>
+							<td>6</td>
+						  </tr>
+						</tbody>
+					  </table>
+					  <!--End of table-->
 				</div>
 			</div>
+
 			<div id="stats-schedule-cont" class="panel panel-default mt30">
 			<div class="panel-heading">
 				<h3 class="panel-title">Schedule page</h3>
