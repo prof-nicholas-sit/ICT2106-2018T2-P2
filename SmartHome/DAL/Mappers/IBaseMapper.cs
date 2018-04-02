@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using MongoDB.Bson;
+using SmartHome.DAL.Transactions;
 using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
@@ -11,6 +12,8 @@ namespace SmartHome.DAL.Mappers
          * All methods below will be implemented by the Mapper classes 
          * Mapper interfaces extend this interface
          * All methods insert MongoDB queries into the UnitOfWork.Queries list
+         *
+         * Create, Update, Delete returns the mapper so you can do method chaining
         */
 
         /* Returns all data for the <T> collection */
@@ -28,7 +31,7 @@ namespace SmartHome.DAL.Mappers
         /* Scans the collection for _id and remove the document */
         IBaseMapper<T> Delete(ObjectId id);
 
-        /* commits all the queries in UnitOfWork into MongoDb */
-        void Save();
+        /* Builds the Unit of Work for query chaining */
+        IUnitOfWork Save();
     }
 }

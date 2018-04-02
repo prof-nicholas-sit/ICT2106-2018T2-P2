@@ -9,7 +9,8 @@ namespace SmartHome.DAL.Transactions
         private FilterDefinition<BsonDocument> FilterDefinition;
         private UpdateDefinition<BsonDocument> UpdateDefinition;
 
-        public UpdateMongoDbQuery(IMongoCollection<BsonDocument> collection, FilterDefinition<BsonDocument> filterDefinition,
+        public UpdateMongoDbQuery(IMongoCollection<BsonDocument> collection,
+            FilterDefinition<BsonDocument> filterDefinition,
             UpdateDefinition<BsonDocument> updateDefinition)
             : base(collection)
         {
@@ -20,7 +21,7 @@ namespace SmartHome.DAL.Transactions
         public override void Execute()
         {
             UpdateResult result = Collection.UpdateMany(FilterDefinition, UpdateDefinition);
-            
+
             if (result.IsModifiedCountAvailable)
             {
                 Console.WriteLine("Modified {0} document(s).", result.ModifiedCount);
@@ -34,7 +35,8 @@ namespace SmartHome.DAL.Transactions
 
         public override string ToString()
         {
-            return FilterDefinition.RenderToBsonDocument() + "\n---with---\n" + UpdateDefinition.RenderToBsonDocument();
+            return FilterDefinition.RenderToBsonDocument().ToJson() + "\n---with---\n" +
+                   UpdateDefinition.RenderToBsonDocument().ToJson();
         }
     }
 }

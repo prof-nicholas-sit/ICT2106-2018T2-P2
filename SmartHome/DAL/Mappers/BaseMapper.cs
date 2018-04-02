@@ -13,16 +13,19 @@ namespace SmartHome.DAL.Mappers
     public abstract class BaseMapper<T> : IBaseMapper<T> where T : MongoDbObject
     {
         protected IUnitOfWork Uow { get; }
+        protected string CollectionName { get; }
 
         public BaseMapper(string collectionName)
         {
             // initialise Uow
-            Uow = new UnitOfWork(collectionName);
+            Uow = new UnitOfWork();
+            CollectionName = collectionName;
         }
 
         public IEnumerable<T> SelectAll()
         {
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(Builders<BsonDocument>.Filter.Empty);
+            IEnumerable<BsonDocument> documentList =
+                Uow.ExecuteRetrieveAll(CollectionName, Builders<BsonDocument>.Filter.Empty);
             List<T> objectList = new List<T>();
             foreach (BsonDocument document in documentList)
             {
@@ -34,7 +37,8 @@ namespace SmartHome.DAL.Mappers
 
         public T SelectById(ObjectId id)
         {
-            BsonDocument document = Uow.ExecuteRetrieveFirst(Builders<BsonDocument>.Filter.Eq("_id", id));
+            BsonDocument document =
+                Uow.ExecuteRetrieveFirst(CollectionName, Builders<BsonDocument>.Filter.Eq("_id", id));
             return DeserializeDocument<T>(document);
         }
 
@@ -43,32 +47,30 @@ namespace SmartHome.DAL.Mappers
             AddToBsonClassMap(obj);
             obj._id = ObjectId.GenerateNewId();
             // sometimes adding to classmap does not add _t property to the document
-            // this ensures that the type discriminator will always be added to the document
-            // type discriminator added to allow flexibility with filtering queries
-            obj._t = obj.GetType().Name;
             // will also need to define our own type discriminator as we need to retrieve the value of it to do 
             // reflection, it requires namespace and class name, otherwise Type.GetType() may return null.
+            // this also allows us to do our own custom filtering by class type.
             obj.ClassType = obj.GetType().FullName;
-            Uow.RegisterNew(obj.ToBsonDocument());
+            Uow.RegisterNew(CollectionName, obj.ToBsonDocument());
             return this;
         }
 
         public IBaseMapper<T> Update(T obj)
         {
             AddToBsonClassMap(obj);
-            Uow.RegisterDirty(Builders<BsonDocument>.Filter.Eq("_id", obj._id), obj.ToBsonDocument());
+            Uow.RegisterDirty(CollectionName, Builders<BsonDocument>.Filter.Eq("_id", obj._id), obj.ToBsonDocument());
             return this;
         }
 
         public IBaseMapper<T> Delete(ObjectId id)
         {
-            Uow.RegisterDeleted(Builders<BsonDocument>.Filter.Eq("_id", id));
+            Uow.RegisterDeleted(CollectionName, Builders<BsonDocument>.Filter.Eq("_id", id));
             return this;
         }
 
-        public void Save()
+        public IUnitOfWork Save()
         {
-            Uow.Commit();
+            return Uow;
         }
 
         /**

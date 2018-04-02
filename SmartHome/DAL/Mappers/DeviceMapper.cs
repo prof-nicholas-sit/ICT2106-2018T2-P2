@@ -16,7 +16,7 @@ namespace SmartHome.DAL.Mappers
         public List<Device> SelectByHouseholdId(ObjectId householdId)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             List<Device> deviceList = new List<Device>();
             foreach (BsonDocument document in documentList)
             {
@@ -29,7 +29,7 @@ namespace SmartHome.DAL.Mappers
         public List<Device> SelectByName(string name)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Name", name);
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             List<Device> deviceList = new List<Device>();
             foreach (BsonDocument document in documentList)
             {
@@ -44,7 +44,7 @@ namespace SmartHome.DAL.Mappers
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("_id", deviceId);
             UpdateDefinition<BsonDocument>
                 updateDefinition = Builders<BsonDocument>.Update.Set("IsFavourite", isFavourite);
-            Uow.RegisterDirty(filterDefinition, updateDefinition);
+            Uow.RegisterDirty(CollectionName, filterDefinition, updateDefinition);
             return this;
         }
     }

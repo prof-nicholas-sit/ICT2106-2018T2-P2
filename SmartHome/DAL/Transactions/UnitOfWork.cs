@@ -8,29 +8,13 @@ namespace SmartHome.DAL.Transactions
 {
     public class UnitOfWork : IUnitOfWork
     {
-        // All mapper classes methods will add queries into this list
-        private List<MongoDbQuery> Queries = new List<MongoDbQuery>();
-        private IMongoCollection<BsonDocument> Collection;     
-
-        /**
-         * This design implementation assumes that the UoW only handles queries from 1 specified collection.
-         * If requirements changed such that need to support querying from multiple collections within 1 UoW, then
-         * collection should be specified in all RegisterNew, RegisterDirty, RegisterDeleted functions.
-         */ 
-        public UnitOfWork(string collection)
-        {
-            // initialise DataSource
-            IMongoDataSource DataSource = MongoDataSource.GetInstance();
-            // get specified collection
-            Collection = DataSource.GetCollection(collection);
-        }
-        
         /**
          * Add creation query to list of queries
          */
-        public void RegisterNew(BsonDocument document)
+        public override void RegisterNew(string collectionName, BsonDocument document)
         {
-            CreateMongoDbQuery createQuery = new CreateMongoDbQuery(Collection, document);
+            IMongoCollection<BsonDocument> collection = DataSource.GetCollection(collectionName);
+            CreateMongoDbQuery createQuery = new CreateMongoDbQuery(collection, document);
             LoggingMongoDbQuery query = new LoggingMongoDbQuery(createQuery);
             Queries.Add(query);
         }
@@ -38,16 +22,20 @@ namespace SmartHome.DAL.Transactions
         /**
          * Add update query to list of queries
          */
-        public void RegisterDirty(FilterDefinition<BsonDocument> filterDefinition, UpdateDefinition<BsonDocument> updateDefinition)
+        public override void RegisterDirty(string collectionName, FilterDefinition<BsonDocument> filterDefinition,
+            UpdateDefinition<BsonDocument> updateDefinition)
         {
-            UpdateMongoDbQuery updateQuery = new UpdateMongoDbQuery(Collection, filterDefinition, updateDefinition);
+            IMongoCollection<BsonDocument> collection = DataSource.GetCollection(collectionName);
+            UpdateMongoDbQuery updateQuery = new UpdateMongoDbQuery(collection, filterDefinition, updateDefinition);
             LoggingMongoDbQuery query = new LoggingMongoDbQuery(updateQuery);
             Queries.Add(query);
         }
 
-        public void RegisterDirty(FilterDefinition<BsonDocument> filterDefinition, BsonDocument document)
+        public override void RegisterDirty(string collectionName, FilterDefinition<BsonDocument> filterDefinition,
+            BsonDocument document)
         {
-            ReplaceMongoDbQuery replaceQuery = new ReplaceMongoDbQuery(Collection, filterDefinition, document);
+            IMongoCollection<BsonDocument> collection = DataSource.GetCollection(collectionName);
+            ReplaceMongoDbQuery replaceQuery = new ReplaceMongoDbQuery(collection, filterDefinition, document);
             LoggingMongoDbQuery query = new LoggingMongoDbQuery(replaceQuery);
             Queries.Add(query);
         }
@@ -55,9 +43,10 @@ namespace SmartHome.DAL.Transactions
         /**
          * Add delete query to list of queries
          */
-        public void RegisterDeleted(FilterDefinition<BsonDocument> filterDefinition)
+        public override void RegisterDeleted(string collectionName, FilterDefinition<BsonDocument> filterDefinition)
         {
-            DeleteMongoDbQuery deleteQuery = new DeleteMongoDbQuery(Collection, filterDefinition);
+            IMongoCollection<BsonDocument> collection = DataSource.GetCollection(collectionName);
+            DeleteMongoDbQuery deleteQuery = new DeleteMongoDbQuery(collection, filterDefinition);
             LoggingMongoDbQuery query = new LoggingMongoDbQuery(deleteQuery);
             Queries.Add(query);
         }
@@ -67,17 +56,18 @@ namespace SmartHome.DAL.Transactions
          * Does not require commit() since retrieval does not modify the database
          * Retrieval done synchronously, so data is return without needing callbacks
          */
-        public IEnumerable<BsonDocument> ExecuteRetrieveAll(FilterDefinition<BsonDocument> filterDefinition)
+        public override IEnumerable<BsonDocument> ExecuteRetrieveAll(string collectionName,
+            FilterDefinition<BsonDocument> filterDefinition)
         {
-            return Collection.Find(filterDefinition).ToList();
+            return DataSource.GetCollection(collectionName).Find(filterDefinition).ToList();
         }
 
         /**
          * Similar to ExecuteRetrieveAll(), but only returns the first document that matches the specified filter
          */
-        public BsonDocument ExecuteRetrieveFirst(FilterDefinition<BsonDocument> filterDefinition)
+        public override BsonDocument ExecuteRetrieveFirst(string collectionName, FilterDefinition<BsonDocument> filterDefinition)
         {
-            return Collection.Find(filterDefinition).FirstOrDefault();
+            return DataSource.GetCollection(collectionName).Find(filterDefinition).FirstOrDefault();
         }
 
         /**
@@ -85,7 +75,7 @@ namespace SmartHome.DAL.Transactions
          * Ideally, this function will apply some optimization algorithms to combine multiple transactions together
          * For instance, combining multiple insertion queries into a batch insert
          */
-        public void Commit()
+        public override void Commit()
         {
             // loop through the Queries
             // for each query, execute the query
@@ -105,7 +95,7 @@ namespace SmartHome.DAL.Transactions
          * Could also use a combination with Memento pattern to remember the state of the data in the database so that
          * reverting commands can be done
          */
-        public void Rollback()
+        public override void Rollback()
         {
             throw new NotImplementedException();
         }

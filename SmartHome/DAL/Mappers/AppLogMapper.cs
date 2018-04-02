@@ -42,7 +42,7 @@ namespace SmartHome.DAL.Mappers
                 filterDefinition &= Builders<BsonDocument>.Filter.Gte("DeviceType", deviceType);
             }
 
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             List<AppLog> appLogList = new List<AppLog>();
             foreach (BsonDocument document in documentList)
             {
@@ -70,7 +70,7 @@ namespace SmartHome.DAL.Mappers
                 filterDefinition &= Builders<BsonDocument>.Filter.Gte("DeviceType", deviceType);
             }
 
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             List<AppLog> appLogList = new List<AppLog>();
             foreach (BsonDocument document in documentList)
             {
@@ -93,7 +93,7 @@ namespace SmartHome.DAL.Mappers
                 filterDefinition &= Builders<BsonDocument>.Filter.Gte("DeviceType", deviceType);
             }
 
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             IEnumerable<string> logTypeList = null;
             if (documentList != null)
             {
@@ -116,7 +116,7 @@ namespace SmartHome.DAL.Mappers
                 filterDefinition &= Builders<BsonDocument>.Filter.Gte("LogType", logType);
             }
 
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             IEnumerable<string> logTypeList = null;
             if (documentList != null)
             {

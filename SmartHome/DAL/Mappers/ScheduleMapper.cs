@@ -16,7 +16,7 @@ namespace SmartHome.DAL.Mappers
         public Schedule SelectByDevice(ObjectId deviceId)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("DeviceId", deviceId);
-            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
             return DeserializeDocument<Schedule>(document);
         }
     }

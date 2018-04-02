@@ -29,7 +29,7 @@ namespace SmartHome.DAL.Mappers
                 Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
             filterDefinition &= Builders<BsonDocument>.Filter.Gte("DateTime", start);
             filterDefinition &= Builders<BsonDocument>.Filter.Lte("DateTime", end);
-            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(CollectionName, filterDefinition);
             List<DeviceLog> deviceLogList = new List<DeviceLog>();
             foreach (BsonDocument document in documentList)
             {
@@ -48,7 +48,7 @@ namespace SmartHome.DAL.Mappers
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Type", type);
             filterDefinition &= Builders<BsonDocument>.Filter.Gte("DateTime", start);
             filterDefinition &= Builders<BsonDocument>.Filter.Lte("DateTime", end);
-            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
             return DeserializeDocument<DeviceLog>(document);
         }
     }

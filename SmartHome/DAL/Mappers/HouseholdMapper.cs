@@ -17,7 +17,7 @@ namespace SmartHome.DAL.Mappers
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
-            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
             return DeserializeDocument<Account>(document);
         }
 
@@ -26,21 +26,21 @@ namespace SmartHome.DAL.Mappers
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Street", street);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("PostalCode", postalCode);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("UnitNo", unitNo);
-            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
             return DeserializeDocument<Household>(document);
         }
 
         public Household SelectByUsername(string username)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
-            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
             return DeserializeDocument<Household>(document);
         }
 
         public bool CheckRequestingResetPw(string username)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
-            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
             Household household = DeserializeDocument<Household>(document);
             return household != null && household.IsResetPassword;
         }
@@ -50,7 +50,7 @@ namespace SmartHome.DAL.Mappers
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             UpdateDefinition<BsonDocument>
                 updateDefinition = Builders<BsonDocument>.Update.Set("IsResetPassword", true);
-            Uow.RegisterDirty(filterDefinition, updateDefinition);
+            Uow.RegisterDirty(CollectionName, filterDefinition, updateDefinition);
             return this;
         }
 
@@ -59,7 +59,7 @@ namespace SmartHome.DAL.Mappers
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             UpdateDefinition<BsonDocument>
                 updateDefinition = Builders<BsonDocument>.Update.Set("Password", password);
-            Uow.RegisterDirty(filterDefinition, updateDefinition);
+            Uow.RegisterDirty(CollectionName, filterDefinition, updateDefinition);
             return this;
         }
     }
