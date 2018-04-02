@@ -13,12 +13,12 @@ namespace SmartHome.DAL.Mappers
         {
         }
 
-        public Administrator Login(string username, string password)
+        public Account Login(string username, string password)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
             BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
-            return DeserializeDocument<Administrator>(document);
+            return DeserializeDocument<Account>(document);
         }
     }
 }

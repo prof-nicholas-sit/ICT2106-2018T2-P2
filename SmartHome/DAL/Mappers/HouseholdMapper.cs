@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using SmartHome.DAL.Transactions;
 using SmartHome.Models;
 
@@ -12,50 +13,53 @@ namespace SmartHome.DAL.Mappers
         {
         }
 
-        public Household Login()
+        public Account Login(string username, string password)
         {
-            // collection.Find() any document that has the same username and password given in the parameters
-            // If exists retrieve json document file and map into the Administrator Object
-
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
+            filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            return DeserializeDocument<Account>(document);
         }
 
         public Household SelectByAddress(string street, int postalCode, string unitNo)
         {
-            // make query for selecting household by address
-            // Uow.ExecuteSelection(query)
-            // return result
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Street", street);
+            filterDefinition &= Builders<BsonDocument>.Filter.Eq("PostalCode", postalCode);
+            filterDefinition &= Builders<BsonDocument>.Filter.Eq("UnitNo", unitNo);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            return DeserializeDocument<Household>(document);
         }
 
         public Household SelectByUsername(string username)
         {
-            // make query for selecting household by username
-            // Uow.ExecuteSelection(query)
-            // return result
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            return DeserializeDocument<Household>(document);
         }
-        
+
         public bool CheckRequestingResetPw(string username)
         {
-            // make query for checking if isResetPassword flag set for household with username
-            // Uow.ExecuteSelection(query)
-            // return result
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            return DeserializeDocument<Household>(document).IsResetPassword;
         }
-        
+
         public IHouseholdMapper RequestPasswordReset(string username)
         {
-            // update household isResetPassword flag
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
+            UpdateDefinition<BsonDocument>
+                updateDefinition = Builders<BsonDocument>.Update.Set("IsResetPassword", true);
+            Uow.RegisterDirty(filterDefinition, updateDefinition);
+            return this;
         }
 
         public IHouseholdMapper ResetPassword(string username, string password)
         {
-            // update password for household with username
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
+            UpdateDefinition<BsonDocument>
+                updateDefinition = Builders<BsonDocument>.Update.Set("Password", password);
+            Uow.RegisterDirty(filterDefinition, updateDefinition);
+            return this;
         }
     }
 }
