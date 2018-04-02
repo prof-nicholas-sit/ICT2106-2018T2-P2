@@ -7,8 +7,8 @@ namespace SmartHome.DAL.Mappers
 {
     public interface IDeviceLogMapper : IBaseMapper<DeviceLog>
     {
-        IEnumerable<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate);
-        DeviceLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate, DateTime endDate);
         IDeviceLogMapper CreateLogs(IEnumerable<DeviceLog> logs);
+        IEnumerable<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime start, DateTime end);
+        DeviceLog SelectIndividual(ObjectId householdId, string location, string type, DateTime start, DateTime end);
     }
 }

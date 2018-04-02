@@ -23,31 +23,31 @@ namespace SmartHome.DAL.Mappers
             return this;
         }
 
-        public IEnumerable<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate)
+        public IEnumerable<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime start, DateTime end)
         {
             FilterDefinition<BsonDocument> filterDefinition =
                 Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
-            filterDefinition &= Builders<BsonDocument>.Filter.Gte("DateTime", startDate);
-            filterDefinition &= Builders<BsonDocument>.Filter.Lte("DateTime", endDate);
+            filterDefinition &= Builders<BsonDocument>.Filter.Gte("DateTime", start);
+            filterDefinition &= Builders<BsonDocument>.Filter.Lte("DateTime", end);
             IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
-            List<DeviceLog> deviceList = new List<DeviceLog>();
+            List<DeviceLog> deviceLogList = new List<DeviceLog>();
             foreach (BsonDocument document in documentList)
             {
-                deviceList.Add(DeserializeDocument<DeviceLog>(document));
+                deviceLogList.Add(DeserializeDocument<DeviceLog>(document));
             }
 
-            return deviceList;
+            return deviceLogList;
         }
 
-        public DeviceLog SelectIndividual(ObjectId householdId, string location, string type, DateTime startDate,
-            DateTime endDate)
+        public DeviceLog SelectIndividual(ObjectId householdId, string location, string type, DateTime start,
+            DateTime end)
         {
             FilterDefinition<BsonDocument> filterDefinition =
                 Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Location", location);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Type", type);
-            filterDefinition &= Builders<BsonDocument>.Filter.Gte("DateTime", startDate);
-            filterDefinition &= Builders<BsonDocument>.Filter.Lte("DateTime", endDate);
+            filterDefinition &= Builders<BsonDocument>.Filter.Gte("DateTime", start);
+            filterDefinition &= Builders<BsonDocument>.Filter.Lte("DateTime", end);
             BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
             return DeserializeDocument<DeviceLog>(document);
         }

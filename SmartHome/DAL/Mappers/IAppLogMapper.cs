@@ -7,7 +7,7 @@ namespace SmartHome.DAL.Mappers
 {
     public interface IAppLogMapper : IBaseMapper<AppLog>
     {
-        IAppLogMapper InsertMany(IEnumerable<AppLog> newAppLog);
+        IAppLogMapper InsertMany(IEnumerable<AppLog> appLogs);
 
         int AggregateQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
             string deviceType = null);
