@@ -1,6 +1,6 @@
 ﻿namespace SmartHome.Models
 {
-    public abstract class Account : MongoDbObject
+    public abstract class Account : MongoDbObject,IUser
     {
         public string Username { get; set; }
         public string Password { get; set; }

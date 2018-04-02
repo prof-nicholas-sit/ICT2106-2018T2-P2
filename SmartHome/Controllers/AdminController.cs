@@ -14,7 +14,7 @@ namespace SmartHome.Controllers
     {
         public ActionResult Details(int id)
         {
-            HouseholdModel household = new HouseholdModel();
+            /*HouseholdModel household = new HouseholdModel();
             if (AdminUser.isLogin)
             {
                 for (int i = 0; i < model.Count(); i++)
@@ -26,7 +26,7 @@ namespace SmartHome.Controllers
                 }
 
                 return View(household);
-            }
+            }*/
 
             return View();
         }
@@ -34,7 +34,7 @@ namespace SmartHome.Controllers
         // GET: Admin
         public ActionResult DashBoard()
         {
-            if (AdminUser.isLogin == true)
+           /* if (AdminUser.isLogin == true)
             {
               
                 
@@ -43,7 +43,8 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
+            return RedirectToAction("Index", "Home");
         }
 
   
@@ -52,19 +53,20 @@ namespace SmartHome.Controllers
         public ActionResult adminRequest()
 
         {
-            if (AdminUser.isLogin == true) { 
+           /* if (AdminUser.isLogin == true) { 
             return View(model);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Admin/Create
         public ActionResult Create()
         {
-            if (AdminUser.isLogin)
+            /*if (AdminUser.isLogin)
             {
 
                 return View();
@@ -72,7 +74,8 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Admin/Create
@@ -80,7 +83,7 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(string street,int postalCode,string unitNo,string surname,string contactNo,string email, string password)
         {
-            if (AdminUser.isLogin == true)
+          /*  if (AdminUser.isLogin == true)
             {
                 try
                 {
@@ -94,7 +97,7 @@ namespace SmartHome.Controllers
                         household.postalCode, household.unitNo, household.surname, household.contactNo);
                     model.Add(newHouseholdUser);*/
                     // TODO: Add insert logic here
-                    model.Add((HouseholdModel)newHouseHold);
+                   /* model.Add((HouseholdModel)newHouseHold);
 
                     return RedirectToAction(nameof(DashBoard));
                 }
@@ -106,14 +109,15 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
+            return View();
         }
 
     
      
         public ActionResult Edit(int id)
         {
-            HouseholdModel household = new HouseholdModel();
+            /*HouseholdModel household = new HouseholdModel();
             if (AdminUser.isLogin)
             {
                 for(int i = 0; i <model.Count(); i++)
@@ -125,7 +129,7 @@ namespace SmartHome.Controllers
                 }
 
                 return View(household);
-            }
+            }*/
 
             return View();
 
@@ -135,9 +139,9 @@ namespace SmartHome.Controllers
         // POST: Admin/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(int householdID, [Bind("street", "postalCode","unitNo","surname","contactNo","email","password")]HouseholdModel household)
+        public ActionResult Update(int householdID, [Bind("street", "postalCode","unitNo","surname","contactNo","email","password")]Household household)
         {
-            if (AdminUser.isLogin == true)
+            /*if (AdminUser.isLogin == true)
             {
                 try
                 {
@@ -171,13 +175,15 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
+            return RedirectToAction("Index", "Home");
+           
         }
 
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            if (AdminUser.isLogin)
+           /* if (AdminUser.isLogin)
             {
                 HouseholdModel household1 = new HouseholdModel();
                 for (int i = 0; i < model.Count(); i++)
@@ -199,7 +205,8 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Admin/Delete/5
@@ -207,7 +214,7 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
+           /* try
             {
                 // TODO: Add delete logic here
                 if (AdminUser.isLogin)
@@ -236,7 +243,8 @@ namespace SmartHome.Controllers
             catch
             {
                 return View();
-            }
+            }*/
+            return View();
         }
 
        
@@ -249,8 +257,8 @@ namespace SmartHome.Controllers
         public ActionResult ProfileUpdate(string Username, string email, string password)
         {
             AdminUser.Username = Username;
-            AdminUser.email = email;
-            AdminUser.password = password;
+            AdminUser.Email = email;
+            AdminUser.Password = password;
 
             return View(nameof(Profile), AdminUser);
         }
@@ -258,7 +266,7 @@ namespace SmartHome.Controllers
 
         public ActionResult Logout()
         {
-            AdminUser.isLogin = false;
+            AdminUser.IsLogin = false;
 
             return RedirectToAction("Index", "Home");
         }

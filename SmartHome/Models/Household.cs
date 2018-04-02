@@ -8,6 +8,7 @@ namespace SmartHome.Models
 {
     public class Household : Account
     {
+        public ObjectId houseHoldId { get; set; }
         public string Street { get; set; }
         public int PostalCode { get; set; }
         public string UnitNo { get; set; }

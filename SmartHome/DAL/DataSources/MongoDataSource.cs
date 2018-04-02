@@ -18,7 +18,7 @@ namespace SmartHome.DAL.DataSources
         // establish connection to mongodb by specifying URL and Port
         private void Initialise()
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient("mongodb://127.0.0.1:27017");
             Database = client.GetDatabase("smart-home-ict2106");
         }
 

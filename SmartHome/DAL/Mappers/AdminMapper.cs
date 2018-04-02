@@ -18,7 +18,7 @@ namespace SmartHome.DAL.Mappers
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
             BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
-            return DeserializeDocument<Account>(document);
+            return DeserializeDocument<Administrator>(document);
         }
     }
 }

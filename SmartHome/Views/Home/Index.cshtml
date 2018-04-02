@@ -1,4 +1,4 @@
-﻿@model SmartHome.Models.User
+﻿@model SmartHome.Models.Account
 
 @{
     ViewData["Title"] = "Login";
@@ -30,7 +30,7 @@
                         </tr>
                         <tr>
                             <th>
-                                <label asp-for="password" class="control-label"></label>
+                                <label asp-for="Password" class="control-label"></label>
                             </th>
                         </tr>
                     </table>
@@ -47,8 +47,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <input name="password" asp-for="password" class="form-control" />
-                                <span asp-validation-for="password" class="text-danger"></span>
+                                <input name="password" asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </td>
                         </tr>
                     </table>

@@ -1,21 +1,22 @@
 ﻿using System;
+using SmartHome.DAL.Mappers;
 
 namespace SmartHome.Models
 {
     public class UserTypeFactory
     {
 
-        public static IUser CreateUser(User user)
+        public static IUser CreateUser(String username, String password)
         {
-            char firstChar = user.Username[0];
+            char firstChar = username[0];
             if (Char.IsLetter(firstChar))
             {
-                return new AdminModel(user.Username,user.password);
+                return new AdminMapper().Login(username, password); //AdminModel(user.Username,user.password);
             }
             else if(Char.IsDigit(firstChar))
 
             {
-                return new HouseholdModel(user.Username,user.password);
+                return new HouseholdMapper().Login(username,password);//HouseholdModel(user.Username,user.password);
             }
             else
             {
@@ -24,10 +25,11 @@ namespace SmartHome.Models
 
         }
 
-        public static IUser CreateHousehold(User user,int householdId,string street,int postalCode,string unitNo,string surname,string contactNo )
+        public static IUser CreateHousehold(Account user,int householdId,string street,int postalCode,string unitNo,string surname,string contactNo )
         {
-            return new HouseholdModel(user.getUsername(),user.getPassword(),user.getEmail(),householdId,street,postalCode,unitNo,surname,contactNo);
-            
+            return
+                null; //new HouseholdModel(user.getUsername(),user.getPassword(),user.getEmail(),householdId,street,postalCode,unitNo,surname,contactNo);
+
         }
         
         

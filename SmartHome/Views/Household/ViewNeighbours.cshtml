@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SmartHome.Models.HouseholdModel>
+﻿@model IEnumerable<SmartHome.Models.Household
 
 @{
     ViewData["Title"] = "ViewNeighbours";
@@ -25,17 +25,16 @@
     <tbody style="text-align:center">
         @foreach (var item in Model)
         {
-            if (!(item.street == "213 Ang Mo Kio Avenue 11"))
-            {
+            
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.surname)
+                    @Html.DisplayFor(modelItem => item.Surname)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.contactNo)
+                    @Html.DisplayFor(modelItem => item.ContactNo)
                 </td>
             </tr>
-            }
+            
         }
     </tbody>
 </table>

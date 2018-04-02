@@ -22,19 +22,19 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(string street, int postalCode, string unitNo, string surname, string contactNo, string email)
         {
-            householduser.street = street;
-            householduser.postalCode = postalCode;
-            householduser.unitNo = unitNo;
-            householduser.surname = surname;
-            householduser.contactNo = contactNo;
-            householduser.email = email;
+            householduser.Street = street;
+            householduser.PostalCode = postalCode;
+            householduser.UnitNo = unitNo;
+            householduser.Surname = surname;
+            householduser.ContactNo = contactNo;
+            householduser.Email = email;
 
             return View(nameof(Profile),householduser);
         }
 
         public ActionResult ViewNeighbours()
         {
-            if (householduser.isLogin != false)
+           /* if (householduser.IsLogin != false)
             {
                 var household2 = new HouseholdModel();
                 household2.surname = "Kang";
@@ -66,9 +66,9 @@ namespace SmartHome.Controllers
                 return View(model);
             }
             else
-            {
+            {*/
                 return RedirectToAction("Index", "Home");
-            }
+            //}
         }
 
      
@@ -76,7 +76,7 @@ namespace SmartHome.Controllers
 
         public ActionResult Logout()
         {
-            householduser.isLogin = false;
+            householduser.IsLogin = false;
 
             return RedirectToAction("Index","Home");
         }
