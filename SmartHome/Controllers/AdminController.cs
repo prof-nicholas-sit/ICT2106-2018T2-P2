@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.DAL.Mappers;
 using SmartHome.Models;
 
 namespace SmartHome.Controllers
@@ -34,8 +35,9 @@ namespace SmartHome.Controllers
         // GET: Admin
         public ActionResult DashBoard()
         {
-           /* if (AdminUser.isLogin == true)
+            if (AdminUser.IsLogin == true)
             {
+                model = (List<Household>) new HouseholdMapper().SelectAll();
               
                 
                 return View(model);
@@ -43,7 +45,7 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }*/
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -66,7 +68,7 @@ namespace SmartHome.Controllers
         // GET: Admin/Create
         public ActionResult Create()
         {
-            /*if (AdminUser.isLogin)
+            if (AdminUser.IsLogin)
             {
 
                 return View();
@@ -74,7 +76,7 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }*/
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -83,21 +85,18 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(string street,int postalCode,string unitNo,string surname,string contactNo,string email, string password)
         {
-          /*  if (AdminUser.isLogin == true)
+            if (AdminUser.IsLogin)
             {
                 try
                 {
-                    int householdID = model.Count()+1;
-                    string [] unitNoArray = unitNo.Split("#");
-                    string householdUsername = postalCode.ToString() + "-" + unitNoArray[1];
-                    User createNewUser = new User(householdUsername,email,password);
-                    IUser newHouseHold = UserTypeFactory.CreateHousehold(createNewUser,householdID,street,postalCode,unitNo,surname,contactNo);
-                   /* HouseholdModel newHouseholdUser = new HouseholdModel(household.Username, 
-                        household.password, household.email, model.Count() + 1, household.street,
-                        household.postalCode, household.unitNo, household.surname, household.contactNo);
-                    model.Add(newHouseholdUser);*/
-                    // TODO: Add insert logic here
-                   /* model.Add((HouseholdModel)newHouseHold);
+                    string[] UnitNoArray = unitNo.Split("#");
+
+                    string username = postalCode.ToString() + "-" + UnitNoArray[1];
+                    
+                    
+                    UserTypeFactory.CreateHousehold(username,password,email,street, postalCode,unitNo,surname,contactNo );
+                    
+                   
 
                     return RedirectToAction(nameof(DashBoard));
                 }
@@ -109,7 +108,7 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }*/
+            }
             return View();
         }
 
@@ -259,6 +258,7 @@ namespace SmartHome.Controllers
             AdminUser.Username = Username;
             AdminUser.Email = email;
             AdminUser.Password = password;
+            new AdminMapper().Update(AdminUser).Save().Commit();
 
             return View(nameof(Profile), AdminUser);
         }
@@ -267,6 +267,7 @@ namespace SmartHome.Controllers
         public ActionResult Logout()
         {
             AdminUser.IsLogin = false;
+            new AdminMapper().Update(AdminUser).Save().Commit();
 
             return RedirectToAction("Index", "Home");
         }

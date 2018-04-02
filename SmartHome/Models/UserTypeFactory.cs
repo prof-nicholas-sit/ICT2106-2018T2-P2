@@ -25,10 +25,20 @@ namespace SmartHome.Models
 
         }
 
-        public static IUser CreateHousehold(Account user,int householdId,string street,int postalCode,string unitNo,string surname,string contactNo )
+        public static void CreateHousehold(String username,String password,string email,string street,int postalCode,string unitNo,string surname,string contactNo )
         {
-            return
-                null; //new HouseholdModel(user.getUsername(),user.getPassword(),user.getEmail(),householdId,street,postalCode,unitNo,surname,contactNo);
+            Household newHousehold = new Household();
+            newHousehold.Username = username;
+            newHousehold.Password = password;
+            newHousehold.Street = street;
+            newHousehold.PostalCode = postalCode;
+            newHousehold.UnitNo = unitNo;
+            newHousehold.Surname = surname;
+            newHousehold.Email = email;
+            newHousehold.ContactNo = contactNo;
+            new HouseholdMapper().Create(newHousehold).Save().Commit();
+            
+                //null; //new HouseholdModel(user.getUsername(),user.getPassword(),user.getEmail(),householdId,street,postalCode,unitNo,surname,contactNo);
 
         }
         

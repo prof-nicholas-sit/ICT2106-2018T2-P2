@@ -62,5 +62,19 @@ namespace SmartHome.DAL.Mappers
             Uow.RegisterDirty(CollectionName, filterDefinition, updateDefinition);
             return this;
         }
+        public IEnumerable<Household> SelectAll()
+        {
+            IEnumerable<BsonDocument> documentList =
+                Uow.ExecuteRetrieveAll(CollectionName, Builders<BsonDocument>.Filter.Empty);
+            List<Household> objectList = new List<Household>();
+            foreach (BsonDocument document in documentList)
+            {
+                if(DeserializeDocument<Account>(document).GetType() == typeof(Household)){
+                    objectList.Add(DeserializeDocument<Household>(document));
+                }
+            }
+
+            return objectList;
+        }
     }
 }
