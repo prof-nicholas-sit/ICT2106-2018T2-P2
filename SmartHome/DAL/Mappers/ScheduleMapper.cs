@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using SmartHome.DAL.Transactions;
 using SmartHome.Models;
 
@@ -14,10 +15,9 @@ namespace SmartHome.DAL.Mappers
 
         public Schedule SelectByDevice(ObjectId deviceId)
         {
-            // make query for selecting schedule by deviceId
-            // Uow.ExecuteSelection(query)
-            // return result
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("DeviceId", deviceId);
+            BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
+            return DeserializeDocument<Schedule>(document);
         }
     }
 }

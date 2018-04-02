@@ -8,6 +8,7 @@ namespace SmartHome.Models
 {
     public class Schedule : MongoDbObject
     {
+        public ObjectId DeviceId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public bool ApplyToEveryWeek { get; set; }
