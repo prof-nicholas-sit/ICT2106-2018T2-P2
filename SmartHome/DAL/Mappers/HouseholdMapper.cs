@@ -41,7 +41,8 @@ namespace SmartHome.DAL.Mappers
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             BsonDocument document = Uow.ExecuteRetrieveFirst(filterDefinition);
-            return DeserializeDocument<Household>(document).IsResetPassword;
+            Household household = DeserializeDocument<Household>(document);
+            return household != null && household.IsResetPassword;
         }
 
         public IHouseholdMapper RequestPasswordReset(string username)

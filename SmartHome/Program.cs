@@ -25,10 +25,12 @@ namespace SmartHome
             Console.WriteLine("Starting Program");
             Console.WriteLine(DateTime.Now.ToString(CultureInfo.CurrentCulture));
 
-            new AdminMapper().Create(new Administrator() {Username = "test1", Password = "123"}).Save();
-            Console.WriteLine(new AdminMapper().Login("test1", "123") == null);
+//            new AdminMapper().Create(new Administrator() {Username = "test1", Password = "123"}).Save();
+//            Console.WriteLine(new AdminMapper().Login("test1", "123") == null);
+//            Console.WriteLine(new HouseholdMapper().CheckRequestingResetPw("test"));
+            new HouseholdMapper().RequestPasswordReset("test").Save();
 
-            BuildWebHost(args).Run();
+//            BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

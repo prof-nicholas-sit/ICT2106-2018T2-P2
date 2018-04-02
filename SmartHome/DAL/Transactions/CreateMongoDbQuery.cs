@@ -25,7 +25,7 @@ namespace SmartHome.DAL.Transactions
 
         public override string ToString()
         {
-            return NewDocument.ToJson();
+            return NewDocument.AsString;
         }
     }
 }
