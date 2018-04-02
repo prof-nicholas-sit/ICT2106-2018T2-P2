@@ -8,6 +8,6 @@ namespace SmartHome.DAL.Mappers
     {
         List<Device> SelectByName(string name);
         List<Device> SelectByHouseholdId(ObjectId householdId);
-        IDeviceMapper ToggleFavourite(ObjectId _id);
+        IDeviceMapper SetFavourite(ObjectId deviceId, bool isFavourite);
     }
 }

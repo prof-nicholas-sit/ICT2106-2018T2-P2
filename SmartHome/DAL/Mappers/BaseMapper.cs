@@ -74,7 +74,7 @@ namespace SmartHome.DAL.Mappers
         /**
          * TODO comments on reflection
          */
-        protected TD DeserializeDocument<TD>(BsonDocument document) where TD : MongoDbObject
+        protected static TD DeserializeDocument<TD>(BsonDocument document) where TD : MongoDbObject
         {
             if (document != null)
             {
@@ -93,7 +93,7 @@ namespace SmartHome.DAL.Mappers
          * TODO
          * https://stackoverflow.com/a/27858497
          */
-        protected void AddToBsonClassMap(MongoDbObject obj)
+        protected static void AddToBsonClassMap(MongoDbObject obj)
         {
             Type objType = obj.GetType();
             if (BsonClassMap.IsClassMapRegistered(objType))

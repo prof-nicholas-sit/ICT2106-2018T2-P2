@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using SmartHome.DAL.Transactions;
 using SmartHome.Models;
 
@@ -14,26 +15,37 @@ namespace SmartHome.DAL.Mappers
 
         public List<Device> SelectByHouseholdId(ObjectId householdId)
         {
-            // make query for selecting devices with householdId
-            // Uow.ExecuteSelection(query)
-            // return result       
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            List<Device> deviceList = new List<Device>();
+            foreach (BsonDocument document in documentList)
+            {
+                deviceList.Add(DeserializeDocument<Device>(document));
+            }
+
+            return deviceList;
         }
 
         public List<Device> SelectByName(string name)
         {
-            // make query for selecting devices with certain name
-            // Uow.ExecuteSelection(query)
-            // return result            
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Name", name);
+            IEnumerable<BsonDocument> documentList = Uow.ExecuteRetrieveAll(filterDefinition);
+            List<Device> deviceList = new List<Device>();
+            foreach (BsonDocument document in documentList)
+            {
+                deviceList.Add(DeserializeDocument<Device>(document));
+            }
+
+            return deviceList;
         }
 
-        public IDeviceMapper ToggleFavourite(ObjectId _id)
+        public IDeviceMapper SetFavourite(ObjectId deviceId, bool isFavourite)
         {
-            // update device object query
-            // toggles whether device is favourited
-            // Uow.RegisterQuery(query)
-            throw new NotImplementedException();
+            FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("_id", deviceId);
+            UpdateDefinition<BsonDocument>
+                updateDefinition = Builders<BsonDocument>.Update.Set("IsFavourite", isFavourite);
+            Uow.RegisterDirty(filterDefinition, updateDefinition);
+            return this;
         }
     }
 }
