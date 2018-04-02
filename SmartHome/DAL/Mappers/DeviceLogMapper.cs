@@ -13,7 +13,7 @@ namespace SmartHome.DAL.Mappers
         {
         }
 
-        public IDeviceLogMapper CreateLogs(List<DeviceLog> logs)
+        public IDeviceLogMapper CreateLogs(IEnumerable<DeviceLog> logs)
         {
             foreach (DeviceLog deviceLog in logs)
             {
@@ -23,7 +23,7 @@ namespace SmartHome.DAL.Mappers
             return this;
         }
 
-        public List<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate)
+        public IEnumerable<DeviceLog> SelectFromDateRange(ObjectId householdId, DateTime startDate, DateTime endDate)
         {
             FilterDefinition<BsonDocument> filterDefinition =
                 Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
