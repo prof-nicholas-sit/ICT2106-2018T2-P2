@@ -12,7 +12,7 @@ namespace SmartHome.DAL.Mappers
 {
     public abstract class BaseMapper<T> : IBaseMapper<T> where T : MongoDbObject
     {
-        protected IUnitOfWork Uow { get; }
+        protected AbstractUnitOfWork Uow { get; }
         protected string CollectionName { get; }
 
         public BaseMapper(string collectionName)
@@ -68,7 +68,7 @@ namespace SmartHome.DAL.Mappers
             return this;
         }
 
-        public IUnitOfWork Save()
+        public AbstractUnitOfWork Save()
         {
             return Uow;
         }

@@ -32,6 +32,6 @@ namespace SmartHome.DAL.Mappers
         IBaseMapper<T> Delete(ObjectId id);
 
         /* Builds the Unit of Work for query chaining */
-        IUnitOfWork Save();
+        AbstractUnitOfWork Save();
     }
 }

@@ -5,7 +5,7 @@ using SmartHome.DAL.DataSources;
 
 namespace SmartHome.DAL.Transactions
 {
-    public abstract class IUnitOfWork
+    public abstract class AbstractUnitOfWork
     {
         // All mapper classes methods will add queries into this list
         protected List<IMongoDbQuery> Queries = new List<IMongoDbQuery>();
@@ -14,7 +14,7 @@ namespace SmartHome.DAL.Transactions
         /**
          * This design implementation allows queries to and fro different collections within 1 UoW.
          */
-        public IUnitOfWork()
+        public AbstractUnitOfWork()
         {
             // initialise DataSource
             DataSource = MongoDataSource.GetInstance();
@@ -39,7 +39,7 @@ namespace SmartHome.DAL.Transactions
         public abstract void Commit();
         public abstract void Rollback();
 
-        public static IUnitOfWork operator +(IUnitOfWork c1, IUnitOfWork c2)
+        public static AbstractUnitOfWork operator +(AbstractUnitOfWork c1, AbstractUnitOfWork c2)
         {
             List<IMongoDbQuery> newQueries = new List<IMongoDbQuery>();
             newQueries.AddRange(c1.Queries);

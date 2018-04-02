@@ -6,7 +6,7 @@ using SmartHome.DAL.DataSources;
 
 namespace SmartHome.DAL.Transactions
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : AbstractUnitOfWork
     {
         /**
          * Add creation query to list of queries
@@ -79,7 +79,7 @@ namespace SmartHome.DAL.Transactions
         {
             // loop through the Queries
             // for each query, execute the query
-            foreach (MongoDbQuery query in Queries)
+            foreach (IMongoDbQuery query in Queries)
             {
                 query.Execute();
             }
