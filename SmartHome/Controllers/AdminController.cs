@@ -13,16 +13,13 @@ namespace SmartHome.Controllers
     {
         public ActionResult Details(String id)
         {
-            System.Diagnostics.Debug.WriteLine("The ID: " + id);
             if (AdminUser.IsLogin == true)
             {
                 model = (List<Household>)new HouseholdMapper().SelectAll();
                 for (int i = 0; i < model.Count(); i++)
                 {
-                    System.Diagnostics.Debug.WriteLine("This ID is: " + model.ElementAt(i)._id);
                     if (model.ElementAt(i)._id.ToString().Equals(id))
                     {
-                        System.Diagnostics.Debug.WriteLine("ID MATCHED");
                        Household householdModel = model.ElementAt(i);
                        return View(householdModel);
                     }
@@ -114,55 +111,55 @@ namespace SmartHome.Controllers
 
     
      
-        public ActionResult Edit(int id)
+        public ActionResult Edit(String id)
         {
-            /*HouseholdModel household = new HouseholdModel();
-            if (AdminUser.isLogin)
+            if (AdminUser.IsLogin == true)
             {
-                for(int i = 0; i <model.Count(); i++)
+                model = (List<Household>)new HouseholdMapper().SelectAll();
+                for (int i = 0; i < model.Count(); i++)
                 {
-                    if(model.ElementAt(i).houseHoldID == id)
+                    if (model.ElementAt(i)._id.ToString().Equals(id))
                     {
-                        household = model.ElementAt(i);
+                        Household householdModel = model.ElementAt(i);
+                        return View(householdModel);
                     }
                 }
 
-                return View(household);
-            }*/
-
-            return View();
-
+            }
+            return RedirectToAction("Index", "Home");
+            
         }
 
 
         // POST: Admin/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(int householdID, [Bind("street", "postalCode","unitNo","surname","contactNo","email","password")]Household household)
+        public ActionResult Update(String householdID, [Bind("_id","Street", "PostalCode","UnitNo","Surname","ContactNo","Email","Password")]Household household)
         {
-            /*if (AdminUser.isLogin == true)
+            if (AdminUser.IsLogin == true)
             {
                 try
                 {
-                    if (AdminUser.isLogin)
+                    if (AdminUser.IsLogin)
                     {
-
+                        model = (List<Household>)new HouseholdMapper().SelectAll(); ;
+                        System.Diagnostics.Debug.WriteLine("HouseholdID is: " + householdID);
+                        System.Diagnostics.Debug.WriteLine(household._id.ToString() +","+household.Street +","+household.PostalCode+","+household.UnitNo+","+household.Surname+","+household.ContactNo+","+household.Email+","+household.Password);
                         for (int i = 0; i < model.Count(); i++)
                         {
-                            if (model.ElementAt(i).houseHoldID == householdID)
+                            if (model.ElementAt(i)._id.ToString().Equals(householdID))
                             {
-                                model.ElementAt(i).street = household.street;
-                                model.ElementAt(i).postalCode = household.postalCode;
-                                model.ElementAt(i).unitNo = household.unitNo;
-                                model.ElementAt(i).surname = household.surname;
-                                model.ElementAt(i).contactNo = household.contactNo;
-                                model.ElementAt(i).email = household.email;
-                                model.ElementAt(i).password = household.password;
+                                model.ElementAt(i).Street = household.Street;
+                                model.ElementAt(i).PostalCode = household.PostalCode;
+                                model.ElementAt(i).UnitNo = household.UnitNo;
+                                model.ElementAt(i).Surname = household.Surname;
+                                model.ElementAt(i).ContactNo = household.ContactNo;
+                                model.ElementAt(i).Email = household.Email;
+                                model.ElementAt(i).Password = household.Password;
                             }
                         }
 
                     }
-                    // TODO: Add update logic here
 
                     return RedirectToAction(nameof(DashBoard));
                 }
@@ -174,7 +171,7 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }*/
+            }
             return RedirectToAction("Index", "Home");
            
         }
