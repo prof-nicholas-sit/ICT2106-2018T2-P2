@@ -180,16 +180,18 @@ namespace SmartHome.Controllers
         }
 
         // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(String id)
         {
-           /* if (AdminUser.isLogin)
+           if (AdminUser.IsLogin)
             {
-                HouseholdModel household1 = new HouseholdModel();
+                Household household1 = new Household();
                 for (int i = 0; i < model.Count(); i++)
                 {
-                    if (model.ElementAt(i).houseHoldID == id)
+                    if (model.ElementAt(i)._id.ToString() == id)
                     {
                         household1 = model.ElementAt(i);
+                        new HouseholdMapper().Delete(household1._id).Save().Commit();
+                        
                     }
 
                 }
@@ -204,7 +206,7 @@ namespace SmartHome.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }*/
+            }
             return RedirectToAction("Index", "Home");
         }
 
