@@ -8,6 +8,7 @@
     https://www.c-sharpcorner.com/article/asp-net-mvc-passing-data-from-controller-to-view/-->
 @{
     var data = (Device)ViewData["Device"];
+    var dataSerialize = ViewData["DeviceSerialize"];
 }
 
 <h2>Create</h2>
@@ -19,7 +20,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Device ID</label>
-                <input class="form-control" value=@data.Id readonly />
+                
+                <input asp-for="deviceId" class="form-control" value=@data.DeviceId readonly />
             </div>
             <div class="form-group">
                 <label class="control-label">Device name</label>
@@ -50,13 +52,11 @@
                 }
                 else
                 {
-                    <input asp-for="dayOfWeek" class="form-control" />
+                        <input asp-for="dayOfWeek" class="form-control" />
                 }
                 <span asp-validation-for="dayOfWeek" class="text-danger"></span>
             </div>
-            
-            <!-- Added a hidden input -->
-            <input asp-for="device" class="form-control" value=@data readonly />
+            <input asp-for="device" class="form-control" value=@dataSerialize readonly />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

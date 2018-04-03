@@ -11,11 +11,7 @@ namespace SmartHome.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int scheduleId { get; set; }
-
-        //public int deviceId { get; set; }
-
-        //public string deviceName { get; set; }
+        public int ScheduleId { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
@@ -31,6 +27,12 @@ namespace SmartHome.Models
 
         public string dayOfWeek { get; set; }
 
-        public Device device { get; set; }
+        
+        [ForeignKey("device")]
+        public int deviceId { get; set; }
+        
+        public virtual Device device { get; set; }
+        
+
     }
 }

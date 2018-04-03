@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +17,18 @@ namespace SmartHome.Controllers
     public class ScheduleController : Controller
     {
         internal DataGateway<Schedule> dataGateway;
-        
+        internal DataGateway<Device> dataGateway2;
 
         public ScheduleController(SmartHomeDbContext context)
         {
             dataGateway = new ScheduleGateway(context);
+            dataGateway2 = new DeviceGateway(context);
         }
 
         // GET: Scheduler
         public ActionResult Index()
         {
+
             return View(dataGateway.SelectAll());
         }
 
@@ -52,7 +58,10 @@ namespace SmartHome.Controllers
         // GET: Tours/Confirm
         public ActionResult Confirm(Schedule schedule)
         {
-            Console.WriteLine("HELLO" + schedule.device.DeviceName);
+            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            ViewBag.deviceId = aDevice.DeviceId;
+            ViewBag.deviceName = aDevice.DeviceName;
+            
             return View("Confirm", schedule);
         }
 
@@ -79,7 +88,12 @@ namespace SmartHome.Controllers
         {
             ViewBag.dDay = TempData["selectedDay"];
 
+            // store the device object to a view data
             ViewData["Device"] = device;
+            ViewBag.abc = device;
+
+            // store the serialized device object to a view data
+            ViewData["DeviceSerialize"] = Serialize(device);
 
             return View();
         }
@@ -91,13 +105,37 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("startTime,endTime,applyToEveryWeek,dayOfWeek,device")] Schedule schedule)
+        public ActionResult Create([Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek")] Schedule schedule)
+        //public ActionResult Create(IFormCollection form)
         {
-            Console.WriteLine("ByeBye" + schedule.endTime);
+            /*DateTime startTime = Convert.ToDateTime(form["startTime"].ToString());
+            DateTime endTime = Convert.ToDateTime(form["endTime"].ToString());
+            bool applyToEveryWeek = Convert.ToBoolean(form["applyToEveryWeek"].ToString());
+            string dayOfWeek = form["dayOfWeek"].ToString();
+            int deviceId = Convert.ToInt32(form["deviceId"].ToString());
+            Device device = Deserialize<Device>(form["device"].ToString());
+
+            Schedule schedule = new Schedule();
+            schedule.startTime = startTime;
+            schedule.endTime = endTime;
+            schedule.applyToEveryWeek = applyToEveryWeek;
+            schedule.dayOfWeek = dayOfWeek;
+            schedule.deviceId = deviceId;
+            schedule.device = device;*/
+
+            //double commmeeeOut = deviceFromCreate.UsageKwH;
+
+            //Console.WriteLine("HELLLOOOOOOO" + form["startTime"].ToString());
+            //DateTime startTime = Convert.ToDateTime(form["startTime"].ToString());
+            //String abc = form["startTime"].ToString();
+            //Schedule schedule = new Schedule();
+
+            //Console.WriteLine("ByeBye" + schedule.endTime);
             if (ModelState.IsValid)
             {
                 
                 dataGateway.Insert(schedule);
+                
                 return RedirectToAction(nameof(Confirm), schedule);
             }
             return View(schedule);
@@ -116,8 +154,9 @@ namespace SmartHome.Controllers
             {
                 return NotFound();
             }
-            //@ViewBag.dID = schedule.deviceId;
-            //@ViewBag.dName = schedule.deviceName;
+            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            @ViewBag.dID = schedule.deviceId;
+            @ViewBag.dName = aDevice.DeviceName;
             return View(schedule);
         }
 
@@ -126,9 +165,9 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("scheduleId,startTime,endTime,applyToEveryWeek,dayOfWeek")] Schedule schedule)
+        public ActionResult Edit(int id, [Bind("ScheduleId,startTime,endTime,applyToEveryWeek,dayOfWeek")] Schedule schedule)
         {
-            if (id != schedule.scheduleId)
+            if (id != schedule.ScheduleId)
             {
                 return NotFound();
             }
@@ -141,7 +180,7 @@ namespace SmartHome.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ScheduleExists(schedule.scheduleId))
+                    if (!ScheduleExists(schedule.ScheduleId))
                     {
                         return NotFound();
                     }
@@ -186,6 +225,44 @@ namespace SmartHome.Controllers
             if ((schedule = dataGateway.SelectById(id)) != null)
                 return true;
             return false;
+        }
+
+        // <summary>
+        // Serialize a Device object for use in view
+        // </summary>
+        // <param name="data"></param>
+        // <returns></returns>
+        public string Serialize<Device>(Device data)
+        {
+            string functionReturnValue = string.Empty;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                var serializer = new DataContractSerializer(typeof(Device));
+                serializer.WriteObject(memoryStream, data);
+
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                var reader = new StreamReader(memoryStream);
+                functionReturnValue = reader.ReadToEnd();
+            }
+
+            return functionReturnValue;
+        }
+
+        // <summary>
+        // Deserialize object
+        // </summary>
+        // <param name="data"></param>
+        // <returns>Object<Device></returns>
+        public Device Deserialize<Device>(string data)
+        {
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
+            {
+                var serializer = new DataContractSerializer(typeof(Device));
+                Device theObject = (Device)serializer.ReadObject(stream);
+                return theObject;
+            }
         }
     }
 }

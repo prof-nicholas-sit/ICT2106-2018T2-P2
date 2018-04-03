@@ -8,9 +8,11 @@ namespace SmartHome.DAL
 {
     public class ScheduleGateway : DataGateway<Schedule>
     {
+        private SmartHomeDbContext db;
+
         public ScheduleGateway(SmartHomeDbContext context) : base(context)
         {
-
+            
         }
     }
 }

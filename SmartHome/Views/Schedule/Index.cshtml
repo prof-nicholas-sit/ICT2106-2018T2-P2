@@ -75,14 +75,14 @@
                         <tr>
 
                             <td>
-                                <a asp-action="Details" asp-route-id="@item.scheduleId">
-                                    @Html.DisplayFor(modelItem => item.device.deviceName)
+                                <a asp-action="Details" asp-route-id="@item.ScheduleId">
+                                    @Html.DisplayFor(modelItem => item.deviceId)
                                 </a>
                                     <div style="float:right; padding-right:3px;">
-                                        <a asp-action="Edit" asp-route-id="@item.scheduleId">
+                                        <a asp-action="Edit" asp-route-id="@item.ScheduleId">
                                             <img width="15" height="15" src="~/images/editButton.png" />
                                         </a> 
-                                        <a asp-action="Delete" asp-route-id="@item.scheduleId">
+                                        <a asp-action="Delete" asp-route-id="@item.ScheduleId">
                                             <img width="15" height="15" src="~/images/deleteButton.png" />
                                         </a>
                                     </div>

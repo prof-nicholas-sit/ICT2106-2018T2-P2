@@ -12,7 +12,7 @@ namespace SmartHome.Controllers
 {
     public class DeviceController : Controller
     {
-        internal DataGateway<Device> dataGateway;       
+        internal DataGateway<Device> dataGateway;
         public DeviceController(SmartHomeDbContext context)
         {
             dataGateway = new DeviceGateway(context);
@@ -57,7 +57,7 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Id,HouseholdID,DeviceName,Brand,Model,Type,Location,State,UsageKwH,favourite,timestamp")] Device device)
+        public ActionResult Create([Bind("deviceId,HouseholdID,DeviceName,Brand,Model,Type,Location,State,UsageKwH,favourite,timestamp")] Device device)
         {
             if (ModelState.IsValid)
             {
@@ -88,9 +88,9 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("Id,HouseholdID,DeviceName,Brand,Model,Type,Location,State,UsageKwH,favourite,timestamp")] Device device)
+        public ActionResult Edit(int id, [Bind("deviceId,HouseholdID,DeviceName,Brand,Model,Type,Location,State,UsageKwH,favourite,timestamp")] Device device)
         {
-            if (id != device.Id)
+            if (id != device.DeviceId)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace SmartHome.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DeviceExists(device.Id))
+                    if (!DeviceExists(device.DeviceId))
                     {
                         return NotFound();
                     }

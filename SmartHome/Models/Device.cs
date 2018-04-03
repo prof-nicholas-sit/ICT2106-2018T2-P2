@@ -11,7 +11,7 @@ namespace SmartHome.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int DeviceId { get; set; }
         
         public int HouseholdID { get; set; }
         [Required]

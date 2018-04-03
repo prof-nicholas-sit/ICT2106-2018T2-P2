@@ -10,7 +10,7 @@ namespace SmartHome.DAL
     {
         public DeviceGateway(SmartHomeDbContext context) : base(context)
         {
-
+            
         }
     }
 }

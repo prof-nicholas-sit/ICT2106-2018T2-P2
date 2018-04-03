@@ -25,12 +25,6 @@ namespace SmartHome.DAL
             return obj;
         }
 
-        public void Insert(T obj)
-        {
-            data.Add(obj);
-            db.SaveChanges();
-        }
-
         public void Save()
         {
             db.SaveChanges();
@@ -44,6 +38,12 @@ namespace SmartHome.DAL
         public T SelectById(int? id)
         {
             return data.Find(id);
+        }
+
+        public void Insert(T obj)
+        {
+            data.Add(obj);
+            db.SaveChanges();
         }
 
         public void Update(T obj)
