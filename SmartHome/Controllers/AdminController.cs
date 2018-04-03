@@ -10,26 +10,26 @@ using SmartHome.Models;
 namespace SmartHome.Controllers
 {
     public class AdminController : HomeController
-
-     
     {
-        public ActionResult Details(int id)
+        public ActionResult Details(String id)
         {
-            /*HouseholdModel household = new HouseholdModel();
-            if (AdminUser.isLogin)
+            System.Diagnostics.Debug.WriteLine("The ID: " + id);
+            if (AdminUser.IsLogin == true)
             {
+                model = (List<Household>)new HouseholdMapper().SelectAll();
                 for (int i = 0; i < model.Count(); i++)
                 {
-                    if (model.ElementAt(i).houseHoldID == id)
+                    System.Diagnostics.Debug.WriteLine("This ID is: " + model.ElementAt(i)._id);
+                    if (model.ElementAt(i)._id.ToString().Equals(id))
                     {
-                        household = model.ElementAt(i);
+                        System.Diagnostics.Debug.WriteLine("ID MATCHED");
+                       Household householdModel = model.ElementAt(i);
+                       return View(householdModel);
                     }
                 }
-
-                return View(household);
-            }*/
-
-            return View();
+                
+            }
+            return RedirectToAction("Index", "Home");
         }
         
         // GET: Admin
