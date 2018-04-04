@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.DAL.Mappers;
 using SmartHome.Models;
 
 namespace SmartHome.Controllers
@@ -34,41 +35,15 @@ namespace SmartHome.Controllers
 
         public ActionResult ViewNeighbours()
         {
-           /* if (householduser.IsLogin != false)
+           if (householduser.IsLogin != false)
             {
-                var household2 = new HouseholdModel();
-                household2.surname = "Kang";
-                household2.street = "810 Yio Chu Kang Avenue 11";
-                household2.unitNo = "#10-128";
-                household2.postalCode = 213810;
-                household2.contactNo = "+65 80194029";
-                household2.email = "Kangfamily@email.com";
-                household2.password = "password";
-                household2.houseHoldID = 4;
-                household2.Username = "213810-10-218";
-
-                var household3 = new HouseholdModel();
-                household3.surname = "Ong";
-                household3.street = "421 Dover Avenue 11";
-                household3.unitNo = "#08-231";
-                household3.postalCode = 423432;
-                household3.contactNo = "+65 92555235";
-                household3.email = "Ongfamily@email.com";
-                household3.password = "password";
-                household3.houseHoldID = 3;
-                household3.Username = "423432-08-231";
-
-                    model.Add(household2);
-                
-             
-                    model.Add(household3);
-                
+                model = (List<Household>) new HouseholdMapper().SelectAll();
                 return View(model);
             }
             else
-            {*/
+            {
                 return RedirectToAction("Index", "Home");
-            //}
+            }
         }
 
      

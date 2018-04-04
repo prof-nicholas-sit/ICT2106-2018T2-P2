@@ -134,20 +134,18 @@ namespace SmartHome.Controllers
         // POST: Admin/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(String householdID, [Bind("_id","Street", "PostalCode","UnitNo","Surname","ContactNo","Email","Password")]Household household)
+        public ActionResult Update(String id, [Bind("_id","Street", "PostalCode","UnitNo","Surname","ContactNo","Email","Password")]Household household)
         {
-            if (AdminUser.IsLogin == true)
+            if (AdminUser.IsLogin)
             {
                 try
                 {
-                    if (AdminUser.IsLogin)
-                    {
                         model = (List<Household>)new HouseholdMapper().SelectAll(); ;
-                        System.Diagnostics.Debug.WriteLine("HouseholdID is: " + householdID);
-                        System.Diagnostics.Debug.WriteLine(household._id.ToString() +","+household.Street +","+household.PostalCode+","+household.UnitNo+","+household.Surname+","+household.ContactNo+","+household.Email+","+household.Password);
+                        System.Diagnostics.Debug.WriteLine("HouseholdID is: " + id);
+                        System.Diagnostics.Debug.WriteLine(household._id.ToString() +","+household.Street +","+household.PostalCode.ToString()+","+household.UnitNo+","+household.Surname+","+household.ContactNo+","+household.Email+","+household.Password);
                         for (int i = 0; i < model.Count(); i++)
                         {
-                            if (model.ElementAt(i)._id.ToString().Equals(householdID))
+                            if (model.ElementAt(i)._id.ToString().Equals(id))
                             {
                                 model.ElementAt(i).Street = household.Street;
                                 model.ElementAt(i).PostalCode = household.PostalCode;
@@ -156,10 +154,12 @@ namespace SmartHome.Controllers
                                 model.ElementAt(i).ContactNo = household.ContactNo;
                                 model.ElementAt(i).Email = household.Email;
                                 model.ElementAt(i).Password = household.Password;
+                                new HouseholdMapper().Update(model.ElementAt(i)).Save().Commit();
+                                
                             }
                         }
 
-                    }
+                    
 
                     return RedirectToAction(nameof(DashBoard));
                 }
@@ -187,8 +187,8 @@ namespace SmartHome.Controllers
                     if (model.ElementAt(i)._id.ToString() == id)
                     {
                         household1 = model.ElementAt(i);
-                        new HouseholdMapper().Delete(household1._id).Save().Commit();
-                        
+                        new HouseholdMapper().Delete(model.ElementAt(i)._id).Save().Commit();
+
                     }
 
                 }
@@ -210,39 +210,41 @@ namespace SmartHome.Controllers
         // POST: Admin/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(String id, IFormCollection collection)
         {
-           /* try
+            try
             {
                 // TODO: Add delete logic here
-                if (AdminUser.isLogin)
+                if (AdminUser.IsLogin)
                 {
-                 
-                    for (int i = 0; i < model.Count(); i++)
-                    {
-                        if (model.ElementAt(i).houseHoldID == id)
-                        {
-                            model.RemoveAt(i);
-                        }
-
-                    }
-
-
-                    //return View(household1);
 
 
 
+
+                    return RedirectToAction(nameof(DashBoard));
+
+
+
+
+
+
+
+
+
+
+                    return RedirectToAction(nameof(DashBoard));
                 }
-
-
-
-                return RedirectToAction(nameof(DashBoard));
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch
             {
-                return View();
-            }*/
-            return View();
+                return View("DashBoard");
+            }
+
+            return View("DashBoard");
         }
 
        

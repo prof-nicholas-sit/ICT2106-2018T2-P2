@@ -17,7 +17,8 @@
         <div class="col-md-4">
             <form asp-action="Update">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="_id" class="hidden form-control" />
+
+                <input asp-for="_id" class="hidden" name="id" />
                 <div class="form-group">
                     <label asp-for="Street" class="control-label">STREET</label>
                     <input asp-for="Street" class="form-control" />
