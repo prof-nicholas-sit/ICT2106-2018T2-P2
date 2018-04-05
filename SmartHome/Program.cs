@@ -14,7 +14,7 @@ namespace SmartHome
         {
             Console.WriteLine("Starting Program");
             Console.WriteLine(DateTime.Now.ToString(CultureInfo.CurrentCulture));
-            
+
             BuildWebHost(args).Run();
         }
 

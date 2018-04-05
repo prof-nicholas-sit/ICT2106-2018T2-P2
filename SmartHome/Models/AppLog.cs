@@ -24,7 +24,7 @@ namespace SmartHome.Models
             DeviceType = deviceType;
             Values = values;
         }
-
+        
         public string toAppLogString()
         {
             return "AppLog: " + LogType + ", " + Timestamp.ToString() + ", " + HouseholdId + ", " + DeviceType + ", " + Values;

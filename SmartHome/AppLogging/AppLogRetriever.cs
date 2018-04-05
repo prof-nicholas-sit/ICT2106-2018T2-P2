@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using SmartHome;
 using SmartHome.DAL.Mappers;
+using SmartHome.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,10 +38,12 @@ namespace SmartHome
             return result;
         }
 
-        public List<IAppLog> SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null)
+        public List<AppLog> SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null)
         {
             var DB = new AppLogMapper();
-            List<IAppLog> result = (List<IAppLog>) DB.SelectQuery(householdId, start, end, logType, deviceType);
+            List<AppLog> result = 
+                DB.SelectQuery(householdId, start, end, logType, deviceType).ToList();
+            
             return result;
         }
     }

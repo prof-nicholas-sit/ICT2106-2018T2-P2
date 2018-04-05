@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using SmartHome.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace SmartHome
         int AggregateQuery(DateTime start, DateTime end, string logType = null, string deviceType = null);
         List<string> ListLogTypes(DateTime start, DateTime end, string deviceType = null);
         List<string> ListDeviceTypes(DateTime start, DateTime end, string logType = null);
-        List<IAppLog> SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null);
+        List<AppLog> SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null);
     }
 }

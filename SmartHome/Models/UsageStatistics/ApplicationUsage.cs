@@ -9,7 +9,7 @@ namespace UsageStatistics.Models
 {
     public class ApplicationUsage
     {
-        public DateTime LastLogin { get; set; }
+        public string LastLogin { get { return GetLastLogin(); } }
         public int LoginCount { get { return GetLoginCount(); } }
         public int DevicePageCount { get { return GetPageCount("", "");  } }
         public int SchedulePageCount { get; set; }
@@ -27,9 +27,18 @@ namespace UsageStatistics.Models
             return null;
         }
 
-        private DateTime GetLastLogin(string timePeriod)
+        private string GetLastLogin()
         {
-            return DateTime.Now;
+            List<AppLog> logList = appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
+
+            AppLog log = logList[logList.Count - 1];
+            
+            if (logList.Count > 1)
+            {
+                log = logList[logList.Count - 2];
+            }
+            
+            return log.Timestamp.ToShortDateString();
         }
 
         private int GetLoginCount()
