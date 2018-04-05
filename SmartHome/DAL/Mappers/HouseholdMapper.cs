@@ -9,7 +9,7 @@ namespace SmartHome.DAL.Mappers
 {
     public class HouseholdMapper : BaseMapper<Household>, IHouseholdMapper
     {
-        public HouseholdMapper() : base("accounts")
+        public HouseholdMapper() : base("households")
         {
         }
 

@@ -34,11 +34,13 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(String username, String password)
         {
+            
+            
            
 
             //ser loginUser = new User(username, password);
 
-           IUser user = UserTypeFactory.CreateUser(username,password);
+          IUser user = UserTypeFactory.CreateUser(username,password);
 
 
             if (user.GetType() == typeof(Administrator)&& user!=null)

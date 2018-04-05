@@ -9,7 +9,7 @@ namespace SmartHome.DAL.Mappers
 {
     public class AdminMapper : BaseMapper<Administrator>, IAdminMapper
     {
-        public AdminMapper() : base("accounts")
+        public AdminMapper() : base("administrators")
         {
         }
 
