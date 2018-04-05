@@ -4,12 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.DAL.Mappers;
 using SmartHome.Models;
 
 namespace SmartHome.Controllers
 {
     public class HomeController : Controller
+        
     {
+        
         public IActionResult Index()
         {
             return View();
@@ -18,6 +21,7 @@ namespace SmartHome.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
+        
 
             return View();
         }
