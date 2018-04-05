@@ -1,0 +1,105 @@
+﻿@model UsageStatistics.Models.EnergyUsage
+@{
+    ViewData["Title"] = "Energy Usage";
+    Layout = "~/Views/Shared/_HouseholdLayout.cshtml";
+}
+
+<div id="page-wrapper-margin">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Energy Usage</h2>
+        </div>
+        <div class="col-lg-12">
+            <h3>Usage Statistics</h3>
+            <div class="btn-group btn-group-sm" id="tab_toggle" role="tablist" aria-label="...">
+                <a href="#daily" type="button" class="btn btn-warning" role="tab" data-toggle="tab">Daily</a>
+                <a href="#weekly" type="button" class="btn btn-warning" role="tab" data-toggle="tab">Weekly</a>
+                <a href="#monthly" type="button" class="btn btn-warning" role="tab" data-toggle="tab">Monthly</a>
+            </div>
+            <div class="panel panel-default mt30 mb0">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Devices Installed</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <div class="row" id="eu-dev-list">
+                        @if (ViewBag.location == "Living room")
+                        {
+                            <div class="col-xs-6 col-sm-4 col-lg-2">
+                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "Living room", type = "Lightbulb", timePeriod = "daily"})" class="active">
+                                    <div class="wrap-icon">
+                                        <i class="far fa-lightbulb fa-3x"></i><br>
+                                        <strong>Lightbulb</strong>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+                        else if (ViewBag.location == "Kitchen")
+                        {
+                            <div class="col-xs-6 col-sm-4 col-lg-2">
+                                <!-- set default time period as daily -->
+                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "Kitchen", type = "Fridge", timePeriod = "daily"})" class="active">
+                                    <div class="wrap-icon">
+                                        <i class="far fa-lightbulb fa-3x"></i><br>
+                                        <strong>Fridge</strong>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <span>No device available in this area</span>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+    <!-- /.row -->
+
+    <div id="device_1" class="panel panel-default mt30">
+        <div class="panel-body">
+            <div class="well well-lg well-info">
+                <div class="row" id="eu-dev-info-basic"></div>
+                @Model.Type used @ViewBag.sum KwH in the past 7 days
+                <hr>
+                <div class="row" id="eu-dev-info"></div>
+            </div>
+            <!-- end well -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Energy Usage</b>
+                    <div class="pull-right">
+                        <b>Today: 21/01/18 &nbsp;</b>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="daily">
+                            <canvas id="daily_1" class="mb30"></canvas>
+                            <canvas id="daily_2"></canvas>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="weekly">
+                            <canvas id="weekly_1" class="mb30"></canvas>
+                            <canvas id="weekly_2"></canvas>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="monthly">
+                            <canvas id="monthly_1" class="mb30"></canvas>
+                            <canvas id="monthly_2"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

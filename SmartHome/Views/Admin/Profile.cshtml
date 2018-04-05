@@ -1,0 +1,68 @@
+﻿@model SmartHome.Models.Administrator
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="jumbotron text-center" style="background-color:transparent;height:70px">
+    <h2 style="color:#006dcc;text-align:center; text-transform:uppercase"><b>View Profile</b></h2>
+</div>
+
+<style>
+    th, td {
+        padding-top: 20px;
+    }
+
+    th {
+        color: #006dcc;
+        text-transform: uppercase;
+    }
+
+    button {
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        border: none;
+        width: 150px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+            <table style="width:100%">
+                <tr>
+                    <th>Username</th>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-7">
+            <table style="width:100%">
+
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Username)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Password)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="container-fluid" style="padding-top:20px">
+        <div class="col-sm-12 text-center">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ProfileEdit","Admin",new { id ="1"})'">Edit my profile</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model SmartHome.Models.Household
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="jumbotron text-center" style="background-color:transparent;height:70px">
+    <h2 style="color:#006dcc;text-align:center; text-transform:uppercase"><b>Edit Household Profile</b></h2>
+</div>
+<hr />
+@Html.ActionLink("Back", "Dashboard", "Admin", null, new { @class = "btn btn-primary btn-large" })
+
+<div class="container">
+    <div class="col-md-4"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Update">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="_id" class="hidden" name="id" />
+                <div class="form-group">
+                    <label asp-for="Street" class="control-label">STREET</label>
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostalCode" class="control-label">POSTAL CODE</label>
+                    <input asp-for="PostalCode" class="form-control" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnitNo" class="control-label">UNIT NO.</label>
+                    <input asp-for="UnitNo" class="form-control" />
+                    <span asp-validation-for="UnitNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Surname" class="control-label">FAMILY NAME</label>
+                    <input asp-for="Surname" class="form-control" />
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ContactNo" class="control-label">CONTACT NO.</label>
+                    <input asp-for="ContactNo" class="form-control" />
+                    <span asp-validation-for="ContactNo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">EMAIL</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">PASSWORD</label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

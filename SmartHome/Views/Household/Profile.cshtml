@@ -1,0 +1,92 @@
+﻿@model SmartHome.Models.Household
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_HouseholdLayout.cshtml";
+}
+<div class="jumbotron text-center" style="background-color:transparent;height:70px">
+    <h2 style="color:#006dcc;text-align:center; text-transform:uppercase"><b>View Profile</b></h2>
+</div>
+
+<style>
+    th, td {
+        padding-top: 20px;
+    }
+
+    th {
+        color: #006dcc;
+        text-transform: uppercase;
+    }
+
+    button {
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        border: none;
+        width: 150px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+            <table style="width:100%">
+                <tr>
+                    <th>Family Name</th>
+                </tr>
+                <tr>
+                    <th>Street</th>
+                </tr>
+                <tr>
+                    <th>Unit No</th>
+                </tr>
+                <tr>
+                    <th>Postal Code</th>
+                </tr>
+                <tr>
+                    <th>Contact No</th>
+                <tr>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-7">
+            <table style="width:100%">
+           
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.Surname)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.Street)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.UnitNo)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.PostalCode)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.ContactNo)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.Email)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.Password)</td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+    <div class="container-fluid" style="padding-top:20px">
+        <div class="col-sm-12 text-center">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","Household",new { id ="1"})'">Edit my profile</button>
+                <br /><br />
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("ViewNeighbours","Household")'">View Neighbours</button>
+            </div>
+        </div>
+    </div>
+</div>

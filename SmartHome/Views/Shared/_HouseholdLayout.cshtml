@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project</title>
+
+    <environment include="Development">
+        <!-- Bootstrap Latest compiled and minified CSS -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Metis Menu Css -->
+        <link href="~/css/metisMenu.min.css" rel="stylesheet">
+        <!-- Sb Admin Css -->
+        <link href="~/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Custom Css -->
+        <link href="~/css/custom.css" rel="stylesheet">
+        <!-- Fontawesome -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <!-- Metis Menu -->
+        <script src="~/js/jquery.min.js"></script>
+
+        <script src="~/js/metisMenu.min.js" type="text/javascript"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="~/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <!--<link rel="stylesheet" href="~/css/site.css" />-->
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Project</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Household" asp-action="Profile">Profile</a></li>
+                    <li><a asp-area="" asp-controller="Household" asp-action="ViewNeighbours">View Neighbours</a></li>
+                    <!-- Needs to remove default value for type in next iteration-->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Usage Statistics
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Living room" asp-route-type="Lightbulb">Energy Usage</a></li>
+                            <li><a asp-area="" asp-controller="EnergyAdvise" asp-action="Index">Energy Advise</a></li>
+                            <li><a asp-area="" asp-controller="ApplicationUsage" asp-action="Index">Application Usage</a></li>
+                        </ul>
+                    </li>
+                    <li><a asp-area="" asp-controller="Household" asp-action="Logout">Logout</a></li>
+                </ul>
+            </div>
+            @if (ViewData["Title"].Equals("Energy Usage"))
+            {
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav">
+
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <!-- Needs to remove default values for type in next iteration -->
+                                <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Living room" asp-route-type="Lightbulb"><i class="fas fa-cubes fa-fw"></i> Living Room</a>
+                            </li>
+                            <li>
+                                <!-- Needs to remove default values for type in next iteration -->
+                                <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Kitchen" asp-route-type="Fridge"><i class="fas fa-utensils fa-fw"></i> Kitchen</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Master Bedroom"><i class="fas fa-bed fa-fw"></i> Master Bedroom</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Bedroom 1"><i class="fas fa-bed fa-fw"></i> Bedroom 1</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Bedroom 2"><i class="fas fa-bed fa-fw"></i> Bedroom 2</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="Bathroom"><i class="fas fa-bath fa-fw"></i> Bathroom</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+
+            }
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - Project</p>
+        </footer>
+    </div>
+    <environment include="Development">
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- Chart Js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+        <!-- Sb Admin Js -->
+        <script src="~/js/sb-admin-2.js"></script>
+        <!-- Custom Js -->
+        <script src="~/js/custom.js"></script>
+        <script src="~/js/barchart.js"></script>
+
+        <script src="~/js/energyUsage.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
