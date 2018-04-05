@@ -7,38 +7,39 @@ namespace SmartHome.Models
 {
     public class DeviceLogFactory
     {
-        private string[] data;
 
-        public DeviceLogFactory(string[] data)
+        public DeviceLogFactory()
         {
-            this.data = data;
+
         }
 
-        // public DeviceLog CreateClass()
+        public DeviceLog CreateClass(string[] data)
         // Do we need to return an object or can we just send it to data layer to insert in db?
-        public void CreateClass() // Temporary Console.log 
+        //public void CreateClass(string[] data) // Temporary Console.log 
         {
+            DeviceLog newDevice = null;
             switch (data[4].ToLower())
             {
                 case "aircon":
                     // Temporary hardcode, future improvement can check for a header in the excel file. Can do if there is time....
-                    DeviceLog newAC = new Aircon(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]), data[2], data[3], data[4], data[5], Convert.ToDouble(data[6]), DateTime.Parse(data[7]),
-                        Convert.ToInt32(data[8]), data[9], data[10], data[11]);
+                    newDevice = new AirconDeviceLog("5349b4ddd2781d08c09890f3", data[0], data[1], data[2], data[3], Convert.ToDouble(data[4]), DateTime.Parse(data[5]),
+                        Convert.ToInt32(data[6]), data[7], data[8], data[9]);
                     System.Diagnostics.Debug.WriteLine("AIRCON:\n" + newAC);
                     break;
                 case "fan":
-                    DeviceLog newFan = new Fan(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]), data[2], data[3], data[4], data[5], Convert.ToDouble(data[6]), DateTime.Parse(data[7]),
-                        Convert.ToInt32(data[8]));
+                    newDevice = new FanDeviceLog("5349b4ddd2781d08c09890f3", data[0], data[1], data[2], data[3], Convert.ToDouble(data[4]), DateTime.Parse(data[5]),
+                        Convert.ToInt32(data[6]));
                     System.Diagnostics.Debug.WriteLine("FAN:\n" + newFan);
                     break;
                 case "light":
-                    DeviceLog newLight = new Light(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]), data[2], data[3], data[4], data[5], Convert.ToDouble(data[6]), DateTime.Parse(data[7]),
-                        Convert.ToInt32(data[8]), Convert.ToInt32(data[9]));
+                    newDevice = new LightDeviceLog("5349b4ddd2781d08c09890f3", data[0], data[1], data[2], data[3], Convert.ToDouble(data[4]), DateTime.Parse(data[5]),
+                        Convert.ToInt32(data[6]), Convert.ToInt32(data[7]));
                     System.Diagnostics.Debug.WriteLine("LIGHT:\n" + newLight);
                     break;
                 default:
                     break;
             }
+            return newDevice;
         } 
 
        /* public DeviceLog CreateClass() // Temporary Console.log 

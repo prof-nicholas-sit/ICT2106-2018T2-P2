@@ -17,36 +17,28 @@
             <thead class="thin-border-bottom">
                 <tr>
                     <th>
-                        ID
-                        @*@Html.DisplayNameFor(model => model.Id)*@
+                        Name
+                        @*@Html.DisplayNameFor(model => model.Name)*@
                     </th>
                     <th>
-                        householdId
-                        @*@Html.DisplayNameFor(model => model.householdId)*@
+                        Location
+                        @*@Html.DisplayNameFor(model => model.Location)*@
                     </th>
                     <th>
-                        name
-                        @*@Html.DisplayNameFor(model => model.name)*@
+                        Type
+                        @*@Html.DisplayNameFor(model => model.Type)*@
                     </th>
                     <th>
-                        location
-                        @*@Html.DisplayNameFor(model => model.location)*@
+                        State
+                        @*@Html.DisplayNameFor(model => model.State)*@
                     </th>
                     <th>
-                        type
-                        @*@Html.DisplayNameFor(model => model.type)*@
+                        KWh
+                        @*@Html.DisplayNameFor(model => model.KWh)*@
                     </th>
                     <th>
-                        state
-                        @*@Html.DisplayNameFor(model => model.state)*@
-                    </th>
-                    <th>
-                        kwh
-                        @*@Html.DisplayNameFor(model => model.kWh)*@
-                    </th>
-                    <th>
-                        datetime
-                        @*@Html.DisplayNameFor(model => model.dateTime)*@
+                        DateTime
+                        @*@Html.DisplayNameFor(model => model.DateTime)*@
                     </th>
                     <th></th>
                 </tr>
@@ -55,9 +47,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.householdId)
                         </td>
@@ -103,14 +92,13 @@
                         "method": "POST"
                     },
                     "columns": [
-                        { "data": "id" },
-                        { "data": "householdId" },
-                        { "data": "name" },
-                        { "data": "location" },
-                        { "data": "type" },
-                        { "data": "state" },
-                        { "data": "kWh" },
-                        { "data": "dateTime"}
+                        //{ "data": "HouseholdId" },
+                        { "data": "Name" },
+                        { "data": "Location" },
+                        { "data": "Type" },
+                        { "data": "State" },
+                        { "data": "KWh" },
+                        { "data": "DateTime"}
                     ],
                     "ordering": true,
                     "paging": true,

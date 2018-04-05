@@ -38,12 +38,12 @@ namespace SmartHome.Controllers.api
         // Get a list of Items
         private List<Models.DeviceLog> GetData()
         {
-            var log1 = new DeviceLog(1, 1001, "Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
-            var log2 = new DeviceLog(2, 1001, "Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
-            var log3 = new DeviceLog(3, 1011, "Toshiba Fan", "Living room", "Fan", "ON", 0);
-            var log4 = new DeviceLog(4, 1011, "Toshiba fan ", "Living room", "Fan", "OFF", 0);
-            var log5 = new DeviceLog(5, 1011, "Led light", "Kitchen", "Light", "ON", 0);
-            var log6 = new DeviceLog(6, 1011, "Led light", "Kitchen", "Light", "OFF", 200.0);
+            var log1 = new DeviceLog("Mitusubishi Aircon", "Bedroom", "Air Con", "ON", 0);
+            var log2 = new DeviceLog("Mitusubishi Aircon", "Bedroom", "Air con", "OFF", 120.0);
+            var log3 = new DeviceLog("Toshiba Fan", "Living room", "Fan", "ON", 0);
+            var log4 = new DeviceLog("Toshiba fan ", "Living room", "Fan", "OFF", 0);
+            var log5 = new DeviceLog("Led light", "Kitchen", "Light", "ON", 0);
+            var log6 = new DeviceLog("Led light", "Kitchen", "Light", "OFF", 200.0);
 
             var logList = new List<DeviceLog> { log1, log2, log3, log4, log5, log6 };
 
@@ -94,10 +94,10 @@ namespace SmartHome.Controllers.api
                         if (sortDirection == "asc")
                         {
                             return lstElements
-                                .Where(x => x.name.ToLower().Contains(searchText.ToLower())
-                                       || x.location.ToLower().Contains(searchText.ToLower())
-                                       || x.type.ToLower().Contains(searchText.ToLower())
-                                       || x.state.ToLower().Contains(searchText.ToLower()))
+                                .Where(x => x.Name.ToLower().Contains(searchText.ToLower())
+                                       || x.Location.ToLower().Contains(searchText.ToLower())
+                                       || x.Type.ToLower().Contains(searchText.ToLower())
+                                       || x.State.ToLower().Contains(searchText.ToLower()))
                                 .Skip(skip)
                                 .Take(pageSize)
                                 .OrderBy(prop.GetValue).ToList();
@@ -105,10 +105,10 @@ namespace SmartHome.Controllers.api
                         else
                         {
                             return lstElements
-                                .Where(x => x.name.ToLower().Contains(searchText.ToLower())
-                                       || x.location.ToLower().Contains(searchText.ToLower())
-                                       || x.type.ToLower().Contains(searchText.ToLower())
-                                       || x.state.ToLower().Contains(searchText.ToLower()))
+                                .Where(x => x.Name.ToLower().Contains(searchText.ToLower())
+                                       || x.Location.ToLower().Contains(searchText.ToLower())
+                                       || x.Type.ToLower().Contains(searchText.ToLower())
+                                       || x.State.ToLower().Contains(searchText.ToLower()))
                                 .Skip(skip)
                                 .Take(pageSize)
                                 .OrderByDescending(prop.GetValue).ToList();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,59 +8,61 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models
 {
-    public class DeviceLog
+    public class DeviceLog : MongoDbObject//, IComparable<string>
     {
-        public int Id { get; set; }
-        public int householdId { get; set; }
+        public ObjectId HouseholdId { get; set; }
 
         [Required]
         [Display(Name = "Device Name")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Device Location")]
-        public string location { get; set; }
+        public string Location { get; set; }
 
         [Required]
         [Display(Name = "Device Type")]
-        public string type { get; set; }
+        public string Type { get; set; }
 
         [Required]
         [Display(Name = "Device State")]
-        public string state { get; set; }
+        public string State { get; set; }
 
         [Required]
         [Display(Name = "Device Energy Usage")]
-        public double kWh { get; set; }
+        public double KWh { get; set; }
 
         [Required]
         [Display(Name = "Log Date and Time")]
-        public DateTime dateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
-        protected DeviceLog(int Id, int householdId, string name,string location,string type,string state,double kWh, DateTime dateStamp) {
-            this.Id = Id;
-            this.householdId = householdId;
-            this.name = name;
-            this.location = location;
-            this.type = type;
-            this.state = state;
-            this.kWh = kWh;
+        protected DeviceLog(string householdId, string name,string location,string type,string state,double kWh, DateTime dateStamp) {
+            this.HouseholdId = new ObjectId(householdId);
+            this.Name = name;
+            this.Location = location;
+            this.Type = type;
+            this.State = state;
+            this.KWh = kWh;
             //String date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             //this.dateTime = Convert.ToDateTime(date);
-            this.dateTime = dateStamp;
+            this.DateTime = dateStamp;
         }
 
-        public DeviceLog(int Id, int householdId, string name, string location, string type, string state, double kWh)
+        public DeviceLog(string name, string location, string type, string state, double kWh)
         {
-            this.Id = Id;
-            this.householdId = householdId;
-            this.name = name;
-            this.location = location;
-            this.type = type;
-            this.state = state;
-            this.kWh = kWh;
+            this.Name = name;
+            this.Location = location;
+            this.Type = type;
+            this.State = state;
+            this.KWh = kWh;
             String date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-            this.dateTime = Convert.ToDateTime(date);
+            this.DateTime = Convert.ToDateTime(date);
         }
+
+        //public int CompareTo(string other)
+        //{
+        //    if (this.HouseholdId.ToString().Equals(other)) return 0;
+        //    return 1;
+        //}
     }
 }
