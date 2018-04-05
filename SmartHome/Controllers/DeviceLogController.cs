@@ -111,7 +111,7 @@ namespace SmartHome.Controllers
                     logs.Add(dlf.CreateClass(tokens));
                 }
             }
-            new DeviceLogMapper().CreateLogs(logs);
+            new DeviceLogMapper().CreateLogs(logs).Save();
             return View(dataList);
         }
 
