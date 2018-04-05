@@ -90,30 +90,30 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, [Bind("deviceId,HouseholdID,DeviceName,Brand,Model,Type,Location,State,UsageKwH,favourite,timestamp")] Device device)
         {
-            if (id != device.DeviceId)
-            {
-                return NotFound();
-            }
+            //if (id != device.DeviceId)
+            //{
+            //    return NotFound();
+            //}
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    dataGateway.Update(device);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DeviceExists(device.DeviceId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        dataGateway.Update(device);
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!DeviceExists(device.DeviceId))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+                //return RedirectToAction(nameof(Index));
+            //}
             return View(device);
         }
 
@@ -145,9 +145,9 @@ namespace SmartHome.Controllers
 
         private bool DeviceExists(int id)
         {
-            Device device = new Device();
-            if ((device = dataGateway.SelectById(id)) != null)
-                return true;
+            //Device device = new Device();
+            //if ((device = dataGateway.SelectById(id)) != null)
+               // return true;
             return false;
         }
     }

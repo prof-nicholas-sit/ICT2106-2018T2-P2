@@ -58,11 +58,12 @@ namespace SmartHome.Controllers
         // GET: Tours/Confirm
         public ActionResult Confirm(Schedule schedule)
         {
-            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
-            ViewBag.deviceId = aDevice.DeviceId;
-            ViewBag.deviceName = aDevice.DeviceName;
-            
-            return View("Confirm", schedule);
+            //Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            //ViewBag.deviceId = aDevice.DeviceId;
+            ///ViewBag.deviceName = aDevice.DeviceName;
+
+            //return View("Confirm", schedule);
+            return View();
         }
 
         [HttpGet]
@@ -154,14 +155,15 @@ namespace SmartHome.Controllers
             {
                 return NotFound();
             }
-            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
-            ViewBag.dID = schedule.deviceId;
-            ViewBag.dName = aDevice.DeviceName;
-            ViewBag.dType = aDevice.Type;
-            ViewBag.dStatusWhenOn = schedule.statusWhenOn;
-            ViewBag.dStartTime = schedule.startTime;
-            ViewBag.dEndTime = schedule.endTime;
-            return View(schedule);
+            //Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            //ViewBag.dID = schedule.deviceId;
+            //ViewBag.dName = aDevice.DeviceName;
+            //ViewBag.dType = aDevice.Type;
+            //ViewBag.dStatusWhenOn = schedule.statusWhenOn;
+            //ViewBag.dStartTime = schedule.startTime;
+            //ViewBag.dEndTime = schedule.endTime;
+            //return View(schedule;
+            return View();
         }
 
         // POST: Scheduler/Edit/5
@@ -171,31 +173,32 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, [Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] Schedule schedule)
         {
-            if (id != schedule.ScheduleId)
-            {
-                return NotFound();
-            }
+            //if (id != schedule.ScheduleId)
+            //{
+            //    return NotFound();
+            //}
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    dataGateway.Update(schedule);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ScheduleExists(schedule.ScheduleId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(schedule);
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        dataGateway.Update(schedule);
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!ScheduleExists(schedule.ScheduleId))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(schedule);
+            return View();
         }
 
         // GET: Scheduler/Delete/5
@@ -211,9 +214,10 @@ namespace SmartHome.Controllers
             {
                 return NotFound();
             }
-            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
-            ViewBag.dName = aDevice.DeviceName;
-            return View(schedule);
+            //Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            //ViewBag.dName = aDevice.DeviceName;
+            //return View(schedule);
+            return View();
         }
 
         // POST: Scheduler/Delete/5
