@@ -105,7 +105,7 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek")] Schedule schedule)
+        public ActionResult Create([Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] Schedule schedule)
         //public ActionResult Create(IFormCollection form)
         {
             /*DateTime startTime = Convert.ToDateTime(form["startTime"].ToString());
@@ -155,8 +155,12 @@ namespace SmartHome.Controllers
                 return NotFound();
             }
             Device aDevice = dataGateway2.SelectById(schedule.deviceId);
-            @ViewBag.dID = schedule.deviceId;
-            @ViewBag.dName = aDevice.DeviceName;
+            ViewBag.dID = schedule.deviceId;
+            ViewBag.dName = aDevice.DeviceName;
+            ViewBag.dType = aDevice.Type;
+            ViewBag.dStatusWhenOn = schedule.statusWhenOn;
+            ViewBag.dStartTime = schedule.startTime;
+            ViewBag.dEndTime = schedule.endTime;
             return View(schedule);
         }
 
@@ -165,7 +169,7 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("ScheduleId,startTime,endTime,applyToEveryWeek,dayOfWeek")] Schedule schedule)
+        public ActionResult Edit(int id, [Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] Schedule schedule)
         {
             if (id != schedule.ScheduleId)
             {
@@ -207,6 +211,8 @@ namespace SmartHome.Controllers
             {
                 return NotFound();
             }
+            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            ViewBag.dName = aDevice.DeviceName;
             return View(schedule);
         }
 

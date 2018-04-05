@@ -27,7 +27,8 @@ namespace SmartHome.Models
 
         public string dayOfWeek { get; set; }
 
-        
+        public int statusWhenOn { get; set; }
+
         [ForeignKey("device")]
         public int deviceId { get; set; }
         

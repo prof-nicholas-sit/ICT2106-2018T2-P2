@@ -11,6 +11,65 @@
     var dataSerialize = ViewData["DeviceSerialize"];
 }
 
+@{
+    List<SelectListItem> FanSpeedItems = new List<SelectListItem>();
+    FanSpeedItems.Add(new SelectListItem { Text = "1", Value = "1", Selected = false });
+    FanSpeedItems.Add(new SelectListItem { Text = "2", Value = "2", Selected = false });
+    FanSpeedItems.Add(new SelectListItem { Text = "3", Value = "3", Selected = false });
+}
+
+@{
+    List<SelectListItem> AirconTemperatureItems = new List<SelectListItem>();
+    AirconTemperatureItems.Add(new SelectListItem { Text = "18", Value = "18", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "19", Value = "19", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "20", Value = "20", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "21", Value = "21", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "22", Value = "22", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "23", Value = "23", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "24", Value = "24", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "25", Value = "25", Selected = false });
+    AirconTemperatureItems.Add(new SelectListItem { Text = "26", Value = "26", Selected = false });
+}
+
+@{
+    List<SelectListItem> LightBrightnessItems = new List<SelectListItem>();
+    LightBrightnessItems.Add(new SelectListItem { Text = "10", Value = "10", Selected = false });
+    LightBrightnessItems.Add(new SelectListItem { Text = "20", Value = "20", Selected = false });
+    LightBrightnessItems.Add(new SelectListItem { Text = "30", Value = "30", Selected = false });
+    LightBrightnessItems.Add(new SelectListItem { Text = "40", Value = "40", Selected = false });
+    LightBrightnessItems.Add(new SelectListItem { Text = "50", Value = "50", Selected = false });
+}
+
+@{
+    List<SelectListItem> TimeItems = new List<SelectListItem>();
+    TimeItems.Add(new SelectListItem { Text = "00:00", Value = "00:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "01:00", Value = "01:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "02:00", Value = "02:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "03:00", Value = "03:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "04:00", Value = "04:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "05:00", Value = "05:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "06:00", Value = "06:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "07:00", Value = "07:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "08:00", Value = "08:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "09:00", Value = "09:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "10:00", Value = "10:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "11:00", Value = "11:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "12:00", Value = "12:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "13:00", Value = "13:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "14:00", Value = "14:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "15:00", Value = "15:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "16:00", Value = "16:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "17:00", Value = "17:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "18:00", Value = "18:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "19:00", Value = "19:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "20:00", Value = "20:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "21:00", Value = "21:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "22:00", Value = "22:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "23:00", Value = "23:00:00", Selected = false });
+}
+
+
+
 <h2>Create</h2>
 
 <hr />
@@ -20,7 +79,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Device ID</label>
-                
+
                 <input asp-for="deviceId" class="form-control" value=@data.DeviceId readonly />
             </div>
             <div class="form-group">
@@ -28,14 +87,39 @@
                 <input class="form-control" value=@data.DeviceName readonly />
             </div>
             <div class="form-group">
-                <label asp-for="startTime" class="control-label">Starting time</label>
-                <input asp-for="startTime" class="form-control" />
-                <span asp-validation-for="startTime" class="text-danger"></span>
+                <label class="control-label">Device Type</label>
+                <input class="form-control" value=@data.Type readonly />
             </div>
             <div class="form-group">
-                <label asp-for="endTime" class="control-label">Ending time</label>
-                <input asp-for="endTime" class="form-control" />
-                <span asp-validation-for="endTime" class="text-danger"></span>
+                @if (@data.Type.Equals("Fan"))
+                {
+                    <label class="control-label">Fan Speed</label>
+                    @Html.DropDownListFor(model => model.statusWhenOn, FanSpeedItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.startTime)
+                }
+                else if (@data.Type.Equals("Aircon"))
+                {
+                    <label class="control-label">Aircon Temperature</label>
+                    @Html.DropDownListFor(model => model.statusWhenOn, AirconTemperatureItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.startTime)
+                }
+                else if (@data.Type.Equals("Light"))
+                {
+                    <label class="control-label">Light Brightness</label>
+                    @Html.DropDownListFor(model => model.statusWhenOn, LightBrightnessItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.startTime)
+                }
+
+            </div>
+            <div class="form-group">
+                <label asp-for="startTime" class="control-label">Start time</label>
+                @Html.DropDownListFor(model => model.startTime, TimeItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.startTime)
+            </div>
+            <div class="form-group">
+                <label asp-for="endTime" class="control-label">End time</label>
+                @Html.DropDownListFor(model => model.endTime, TimeItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.endTime)
             </div>
             <div class="form-group">
                 <div class="checkbox">
@@ -52,11 +136,11 @@
                 }
                 else
                 {
-                        <input asp-for="dayOfWeek" class="form-control" />
+                    <input asp-for="dayOfWeek" class="form-control" />
                 }
                 <span asp-validation-for="dayOfWeek" class="text-danger"></span>
             </div>
-            <input asp-for="device" class="form-control" value=@dataSerialize readonly />
+            <input asp-for="device" class="form-control" value=@dataSerialize type="hidden" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
