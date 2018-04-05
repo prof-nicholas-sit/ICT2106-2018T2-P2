@@ -53,7 +53,7 @@ namespace SmartHome.Models
         public string Brand { get; set; }
         public string Model { get; set; }
         public bool IsFavourite { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; internal set; }
     }
 }
 

@@ -12,16 +12,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.startTime)
+                @Html.DisplayNameFor(model => model.StartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.endTime)
+                @Html.DisplayNameFor(model => model.EndTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.applyToEveryWeek)
+                @Html.DisplayNameFor(model => model.ApplyToEveryWeek)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.dayOfWeek)
+                @Html.DisplayNameFor(model => model.DayOfWeek)
             </th>
             <th></th>
         </tr>
@@ -31,21 +31,21 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.startTime)
+                    @Html.DisplayFor(modelItem => item.StartTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.endTime)
+                    @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.applyToEveryWeek)
+                    @Html.DisplayFor(modelItem => item.ApplyToEveryWeek)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.dayOfWeek)
+                    @Html.DisplayFor(modelItem => item.DayOfWeek)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ScheduleId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ScheduleId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ScheduleId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item._id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item._id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item._id">Delete</a>
                 </td>
             </tr>
         }

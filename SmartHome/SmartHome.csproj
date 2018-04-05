@@ -6,11 +6,6 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
 
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
-<<<<<<< HEAD
-    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
-  </ItemGroup>
-=======
->>>>>>> 3409455e0e560a8695f883c988955c689b768e66
 
     <PackageReference Include="mongocsharpdriver" Version="2.5.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.5.0" />

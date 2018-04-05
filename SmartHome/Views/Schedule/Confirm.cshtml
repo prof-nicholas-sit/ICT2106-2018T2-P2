@@ -4,51 +4,55 @@
     ViewData["Title"] = "Confirm";
 }
 
-<h2>Confirm</h2>
+@{
+    var data = (Device)ViewData["Device"];
+}
 
-<div>
-    <h4>Schedule</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Device ID
-        </dt>
-        <dd>
-            @ViewBag.deviceId
-        </dd>
-        <dt>
-            Device name
-        </dt>
-        <dd>
-            @ViewBag.deviceName
-        </dd>
-        <dt>
-            Starting time
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.startTime)
-        </dd>
-        <dt>
-            Ending Time
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.endTime)
-        </dd>
-        <dt>
-            Schedule every week
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.applyToEveryWeek)
-        </dd>
-        <dt>
-            Day
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.dayOfWeek)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ScheduleId">Edit</a> 
-    <a asp-action="Index">Back to List</a>
-</div>
+    <h2>Confirm</h2>
+
+    <div>
+        <h4>Schedule</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Device ID
+            </dt>
+            <dd>
+                @data._id
+            </dd>
+            <dt>
+                Device name
+            </dt>
+            <dd>
+                @data.Name
+            </dd>
+            <dt>
+                Starting time
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+            <dt>
+                Ending Time
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+            <dt>
+                Schedule every week
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ApplyToEveryWeek)
+            </dd>
+            <dt>
+                Day
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DayOfWeek)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model._id">Edit</a>
+        <a asp-action="Index">Back to List</a>
+    </div>

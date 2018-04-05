@@ -51,10 +51,20 @@ namespace SmartHome.Models
     public class Schedule : MongoDbObject
     {
         public ObjectId DeviceId { get; set; }
+
+        public int ScheduleId { get; set; }
+         
+        //[DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartTime { get; set; }
+
+        //[DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime EndTime { get; set; }
+
         public bool ApplyToEveryWeek { get; set; }
+
         public List<String> DayOfWeek { get; set; }
 
+        public int StatusWhenOn { get; set; }
     }
 }

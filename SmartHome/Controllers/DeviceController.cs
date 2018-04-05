@@ -17,6 +17,7 @@ namespace SmartHome.Controllers
         {
             dataGateway = new DeviceGateway(context);
         }
+
         // GET: Devices
         public ActionResult Index()
         {
