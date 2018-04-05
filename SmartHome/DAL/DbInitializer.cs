@@ -18,8 +18,8 @@ namespace SmartHome.DAL
                 return;     //DB has been seeded
             }
 
-            var device = new Device();
-            context.Device.Add(device);
+            //var device = new Device();
+            //context.Device.Add(device);
 
             context.SaveChanges();
         }
