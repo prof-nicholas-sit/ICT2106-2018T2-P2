@@ -70,13 +70,13 @@
                 @foreach (var item in Model)
                 {
 
-                    if (item.dayOfWeek.Equals(day))
+                    if (item.DayOfWeek.Equals(day))
                     {
                         <tr>
 
                             <td>
                                 <a asp-action="Details" asp-route-id="@item.ScheduleId">
-                                    @Html.DisplayFor(modelItem => item.deviceId)
+                                    @Html.DisplayFor(modelItem => item.DeviceId)
                                 </a>
                                     <div style="float:right; padding-right:3px;">
                                         <a asp-action="Edit" asp-route-asp-route-id="@item.ScheduleId">

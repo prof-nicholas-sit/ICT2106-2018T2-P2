@@ -174,7 +174,7 @@ namespace SmartHome.Controllers
 
             if (ModelState.IsValid)
             {
-
+                Console.WriteLine(schedule.ToString());
                 _ScheduleMapper.Create(schedule).Save().Commit();
                 
                 return RedirectToAction("Index1");

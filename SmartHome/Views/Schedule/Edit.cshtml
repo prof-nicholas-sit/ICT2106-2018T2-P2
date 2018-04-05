@@ -36,30 +36,30 @@
 
 @{
     List<SelectListItem> TimeItems = new List<SelectListItem>();
-    TimeItems.Add(new SelectListItem { Text = "00:00", Value = "00:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "01:00", Value = "01:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "02:00", Value = "02:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "03:00", Value = "03:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "04:00", Value = "04:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "05:00", Value = "05:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "06:00", Value = "06:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "07:00", Value = "07:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "08:00", Value = "08:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "09:00", Value = "09:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "10:00", Value = "10:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "11:00", Value = "11:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "12:00", Value = "12:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "13:00", Value = "13:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "14:00", Value = "14:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "15:00", Value = "15:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "16:00", Value = "16:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "17:00", Value = "17:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "18:00", Value = "18:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "19:00", Value = "19:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "20:00", Value = "20:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "21:00", Value = "21:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "22:00", Value = "22:00:00", Selected = false });
-    TimeItems.Add(new SelectListItem { Text = "23:00", Value = "23:00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "00:00", Value = "00:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "01:00", Value = "01:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "02:00", Value = "02:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "03:00", Value = "03:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "04:00", Value = "04:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "05:00", Value = "05:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "06:00", Value = "06:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "07:00", Value = "07:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "08:00", Value = "08:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "09:00", Value = "09:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "10:00", Value = "10:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "11:00", Value = "11:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "12:00", Value = "12:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "13:00", Value = "13:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "14:00", Value = "14:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "15:00", Value = "15:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "16:00", Value = "16:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "17:00", Value = "17:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "18:00", Value = "18:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "19:00", Value = "19:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "20:00", Value = "20:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "21:00", Value = "21:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "22:00", Value = "22:00", Selected = false });
+    TimeItems.Add(new SelectListItem { Text = "23:00", Value = "23:00", Selected = false });
 }
 
 
@@ -73,8 +73,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ScheduleId" />
             <div class="form-group">
-                <label asp-for="deviceId" class="control-label">Device ID</label>
-                <input asp-for="deviceId" class="form-control" value=@ViewBag.dID readonly />
+                <label asp-for="DeviceId" class="control-label">Device ID</label>
+                <input asp-for="DeviceId" class="form-control" value=@ViewBag.dID readonly />
             </div>
             <div class="form-group">
                 <label class="control-label">Device name</label>
@@ -96,8 +96,8 @@
                     }
 
                     <label class="control-label">Fan Speed</label>
-                    @Html.DropDownListFor(model => model.statusWhenOn, FanSpeedItems, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.startTime)
+                    @Html.DropDownListFor(model => model.StatusWhenOn, FanSpeedItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartTime)
                 }
                 else if (@ViewBag.dType.Equals("Aircon"))
                 {
@@ -110,8 +110,8 @@
                     }
 
                     <label class="control-label">Aircon Temperature</label>
-                    @Html.DropDownListFor(model => model.statusWhenOn, AirconTemperatureItems, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.startTime)
+                    @Html.DropDownListFor(model => model.StatusWhenOn, AirconTemperatureItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartTime)
                 }
                 else if (@ViewBag.dType.Equals("Light"))
                 {
@@ -124,8 +124,8 @@
                     }
                     
                     <label class="control-label">Light Brightness</label>
-                    @Html.DropDownListFor(model => model.statusWhenOn, LightBrightnessItems, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.startTime)
+                    @Html.DropDownListFor(model => model.StatusWhenOn, LightBrightnessItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartTime)
                 }
 
             </div>
@@ -152,9 +152,9 @@
                     }
                 }
 
-                <label asp-for="startTime" class="control-label">Start time</label>
-                @Html.DropDownListFor(model => model.startTime, TimeItems, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.startTime)
+                <label asp-for="StartTime" class="control-label">Start time</label>
+                @Html.DropDownListFor(model => model.StartTime, TimeItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StartTime)
             </div>
             <div class="form-group">
 
@@ -168,22 +168,22 @@
                     }
                 }
 
-                <label asp-for="endTime" class="control-label">End time</label>
-                @Html.DropDownListFor(model => model.endTime, TimeItems, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.endTime)
+                <label asp-for="EndTime" class="control-label">End time</label>
+                @Html.DropDownListFor(model => model.EndTime, TimeItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EndTime)
             </div>
 
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="applyToEveryWeek" /> Schedule every week
+                        <input asp-for="ApplyToEveryWeek" /> Schedule every week
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label">Day</label>
-                <input asp-for="dayOfWeek" class="form-control" />
-                <span asp-validation-for="dayOfWeek" class="text-danger"></span>
+                <input asp-for="DayOfWeek" class="form-control" />
+                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

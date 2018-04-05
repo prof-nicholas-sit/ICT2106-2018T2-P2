@@ -363,7 +363,9 @@ th {
 .glyphicon-file:before {
   content: "\e022";
 }
-.glyphicon-time:before {
+.glyphicon-
+
+:before {
   content: "\e023";
 }
 .glyphicon-road:before {
