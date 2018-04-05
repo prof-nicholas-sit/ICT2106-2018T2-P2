@@ -35,7 +35,7 @@ namespace SmartHome.DAL.Transactions
 
         public override string ToString()
         {
-            return FilterDefinition.RenderToBsonDocument().ToJson() + "\n---with---\n" +
+            return FilterDefinition.RenderToBsonDocument().ToJson() + " ---with--- " +
                    UpdateDefinition.RenderToBsonDocument().ToJson();
         }
     }

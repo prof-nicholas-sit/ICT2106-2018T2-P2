@@ -154,8 +154,6 @@ namespace SmartHome.Controllers
                 try
                 {
                         model = (List<Household>)new HouseholdMapper().SelectAll(); ;
-                        System.Diagnostics.Debug.WriteLine("HouseholdID is: " + id);
-                        System.Diagnostics.Debug.WriteLine(household._id.ToString() +","+household.Street +","+household.PostalCode.ToString()+","+household.UnitNo+","+household.Surname+","+household.ContactNo+","+household.Email+","+household.Password);
                         for (int i = 0; i < model.Count(); i++)
                         {
                             if (model.ElementAt(i)._id.ToString().Equals(id))
@@ -167,6 +165,7 @@ namespace SmartHome.Controllers
                                 model.ElementAt(i).ContactNo = household.ContactNo;
                                 model.ElementAt(i).Email = household.Email;
                                 model.ElementAt(i).Password = household.Password;
+                                model.ElementAt(i).IsResetPassword = false;
                                 new HouseholdMapper().Update(model.ElementAt(i)).Save().Commit();
                                 
                             }

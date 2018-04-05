@@ -13,7 +13,7 @@ namespace SmartHome.DAL.Mappers
         {
         }
 
-        public Account Login(string username, string password)
+        public Household Login(string username, string password)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
@@ -61,20 +61,6 @@ namespace SmartHome.DAL.Mappers
                 updateDefinition = Builders<BsonDocument>.Update.Set("Password", password);
             Uow.RegisterDirty(CollectionName, filterDefinition, updateDefinition);
             return this;
-        }
-        public IEnumerable<Household> SelectAll()
-        {
-            IEnumerable<BsonDocument> documentList =
-                Uow.ExecuteRetrieveAll(CollectionName, Builders<BsonDocument>.Filter.Empty);
-            List<Household> objectList = new List<Household>();
-            foreach (BsonDocument document in documentList)
-            {
-                if(DeserializeDocument<Account>(document).GetType() == typeof(Household)){
-                    objectList.Add(DeserializeDocument<Household>(document));
-                }
-            }
-
-            return objectList;
         }
     }
 }

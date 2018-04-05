@@ -15,7 +15,7 @@ namespace SmartHome.Controllers
         public static List<Household> model = new List<Household>();
         public static Household householduser = new Household();
         public static Administrator AdminUser = new Administrator();
-
+        private Session _session;
         public IActionResult Index()
         {
             return View();
@@ -43,32 +43,42 @@ namespace SmartHome.Controllers
           IUser user = UserTypeFactory.CreateUser(username,password);
 
 
-            if (user.GetType() == typeof(Administrator)&& user!=null)
+            if ( user!=null&& user.GetType() == typeof(Administrator))
             {
                 AdminUser = (Administrator) user;
                 AdminUser.IsLogin = true;
+                _session= Session.getInstance;
+                _session.setCurrentUser(AdminUser);
                 return RedirectToAction("Profile","Admin");
             }
-            else if (user.GetType() == typeof(Household)&& user!=null)
+            else if (user!=null&&user.GetType() == typeof(Household))
             {
                 householduser = (Household) user;
                 householduser.IsLogin = true;
+                _session = Session.getInstance;
+                _session.setCurrentUser(householduser);
                 return RedirectToAction("Profile", "Household");
 
             }
-            return View("Index");
+            else
+            {
+
+
+                return View("Index");
+            }
         }
 
         public ActionResult Profile()
         {
-            if (householduser.IsLogin == true)
+            _session = Session.getInstance;
+            if ( _session.GetUser().GetType()==typeof(Household))
             {
 
-                return View(householduser);
+                return View((Household)_session.GetUser());
             }
-            else if (AdminUser.IsLogin == true)
+            else if (_session.IsLogin()== true && _session.GetUser().GetType() == typeof(Administrator))
             {
-                return View(AdminUser);
+                return View(_session.GetUser());
             }
 
             return RedirectToAction("Index","Home");
