@@ -18,13 +18,16 @@ using SmartHome.Utility;
 using Newtonsoft;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using SmartHome.DAL.Mappers;
 
 namespace SmartHome.Controllers
 {
     public class DeviceLogController : Controller
     {
         static List<DeviceLog> logList = new List<DeviceLog>();
-		private readonly IHostingEnvironment _hostingEnvironment;
+        DeviceLogFactory dlf = new DeviceLogFactory();
+
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         List<DeviceLog> dataList = new List<DeviceLog>();
 
@@ -75,7 +78,7 @@ namespace SmartHome.Controllers
         [Route("UploadToDB")]
         public ActionResult UploadToDB(string path) 
         {
-            IEnumerable<DeviceLog> logs = new List<DeviceLog>();
+            List<DeviceLog> logs = new List<DeviceLog>();
             System.Diagnostics.Debug.WriteLine("Path = " + path);
             var filePath = path;
             FileInfo file = new FileInfo(filePath);
@@ -98,7 +101,6 @@ namespace SmartHome.Controllers
                 var totalRows = myWorksheet.Dimension.End.Row;
                 var totalColumns = myWorksheet.Dimension.End.Column;
 
-                DeviceLogFactory dlf = new DeviceLogFactory();
                 for (int rowNum = 1; rowNum <= totalRows; rowNum++) //selet starting row here
                 {
                     var row = myWorksheet.Cells[rowNum, 1, rowNum, totalColumns].Select(c => c.Value == null ? string.Empty : c.Value.ToString());
@@ -106,24 +108,11 @@ namespace SmartHome.Controllers
                     sb.AppendLine(string.Join(",", row));
                     string[] tokens = sb.ToString().Split(",");
                     
-                    //logs;
-
-                    //DeviceLog dataset = new DeviceLog();
-                    //dataset.Id = Convert.ToInt32(tokens[0]);
-                    //dataset.householdId = Convert.ToInt32(tokens[1]);
-                    //dataset.name = tokens[2];
-                    //dataset.location = tokens[3];
-                    //dataset.type = tokens[4];
-                    //dataset.state = tokens[5];
-                    //dataset.kWh = Convert.ToDouble(tokens[6]);
-                    //dataset.dateTime = DateTime.Parse(tokens[7]);
-                    ////dataset.dateTime = DateTime.ParseExact(tokens[7], "dd/MM/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-                    //dataList.Add(dataset);
+                    logs.Add(dlf.CreateClass(tokens));
                 }
             }
+            new DeviceLogMapper().CreateLogs(logs);
             return View(dataList);
-
-            
         }
 
         public IActionResult ExportFile()
