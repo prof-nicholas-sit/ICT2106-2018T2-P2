@@ -33,14 +33,13 @@ namespace SmartHome
             lol.EndTime = new DateTime();
             lol.ApplyToEveryWeek = true;
             lol.DayOfWeek = list1;
-            lol.test = "SDfsd";
 
-            ObjectId id = new ObjectId("5ac5c582327aa3469c7621db");
+            //ObjectId id = new ObjectId("5ac5c582327aa3469c7621db");
             
            // _ScheduleMapper.SelectByDevice(id);
-            //_ScheduleMapper.Create(lol).Save().Commit();
+            _ScheduleMapper.Create(lol).Save().Commit();
             
-            Console.WriteLine(_ScheduleMapper.SelectById(id).EndTime + "\n");
+            //Console.WriteLine(_ScheduleMapper.SelectById(id).EndTime + "\n");
 
             //Console.WriteLine(_ScheduleMapper.SelectById("sdfsdf"));
 
