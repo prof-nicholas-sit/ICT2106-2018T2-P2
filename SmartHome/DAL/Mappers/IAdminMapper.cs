@@ -4,6 +4,6 @@ namespace SmartHome.DAL.Mappers
 {
     interface IAdminMapper : IBaseMapper<Administrator>
     {
-        Account Login(string username, string password);
+        Administrator Login(string username, string password);
     }
 }

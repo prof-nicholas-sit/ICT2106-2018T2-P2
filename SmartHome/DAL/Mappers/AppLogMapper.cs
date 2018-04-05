@@ -24,7 +24,8 @@ namespace SmartHome.DAL.Mappers
             return this;
         }
 
-        public int AggregateQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null, string deviceType = null)
+        public int AggregateQuery(ObjectId householdId, DateTime start, DateTime end, string logType = null,
+            string deviceType = null)
         {
             FilterDefinition<BsonDocument> filterDefinition =
                 Builders<BsonDocument>.Filter.Eq("HouseholdId", householdId);
