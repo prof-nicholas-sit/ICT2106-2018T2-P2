@@ -15,18 +15,19 @@ namespace SmartHome.Models
 
         [Required]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
-        public TimeSpan startTime { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        public DateTime startTime { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
-        public TimeSpan endTime { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        public DateTime endTime { get; set; }
 
         public bool applyToEveryWeek { get; set; }
 
         public string dayOfWeek { get; set; }
-                
+
+        
         [ForeignKey("device")]
         public int deviceId { get; set; }
         
