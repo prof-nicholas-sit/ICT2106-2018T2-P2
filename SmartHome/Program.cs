@@ -2,9 +2,6 @@
 using System.Globalization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using MongoDB.Bson;
-using SmartHome.DAL.Mappers;
-using SmartHome.Models;
 
 namespace SmartHome
 {
@@ -14,7 +11,7 @@ namespace SmartHome
         {
             Console.WriteLine("Starting Program");
             Console.WriteLine(DateTime.Now.ToString(CultureInfo.CurrentCulture));
-            
+
             BuildWebHost(args).Run();
         }
 

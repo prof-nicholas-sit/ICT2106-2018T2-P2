@@ -9,16 +9,16 @@ namespace SmartHome.DAL.Mappers
 {
     public class AdminMapper : BaseMapper<Administrator>, IAdminMapper
     {
-        public AdminMapper() : base("accounts")
+        public AdminMapper() : base("administrators")
         {
         }
 
-        public Account Login(string username, string password)
+        public Administrator Login(string username, string password)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
             BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
-            return DeserializeDocument<Account>(document);
+            return DeserializeDocument<Administrator>(document);
         }
     }
 }

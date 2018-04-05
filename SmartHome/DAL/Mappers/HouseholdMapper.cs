@@ -9,16 +9,16 @@ namespace SmartHome.DAL.Mappers
 {
     public class HouseholdMapper : BaseMapper<Household>, IHouseholdMapper
     {
-        public HouseholdMapper() : base("accounts")
+        public HouseholdMapper() : base("households")
         {
         }
 
-        public Account Login(string username, string password)
+        public Household Login(string username, string password)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);
             filterDefinition &= Builders<BsonDocument>.Filter.Eq("Password", password);
             BsonDocument document = Uow.ExecuteRetrieveFirst(CollectionName, filterDefinition);
-            return DeserializeDocument<Account>(document);
+            return DeserializeDocument<Household>(document);
         }
 
         public Household SelectByAddress(string street, int postalCode, string unitNo)
