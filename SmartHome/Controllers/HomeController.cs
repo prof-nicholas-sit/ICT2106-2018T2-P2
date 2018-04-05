@@ -41,13 +41,13 @@ namespace SmartHome.Controllers
            IUser user = UserTypeFactory.CreateUser(username,password);
 
 
-            if (user.GetType() == typeof(Administrator))
+            if (user.GetType() == typeof(Administrator)&& user!=null)
             {
                 AdminUser = (Administrator) user;
                 AdminUser.IsLogin = true;
                 return RedirectToAction("Profile","Admin");
             }
-            else if (user.GetType() == typeof(Household))
+            else if (user.GetType() == typeof(Household)&& user!=null)
             {
                 householduser = (Household) user;
                 householduser.IsLogin = true;
