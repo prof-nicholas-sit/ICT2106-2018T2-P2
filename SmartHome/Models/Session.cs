@@ -62,5 +62,11 @@ namespace SmartHome.Models
                 return (Administrator) loggedUser;
             }
         }
+
+        public void endSession()
+        {
+            instance = null;
+            loggedUser = null;
+        }
     }
 }

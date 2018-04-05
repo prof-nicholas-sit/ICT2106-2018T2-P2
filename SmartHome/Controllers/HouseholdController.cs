@@ -15,6 +15,8 @@ namespace SmartHome.Controllers
         
         public ActionResult Edit(int id)
         {
+            _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
             return View(householduser);
         }
 
@@ -23,6 +25,8 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(string street, int postalCode, string unitNo, string surname, string contactNo, string email)
         {
+            _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
             householduser.Street = street;
             householduser.PostalCode = postalCode;
             householduser.UnitNo = unitNo;
@@ -37,7 +41,9 @@ namespace SmartHome.Controllers
 
         public ActionResult ViewNeighbours()
         {
-           if (householduser.IsLogin != false)
+            _session = Session.getInstance;
+            
+           if (_session.IsLogin())
             {
                 model = (List<Household>) new HouseholdMapper().SelectAll();
                 return View(model);
@@ -53,9 +59,14 @@ namespace SmartHome.Controllers
 
         public ActionResult Logout()
         {
-            householduser.IsLogin = false;
+            _session = Session.getInstance;
+            Household householdUser = (Household) _session.GetUser();
+            householdUser.IsLogin = false;
+            new HouseholdMapper().Update(householdUser).Save().Commit();
+            _session.endSession();
+            
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ResetPassword()

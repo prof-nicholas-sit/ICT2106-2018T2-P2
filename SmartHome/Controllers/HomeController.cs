@@ -12,10 +12,9 @@ namespace SmartHome.Controllers
 {
     public class HomeController : Controller
     {
-        public static List<Household> model = new List<Household>();
-        public static Household householduser = new Household();
-        public static Administrator AdminUser = new Administrator();
-        private Session _session;
+        protected static List<Household> model = new List<Household>();
+        protected Session _session;
+        
         public IActionResult Index()
         {
             return View();
@@ -34,29 +33,27 @@ namespace SmartHome.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(String username, String password)
         {
-            
-            
-           
 
-            //ser loginUser = new User(username, password);
 
           IUser user = UserTypeFactory.CreateUser(username,password);
 
 
             if ( user!=null&& user.GetType() == typeof(Administrator))
             {
-                AdminUser = (Administrator) user;
+                Administrator AdminUser = (Administrator) user;
                 AdminUser.IsLogin = true;
                 _session= Session.getInstance;
                 _session.setCurrentUser(AdminUser);
+                new AdminMapper().Update(AdminUser).Save().Commit();
                 return RedirectToAction("Profile","Admin");
             }
             else if (user!=null&&user.GetType() == typeof(Household))
             {
-                householduser = (Household) user;
+                Household householduser = (Household) user;
                 householduser.IsLogin = true;
                 _session = Session.getInstance;
                 _session.setCurrentUser(householduser);
+                new HouseholdMapper().Update(householduser).Save().Commit();
                 return RedirectToAction("Profile", "Household");
 
             }
