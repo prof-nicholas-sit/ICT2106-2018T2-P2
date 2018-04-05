@@ -24,17 +24,17 @@ namespace SmartHome.Models
                     // Temporary hardcode, future improvement can check for a header in the excel file. Can do if there is time....
                     newDevice = new AirconDeviceLog("5349b4ddd2781d08c09890f3", data[0], data[1], data[2], data[3], Convert.ToDouble(data[4]), DateTime.Parse(data[5]),
                         Convert.ToInt32(data[6]), data[7], data[8], data[9]);
-                    System.Diagnostics.Debug.WriteLine("AIRCON:\n" + newAC);
+                    //System.Diagnostics.Debug.WriteLine("AIRCON:\n" + newAC);
                     break;
                 case "fan":
                     newDevice = new FanDeviceLog("5349b4ddd2781d08c09890f3", data[0], data[1], data[2], data[3], Convert.ToDouble(data[4]), DateTime.Parse(data[5]),
                         Convert.ToInt32(data[6]));
-                    System.Diagnostics.Debug.WriteLine("FAN:\n" + newFan);
+                    //System.Diagnostics.Debug.WriteLine("FAN:\n" + newFan);
                     break;
                 case "light":
                     newDevice = new LightDeviceLog("5349b4ddd2781d08c09890f3", data[0], data[1], data[2], data[3], Convert.ToDouble(data[4]), DateTime.Parse(data[5]),
                         Convert.ToInt32(data[6]), Convert.ToInt32(data[7]));
-                    System.Diagnostics.Debug.WriteLine("LIGHT:\n" + newLight);
+                    //System.Diagnostics.Debug.WriteLine("LIGHT:\n" + newLight);
                     break;
                 default:
                     break;
