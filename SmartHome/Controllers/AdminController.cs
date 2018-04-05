@@ -52,14 +52,27 @@ namespace SmartHome.Controllers
         public ActionResult adminRequest()
 
         {
-           /* if (AdminUser.isLogin == true) { 
-            return View(model);
-            }
-            else
+            /* if (AdminUser.isLogin == true) { 
+             return View(model);
+             }
+             else
+             {
+                 return RedirectToAction("Index", "Home");
+             }*/
+            model = new List<Household>();
+
+            List<Household> temp = (List<Household>)new HouseholdMapper().SelectAll();
+            for (int i = 0; i < temp.Count(); i++)
             {
-                return RedirectToAction("Index", "Home");
-            }*/
-            return RedirectToAction("Index", "Home");
+                if (temp.ElementAt(i).IsResetPassword)
+                {
+                    Household householdModel = temp.ElementAt(i);
+                    model.Add(householdModel);
+                }
+            }
+
+
+            return View(model);
         }
 
         // GET: Admin/Create

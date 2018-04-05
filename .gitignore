@@ -426,3 +426,5 @@ __pycache__/
 
 
 # End of https://www.gitignore.io/api/macos,linux,windows,jetbrains,visualstudio
+SmartHome/Views/Household/Edit.cshtml
+SmartHome/Controllers/HouseholdController.cs

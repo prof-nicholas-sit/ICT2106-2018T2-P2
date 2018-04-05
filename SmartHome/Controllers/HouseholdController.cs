@@ -56,7 +56,10 @@ namespace SmartHome.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
 
     }
 

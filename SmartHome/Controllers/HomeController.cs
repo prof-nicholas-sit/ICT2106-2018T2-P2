@@ -22,7 +22,11 @@ namespace SmartHome.Controllers
         }
 
         
-
+        public IActionResult SendRequest(String Username)
+        {
+            new HouseholdMapper().RequestPasswordReset(Username).Save().Commit();
+            return View("Index");
+        }
         
 
 
