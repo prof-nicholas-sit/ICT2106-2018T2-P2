@@ -96,20 +96,40 @@
                     <label class="control-label">Fan Speed</label>
                     @Html.DropDownListFor(model => model.statusWhenOn, FanSpeedItems, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.startTime)
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="automateSettings" value="check" />Automate Fan Speed based on Sensor
+                            </label>
+                        </div>
+                    </div>
                 }
                 else if (@data.Type.Equals("Aircon"))
                 {
                     <label class="control-label">Aircon Temperature</label>
                     @Html.DropDownListFor(model => model.statusWhenOn, AirconTemperatureItems, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.startTime)
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="automateSettings" value="check" />Automate Aircon Temperature based on Sensor
+                            </label>
+                        </div>
+                    </div>
                 }
                 else if (@data.Type.Equals("Light"))
                 {
                     <label class="control-label">Light Brightness</label>
                     @Html.DropDownListFor(model => model.statusWhenOn, LightBrightnessItems, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.startTime)
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="automateSettings" value="check" />Automate Light Brightness based on Sensor
+                            </label>
+                        </div>
+                    </div>
                 }
-
             </div>
             <div class="form-group">
                 <label asp-for="startTime" class="control-label">Start time</label>
@@ -131,13 +151,13 @@
             <div class="form-group">
                 <label asp-for="dayOfWeek" class="control-label">Day</label>
                 @if (@ViewBag.dDay != null)
-                {
-                    <input asp-for="dayOfWeek" class="form-control" value="@ViewBag.dDay" readonly />
-                }
-                else
-                {
-                    <input asp-for="dayOfWeek" class="form-control" />
-                }
+        {
+            <input asp-for="dayOfWeek" class="form-control" value="@ViewBag.dDay" readonly />
+}
+else
+{
+        <input asp-for="dayOfWeek" class="form-control" />
+}
                 <span asp-validation-for="dayOfWeek" class="text-danger"></span>
             </div>
             <input asp-for="device" class="form-control" value=@dataSerialize type="hidden" />

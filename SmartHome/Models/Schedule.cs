@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace SmartHome.Models
         public bool applyToEveryWeek { get; set; }
 
         public string dayOfWeek { get; set; }
-
+        
         public int statusWhenOn { get; set; }
 
         [ForeignKey("device")]

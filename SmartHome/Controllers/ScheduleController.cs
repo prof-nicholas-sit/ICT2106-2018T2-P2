@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartHome.DAL;
 using SmartHome.Models;
+using SmartHome.Templates;
 
 namespace SmartHome.Controllers
 {
@@ -105,11 +106,41 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] Schedule schedule)
+        public ActionResult Create([Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")]Schedule schedule, string automateSettings)
         //public ActionResult Create(IFormCollection form)
         {
-            /*DateTime startTime = Convert.ToDateTime(form["startTime"].ToString());
-            DateTime endTime = Convert.ToDateTime(form["endTime"].ToString());
+            if(automateSettings == "check")
+            {
+                AbstractScheduleEngine scheduleEngine;
+
+                Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+                if(aDevice.Type.Equals("Fan"))
+                {
+                    scheduleEngine = new FanScheduleEngineTemplate();
+                    int suggestFanSpeed = scheduleEngine.sensorRecommendedValue(schedule.startTime);
+                    schedule.statusWhenOn = suggestFanSpeed;
+                }
+                else if (aDevice.Type.Equals("Aircon"))
+                {
+                    scheduleEngine = new AirconScheduleEngineTemplate();
+                    int suggestAirconSpeed = scheduleEngine.sensorRecommendedValue(schedule.startTime);
+                    schedule.statusWhenOn = suggestAirconSpeed;
+                }
+                else if (aDevice.Type.Equals("Light"))
+                {
+                    scheduleEngine = new LightScheduleEngineTemplate();
+                    int suggestLightSpeed = scheduleEngine.sensorRecommendedValue(schedule.startTime);
+                    schedule.statusWhenOn = suggestLightSpeed;
+                }
+
+                    
+            }
+            
+            //[Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] 
+            
+            
+            /*TimeSpan startTime = Convert.ToDateTime(form["startTime"].ToString());
+            TimeSpan endTime = Convert.ToDateTime(form["endTime"].ToString());
             bool applyToEveryWeek = Convert.ToBoolean(form["applyToEveryWeek"].ToString());
             string dayOfWeek = form["dayOfWeek"].ToString();
             int deviceId = Convert.ToInt32(form["deviceId"].ToString());
