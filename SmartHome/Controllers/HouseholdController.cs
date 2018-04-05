@@ -29,6 +29,8 @@ namespace SmartHome.Controllers
             householduser.Surname = surname;
             householduser.ContactNo = contactNo;
             householduser.Email = email;
+            
+            new HouseholdMapper().Update(householduser).Save().Commit();
 
             return View(nameof(Profile),householduser);
         }
