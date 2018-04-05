@@ -1,4 +1,4 @@
-﻿namespace SmartHome.Models
+﻿﻿namespace SmartHome.Models
 {
     public abstract class Account : MongoDbObject,IUser
     {
