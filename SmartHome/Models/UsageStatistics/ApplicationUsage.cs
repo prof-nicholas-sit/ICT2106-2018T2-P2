@@ -1,22 +1,27 @@
-﻿using SmartHome.Models;
+﻿using SmartHome;
+using SmartHome.Models;
 using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+
+
 namespace UsageStatistics.Models
 {
     public class ApplicationUsage
     {
-        public DateTime LastLogin;
-        public int LoginCount;
-        public int DevicePageCount;
-        public int SchedulePageCount;
-        public string CurrentLoginDuration;
+        public DateTime LastLogin { get; set; }
+        public int LoginCount { get { return GetLoginCount(); } }
+        public int DevicePageCount { get { return GetPageCount("", "");  } }
+        public int SchedulePageCount { get; set; }
+        public string CurrentLoginDuration { get; set; }
 
-        private string page;
+        private readonly AppLogRetriever appLogRetriever;
 
-        public ApplicationUsage(string page)
+        public ApplicationUsage(IAppLogRetriever ar)
         {
-            this.page = page;
+            appLogRetriever = (AppLogRetriever) ar;
         }
-
+        
         public string CalculateLoginDuration(DateTime login, DateTime logoff)
         {
             return null;
@@ -27,13 +32,24 @@ namespace UsageStatistics.Models
             return DateTime.Now;
         }
 
-        private int GetLoginCount(string timePeriod)
+        private int GetLoginCount()
         {
-            return 0;
+            List<String> logList = appLogRetriever.ListLogTypes(DateTime.MinValue, DateTime.Now);
+
+            int count = 0;
+            foreach (String log in logList)
+            {
+                if (log.Split("*/-")[1].Equals("LOGIN"))
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         private int GetPageCount(string page, string timePeriod)
         {
+            // To be implemented after page set up
             return 0;
         }        
     }

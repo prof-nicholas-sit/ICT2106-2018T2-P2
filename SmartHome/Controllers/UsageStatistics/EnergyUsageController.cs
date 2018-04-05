@@ -8,7 +8,6 @@ namespace UsageStatistics.Controllers
 {
     public class EnergyUsageController : Controller
     {    
-
         // GET: EnergyUsage
         public ActionResult Index(string location, string type, string timePeriod)
         {            

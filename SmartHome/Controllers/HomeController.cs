@@ -26,11 +26,11 @@ namespace SmartHome.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login([FromServices] IAppLogCreator appLogCreator, String username, String password)
+        public IActionResult Login([FromServices] IAppLogCreator appLogCreator, [FromServices] IAppLogRetriever appLogRetriever, String username, String password)
         {
             //ser loginUser = new User(username, password);
 
-           IUser user = UserTypeFactory.CreateUser(username,password);
+            IUser user = UserTypeFactory.CreateUser(username,password);
 
 
             if (user.GetType() == typeof(Administrator))
@@ -44,6 +44,7 @@ namespace SmartHome.Controllers
                 householduser = (Household) user;
                 householduser.IsLogin = true;
 
+                appLogRetriever.SetHouseholdId(householduser._id);
                 appLogCreator.setHouseholdId(householduser._id);
                 appLogCreator.AddLog(this, "LOGIN", DateTime.Now);
                 return RedirectToAction("Profile", "Household");

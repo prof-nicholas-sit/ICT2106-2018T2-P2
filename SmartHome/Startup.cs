@@ -24,6 +24,7 @@ namespace SmartHome
             services.AddMvc();
 
             services.AddSingleton<IAppLogCreator, AppLogCreator>();
+            services.AddSingleton<IAppLogRetriever, AppLogRetriever>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

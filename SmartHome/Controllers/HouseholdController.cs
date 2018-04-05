@@ -36,8 +36,6 @@ namespace SmartHome.Controllers
             householduser.ContactNo = contactNo;
             householduser.Email = email;
 
-
-
             appLogCreator.AddLog(this, "UPDATEPROFILE", DateTime.Now);
 
             return View(nameof(Profile),householduser);
