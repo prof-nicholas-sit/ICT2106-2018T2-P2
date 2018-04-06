@@ -1,0 +1,87 @@
+﻿@model SmartHome.Models.SmartDevice.SmartDevice;
+
+@{
+    ViewData["Title"] = "Create";
+
+
+   @ViewBag.device;
+   var tempValue = @Html.Raw(ViewBag.deviceType);
+ 
+
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Use this area to provide additional information.</p>
+
+
+<form asp-action="Create" class="form-horizontal">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend></legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label asp-for="DeviceName" class="col-md-4 control-label" for="DeviceName"></label>
+            <div class="col-md-4">
+                <input asp-for="DeviceName" id="DeviceName" name="DeviceName" type="text" placeholder="Room Ceiling Light" class="form-control input-md">
+                <span asp-validation-for="DeviceName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label asp-for="Location" class="col-md-4 control-label" for="location"></label>
+            <div class="col-md-4">
+                <input asp-for="Location" id="Location" name="Location" type="text" placeholder="Living Room" class="form-control input-md">
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label asp-for="Brand" class="col-md-4 control-label" for="selectbasic"></label>
+            <div class="col-md-4">
+                <select asp-for="Brand" id="Brand" name="Brand" class="form-control">
+                    <option value="Samsung">Samsung</option>
+                    <option value="LG">LG</option>
+                    <option value="Panasonic">Panasonic</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label asp-for="Model" class="col-md-4 control-label" for="model"></label>
+            <div class="col-md-4">
+                <input asp-for="Model" id="model" name="Model" type="text" placeholder="" class="form-control input-md">
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!--HIDDEN FIELD-->
+        <!--Hide the device type in a hidden field-->
+        <div class="form-group">
+            <input asp-for="Type" type="hidden" name="Type" value="@tempValue">
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

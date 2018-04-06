@@ -1,0 +1,22 @@
+﻿/*Device Group Custom CSS*/
+
+
+.airconDevice {
+    width: 70%;
+    
+    margin: 10% auto;
+}
+
+.fanDevice {
+    width: 50%;
+    margin: 0 auto;
+}
+.lightDevice {
+    width: 35%;
+    margin: 0 auto;
+}
+.doorDevice {
+    width: 50%;
+    margin: 0 auto;
+}
+
