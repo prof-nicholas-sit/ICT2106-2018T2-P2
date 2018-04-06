@@ -11,7 +11,7 @@ using SmartHome.DAL.Mappers;
 
 namespace SmartHome.Controllers.api
 {
-    [Route("api/apiController")]
+    [Route("DeviceLogs/apiController")]
     public class apiController : Controller
     {
         // POST api/<controller>
