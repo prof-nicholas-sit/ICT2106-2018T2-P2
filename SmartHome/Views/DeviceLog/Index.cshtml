@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HouseholdLayout.cshtml";
 }
 @section styles {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
@@ -36,7 +37,7 @@
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
-                        "url": "/api/apiController",
+                        "url": "/DeviceLogs/apiController",
                         "method": "POST"
                     },
                     "columns": [

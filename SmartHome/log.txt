@@ -16,3 +16,21 @@
 04/05/2018 23:12:18 (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac615175a62f70319a00b05") } ---with--- { "_id" : ObjectId("5ac615175a62f70319a00b05"), "ClassType" : "SmartHome.Models.Administrator", "Username" : "admin01", "Password" : "passwords", "Email" : "admin01@gmail.com", "IsLogin" : true }
 04/05/2018 23:12:31 (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac615175a62f70319a00b05") } ---with--- { "_id" : ObjectId("5ac615175a62f70319a00b05"), "ClassType" : "SmartHome.Models.Administrator", "Username" : "admin01", "Password" : "password", "Email" : "admin01@gmail.com", "IsLogin" : true }
 04/05/2018 23:12:38 (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac615175a62f70319a00b05") } ---with--- { "_id" : ObjectId("5ac615175a62f70319a00b05"), "ClassType" : "SmartHome.Models.Administrator", "Username" : "admin01", "Password" : "password", "Email" : "admin01@gmail.com", "IsLogin" : false }
+6/4/2018 12:51:22 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "password", "Email" : "nizam@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "NIZAM", "ContactNo" : "97884441", "IsResetPassword" : true }
+6/4/2018 12:53:19 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "password", "Email" : "nizam@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "NIZAM", "ContactNo" : "97884441", "IsResetPassword" : true }
+6/4/2018 12:55:37 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "password", "Email" : "nizam@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "NIZAM", "ContactNo" : "97884441", "IsResetPassword" : true }
+6/4/2018 12:56:56 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "password", "Email" : "nizam@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "NIZAM", "ContactNo" : "97884441", "IsResetPassword" : true }
+6/4/2018 12:59:12 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "password", "Email" : "nizam@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "NIZAM", "ContactNo" : "97884441", "IsResetPassword" : true }
+6/4/2018 1:01:57 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "password", "Email" : "nizam@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "NIZAM", "ContactNo" : "97884441", "IsResetPassword" : true }
