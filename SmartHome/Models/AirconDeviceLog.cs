@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
@@ -12,7 +13,7 @@ namespace SmartHome.Models
         private string Mode { get; set; }
         private string Swing { get; set; }
 
-        public AirconDeviceLog(string householdId, string name, string location, string type, string state, double kWh, DateTime dateStamp, int temp, string windSpeed, string mode, string swing)
+        public AirconDeviceLog(ObjectId householdId, string name, string location, string type, string state, double kWh, DateTime dateStamp, int temp, string windSpeed, string mode, string swing)
             : base(householdId, name, location, type, state, kWh, dateStamp)
         {
             this.Temperature = temp;

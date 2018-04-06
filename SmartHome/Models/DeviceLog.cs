@@ -10,6 +10,8 @@ namespace SmartHome.Models
 {
     public class DeviceLog : MongoDbObject
     {
+        private DateTime dateStamp;
+
         public ObjectId HouseholdId { get; set; }
 
         [Required]
@@ -58,5 +60,15 @@ namespace SmartHome.Models
             this.DateTime = Convert.ToDateTime(date);
         }
 
+        public DeviceLog(ObjectId householdId, string name, string location, string type, string state, double kWh, DateTime dateStamp)
+        {
+            HouseholdId = householdId;
+            Name = name;
+            Location = location;
+            Type = type;
+            State = state;
+            KWh = kWh;
+            this.dateStamp = dateStamp;
+        }
     }
 }
