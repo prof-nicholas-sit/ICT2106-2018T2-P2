@@ -14,7 +14,7 @@ namespace SmartHome.Controllers
     public class DeviceController : Controller
     {
 
-
+        static int tmpID = 0;
         static List<SmartDevice> model = new List<SmartDevice>();
 
         public IActionResult Index()
@@ -51,7 +51,7 @@ namespace SmartHome.Controllers
             {
                 DeviceFactory FD = new DeviceFactory();
                 SmartDevice SmartDeviceObj = FD.getDevice(device.Type, device);
-
+                SmartDeviceObj.DeviceID = tmpID++;
                 model.Add(SmartDeviceObj);
                 ViewData["Message"] = param;
                 //return View("Index", device);
