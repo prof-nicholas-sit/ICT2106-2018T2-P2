@@ -14,6 +14,8 @@ namespace SmartHome.Controllers.api
     [Route("DeviceLogs/apiController")]
     public class apiController : Controller
     {
+        private Session _session;
+
         // POST api/<controller>
         [HttpPost]
         public IActionResult Post()
@@ -39,9 +41,11 @@ namespace SmartHome.Controllers.api
         // Get a list of Items
         private List<Models.DeviceLog> GetData()
         {
+            _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
 
             // ToDo: Change HouseholdID
-            List<DeviceLog> logList = new DeviceLogMapper().SelectFromDateRange(new ObjectId("5349b4ddd2781d08c09890f3"), default(DateTime), DateTime.MaxValue).ToList();
+            List<DeviceLog> logList = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, default(DateTime), DateTime.MaxValue).ToList();
 
             return logList;
         }
