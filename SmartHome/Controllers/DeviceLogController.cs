@@ -18,6 +18,7 @@ using Newtonsoft;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using SmartHome.DAL.Mappers;
+using SmartHome.Controllers.api;
 using MongoDB.Bson;
 
 namespace SmartHome.Controllers
@@ -101,12 +102,14 @@ namespace SmartHome.Controllers
         // Export log/ currently hardcoded
         [HttpGet]
         public FileContentResult ExportToExcel()
-        { 
-            string[] columns = { "name", "location", "type","state","kWh","dateTime"};
-            byte[] filecontent = ExcelExportHelper.ExportExcel(logList, "Device Log", true, columns);
+        {
+           
+            string[] columns = { "Name", "Location", "Type","State","KWh","DateTime"};
+            byte[] filecontent = ExcelExportHelper.ExportExcel(apiController.logList, "Device Log", true, columns);
             String date = DateTime.Now.ToString("dd-MM-yyyy");
             return File(filecontent, ExcelExportHelper.ExcelContentType, "DeviceLog-"+date+".xlsx");
         }
+
 
    
       

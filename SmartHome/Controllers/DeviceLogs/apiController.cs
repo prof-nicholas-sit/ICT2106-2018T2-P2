@@ -15,6 +15,7 @@ namespace SmartHome.Controllers.api
     public class apiController : Controller
     {
         private Session _session;
+        public static List<Models.DeviceLog> logList = new List<DeviceLog>();
 
         // POST api/<controller>
         [HttpPost]
@@ -24,6 +25,7 @@ namespace SmartHome.Controllers.api
             List<Models.DeviceLog> lstItems = GetData();
             
             var list = ProcessCollection(lstItems, requestFormData);
+            logList = list;
             int recFiltered = GetTotalRecordsFiltered(requestFormData, lstItems, list);
 
             dynamic response = new
