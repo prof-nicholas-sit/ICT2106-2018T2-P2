@@ -3,15 +3,17 @@ using SmartHome.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using SmartHome.AppLogging;
 
 namespace UsageStatistics.Models
 {
     public class ApplicationUsage
     {
+        public string timePeriod { get; set; }
         public string LastLogin { get { return GetLastLogin(); } }
         public int LoginCount { get { return GetLoginCount(); } }
-        public int DevicePageCount { get { return GetPageCount("", "");  } }
+        public Dictionary<string, int> PageCount { get { return GetPageCount(); } }
         public int SchedulePageCount { get; set; }
         public string CurrentLoginDuration { get { return CalculateLoginDuration(); } }
 
@@ -19,15 +21,14 @@ namespace UsageStatistics.Models
 
         public ApplicationUsage(IAppLogRetriever ar)
         {
-            appLogRetriever = (AppLogRetriever) ar;
+            appLogRetriever = (AppLogRetriever)ar;
         }
-        
+
         public string CalculateLoginDuration()
         {
-            AppLogIterator logIter = (AppLogIterator) appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
+            AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
 
             AppLog log = (AppLog)logIter.Last();
-
             DateTime startTime = log.Timestamp;
             DateTime endTime = DateTime.Now;
             TimeSpan span = endTime.Subtract(startTime);
@@ -41,7 +42,7 @@ namespace UsageStatistics.Models
 
         private string GetLastLogin()
         {
-            AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
+            AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
 
             AppLog lastLog = (AppLog)logIter.Last();
 

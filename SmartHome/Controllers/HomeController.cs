@@ -57,11 +57,10 @@ namespace SmartHome.Controllers
                 new HouseholdMapper().Update(householduser).Save().Commit();
 
                 appLogRetriever.SetHouseholdId(householduser._id);
-                appLogCreator.setHouseholdId(householduser._id);
+                appLogCreator.SetHouseholdId(householduser._id);
                 appLogCreator.AddLog(this, "ACTION*/-LOGIN", DateTime.Now);
 
                 return RedirectToAction("Profile", "Household");
-
             }
             else
             {
