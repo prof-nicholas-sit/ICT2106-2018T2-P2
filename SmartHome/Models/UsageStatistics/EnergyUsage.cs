@@ -18,7 +18,6 @@ namespace UsageStatistics.Models
         public List<string> DevicesInLocation { get { return GetDevicesInLocation(); } }
 
         public string Name { get; set; }
-        public string Model { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
 

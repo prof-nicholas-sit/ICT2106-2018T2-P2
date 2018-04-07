@@ -14,7 +14,6 @@ namespace UsageStatistics.Models
         public string LastLogin { get { return GetLastLogin(); } }
         public int LoginCount { get { return GetLoginCount(); } }
         public Dictionary<string, int> PageCount { get { return GetPageCount(); } }
-        public int SchedulePageCount { get; set; }
         public string CurrentLoginDuration { get { return CalculateLoginDuration(); } }
 
         private readonly AppLogRetriever appLogRetriever;
