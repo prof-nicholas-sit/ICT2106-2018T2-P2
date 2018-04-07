@@ -11,7 +11,7 @@
         </div>
         <div class="col-lg-12">
             <h3>Usage Statistics</h3>
-            <p>Graph: </p>
+            <p>Graph: @Model.GraphPower</p>
             <div class="btn-group btn-group-sm" id="tab_toggle" role="tablist" aria-label="...">
                 <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="daily">Daily</a>
                 <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="weekly">Weekly</a>

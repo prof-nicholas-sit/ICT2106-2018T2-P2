@@ -22,7 +22,7 @@ namespace UsageStatistics.Models
         public string Type { get; set; }
         public string State { get; set; }
 
-        //public string GraphPower { get { return GetGraphPower();  } }
+        public string GraphPower { get { return GetGraphPower();  } }
         
 
         private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
@@ -39,8 +39,7 @@ namespace UsageStatistics.Models
             Locations = GetLocationsInLogs();
             
         }
-
-
+        
         private List<DeviceLog> GetLogs()
         {
             // default is everything from the earliest date in DateTime to current time
@@ -69,8 +68,7 @@ namespace UsageStatistics.Models
 
             return logList;
         }
-
-
+        
         public double IndividualEnergyUsage()
         {
             // FOR THIS FUNCTION TO WORK,
@@ -168,10 +166,32 @@ namespace UsageStatistics.Models
             for (int i = 0; i < 13; i ++)
             {
                 allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
-                System.Diagnostics.Debug.WriteLine("DATETIME: " + end.ToString());
+                Debug.WriteLine("DATETIME: " + end.ToString());
                 foreach (DeviceLog log in allDeviceLogs)
                 {
-                    //sum += CalculateEnergyUsage(log);
+                    DateTime dtOn = new DateTime();
+                    DateTime dtOff = new DateTime();
+                    
+                    if (log.State == "on")
+                    {
+                        dtOn = log.DateTime;
+                        System.Diagnostics.Debug.WriteLine("Datetime on: " + dtOn);
+
+                    }
+                    else if (log.State == "off")
+                    {
+                        dtOff = log.DateTime;
+
+                        if (dtOn != null)
+                        {
+                            TimeSpan span = dtOff.Subtract(dtOn);
+                            sum += log.KWh * span.TotalHours;
+                        }
+
+                        // clear
+                        dtOn = new DateTime();
+                        dtOff = new DateTime();
+                    }
                 }
                 powerInterval.Add(sum.ToString());
                
