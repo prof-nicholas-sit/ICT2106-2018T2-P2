@@ -46,8 +46,7 @@ namespace SmartHome.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
+            
         }
 
 
@@ -89,8 +88,7 @@ namespace SmartHome.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
+            
         }
 
         // POST: Admin/Create
@@ -125,8 +123,7 @@ namespace SmartHome.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return View();
+            
         }
 
 
@@ -197,9 +194,7 @@ namespace SmartHome.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
-
+            
         }
 
         // GET: Admin/Delete/5
@@ -231,8 +226,7 @@ namespace SmartHome.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
+            
         }
 
         // POST: Admin/Delete/5
@@ -256,8 +250,7 @@ namespace SmartHome.Controllers
             {
                 return View("DashBoard");
             }
-
-            return View("DashBoard");
+            
         }
 
 

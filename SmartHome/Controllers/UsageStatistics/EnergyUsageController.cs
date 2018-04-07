@@ -2,30 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.Models;
 using UsageStatistics.Models;
 
 namespace UsageStatistics.Controllers
 {
     public class EnergyUsageController : Controller
-    {    
+    {
+        protected Session _session;
+
         // GET: EnergyUsage
         public ActionResult Index(string location, string type, string timePeriod)
-        {            
-            
-            EnergyUsage result = new EnergyUsage();
+        {
+            _session = Session.getInstance;
 
-            // gets individal energy usage in kwh and rounding it off to 2dp
-            ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type, timePeriod), 2);
-            ViewBag.location = location;
+            if (_session.IsLogin())
+            {
+                EnergyUsage result = new EnergyUsage();
 
-            return View(result);
+                // gets individal energy usage in kwh and rounding it off to 2dp
+                ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type, timePeriod), 2);
+                ViewBag.location = location;
+
+                return View(result);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }          
             
         }
         
-        // GET: EnergyUsage/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }        
     }
 }

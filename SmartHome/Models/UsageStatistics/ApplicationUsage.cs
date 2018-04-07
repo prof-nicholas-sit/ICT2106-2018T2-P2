@@ -30,7 +30,7 @@ namespace UsageStatistics.Models
         private string GetLastLogin()
         {
             List<AppLog> logList = appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
-
+            
             AppLog log = logList[logList.Count - 1];
             
             if (logList.Count > 1)

@@ -4,21 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.Models;
 
 namespace UsageStatistics.Controllers
 {
     public class EnergyAdviseController : Controller
     {
+        protected Session _session;
+
         // GET: EnergyUsage
         public ActionResult Index()
         {
-            return View();
-        }
+            _session = Session.getInstance;
 
-        // GET: EnergyUsage/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            if (_session.IsLogin())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }        
     }
 }

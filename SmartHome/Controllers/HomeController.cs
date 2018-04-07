@@ -31,7 +31,7 @@ namespace SmartHome.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(String username, String password)
+        public IActionResult Login([FromServices] IAppLogCreator appLogCreator, [FromServices] IAppLogRetriever appLogRetriever, String username, String password)
         {
 
 
@@ -54,6 +54,11 @@ namespace SmartHome.Controllers
                 _session = Session.getInstance;
                 _session.setCurrentUser(householduser);
                 new HouseholdMapper().Update(householduser).Save().Commit();
+
+                appLogRetriever.SetHouseholdId(householduser._id);
+                appLogCreator.setHouseholdId(householduser._id);
+                appLogCreator.AddLog(this, "LOGIN", DateTime.Now);
+
                 return RedirectToAction("Profile", "Household");
 
             }

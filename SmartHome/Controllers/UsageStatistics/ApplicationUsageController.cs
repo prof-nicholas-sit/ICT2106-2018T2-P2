@@ -13,6 +13,7 @@ namespace UsageStatistics.Controllers
     public class ApplicationUsageController : Controller
     {
         private readonly ApplicationUsage applicationUsage;
+        protected Session _session;
 
         public ApplicationUsageController([FromServices] IAppLogCreator ac, [FromServices] IAppLogRetriever ar) {
             ac.PushLogs();
@@ -22,13 +23,16 @@ namespace UsageStatistics.Controllers
         // GET: EnergyUsage
         public ActionResult Index()
         {
-            return View(applicationUsage);
+            _session = Session.getInstance;
+            
+            if (_session.IsLogin())
+            {
+                return View(applicationUsage);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
-
-        // GET: EnergyUsage/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }        
     }
 }
