@@ -13,7 +13,7 @@ namespace UsageStatistics.Models
         public int LoginCount { get { return GetLoginCount(); } }
         public int DevicePageCount { get { return GetPageCount("", "");  } }
         public int SchedulePageCount { get; set; }
-        public string CurrentLoginDuration { get; set; }
+        public string CurrentLoginDuration { get { return CalculateLoginDuration(); } }
 
         private readonly AppLogRetriever appLogRetriever;
 
@@ -22,9 +22,20 @@ namespace UsageStatistics.Models
             appLogRetriever = (AppLogRetriever) ar;
         }
         
-        public string CalculateLoginDuration(DateTime login, DateTime logoff)
+        public string CalculateLoginDuration()
         {
-            return null;
+            List<AppLog> logList = appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
+
+            AppLog log = logList[logList.Count - 1];
+            DateTime startTime = log.Timestamp;
+            DateTime endTime = DateTime.Now;
+            TimeSpan span = endTime.Subtract(startTime);
+
+            //String sequence of days,hours, minutes and seconds together.
+            //Minues 8 hours for GMT
+            String timeString = (span.Days + " Days, " + (span.Hours - 8) + " Hours, " + span.Minutes + " Minutes, " + span.Seconds + " Seconds");
+
+            return timeString;
         }
 
         private string GetLastLogin()
