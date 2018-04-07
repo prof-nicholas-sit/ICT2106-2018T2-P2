@@ -57,7 +57,8 @@ namespace UsageStatistics.Models
         {
             double sum = 0;
             int prevMonth = 0;
-
+            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
+            
             // Assign to previous month
             if (firstDayOfMonth.Month - 1 == 0)
             {
