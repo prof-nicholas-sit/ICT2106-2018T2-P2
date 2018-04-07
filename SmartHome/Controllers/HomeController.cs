@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.DAL.Mappers;
 using SmartHome.Models;
 
 namespace SmartHome.Controllers
@@ -17,7 +18,7 @@ namespace SmartHome.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = new HouseholdMapper().Login("test", "123").Username;
 
             return View();
         }
@@ -31,7 +32,7 @@ namespace SmartHome.Controllers
 
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }
