@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
 using System.Text.RegularExpressions;
  using SmartHome.DAL.Mappers;
+using SmartHome.AppLogging;
 
 namespace SmartHome.Controllers
 {
@@ -56,7 +57,7 @@ namespace SmartHome.Controllers
                 new HouseholdMapper().Update(householduser).Save().Commit();
 
                 appLogRetriever.SetHouseholdId(householduser._id);
-                appLogCreator.setHouseholdId(householduser._id);
+                appLogCreator.SetHouseholdId(householduser._id);
                 appLogCreator.AddLog(this, "LOGIN", DateTime.Now);
 
                 return RedirectToAction("Profile", "Household");
@@ -64,25 +65,22 @@ namespace SmartHome.Controllers
             }
             else
             {
-
-
                 return View("Index");
             }
         }
 
-        public ActionResult Profile()
+        public ActionResult Profile([FromServices] IAppLogCreator appLogCreator)
         {
             _session = Session.getInstance;
             if ( _session.GetUser().GetType()==typeof(Household))
             {
-
+                appLogCreator.AddLog(this, "PROFILE", DateTime.Now);
                 return View((Household)_session.GetUser());
             }
             else if (_session.IsLogin()== true && _session.GetUser().GetType() == typeof(Administrator))
             {
                 return View(_session.GetUser());
             }
-
             return RedirectToAction("Index","Home");
         }
 

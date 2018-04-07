@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartHome;
+using SmartHome.AppLogging;
 using SmartHome.Models;
 using UsageStatistics.Models;
 

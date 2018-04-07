@@ -8,7 +8,7 @@ using SmartHome.Models;
 using MongoDB.Bson;
 using SmartHome.DAL.Mappers;
 
-namespace SmartHome
+namespace SmartHome.AppLogging
 {
     public class AppLogCreator : IAppLogCreator
     {
@@ -27,8 +27,7 @@ namespace SmartHome
         {
             return this.GetType().ToString();
         }
-
-        public void setHouseholdId(ObjectId inputId) {
+        public void SetHouseholdId(ObjectId inputId) {
             householdId = inputId;
         }
 

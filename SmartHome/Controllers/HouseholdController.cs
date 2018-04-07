@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartHome.AppLogging;
 using SmartHome.DAL.Mappers;
 using SmartHome.Models;
 
@@ -11,7 +12,17 @@ namespace SmartHome.Controllers
 {
     public class HouseholdController : HomeController
     {
+        private readonly AppLogCreator appLogCreator;
+
+        HouseholdController()
+        {
+        }
+
         // POST: Household/Edit/5
+        public HouseholdController(IAppLogCreator ac)
+        {
+            appLogCreator = (AppLogCreator) ac;
+        }
         
         public ActionResult Edit(int id)
         {
@@ -35,7 +46,9 @@ namespace SmartHome.Controllers
             householduser.Email = email;
             
             new HouseholdMapper().Update(householduser).Save().Commit();
-
+            
+            appLogCreator.AddLog(this, "UPDATEPROFILE", DateTime.Now);
+            
             return View(nameof(Profile),householduser);
         }
 
@@ -45,6 +58,8 @@ namespace SmartHome.Controllers
             
            if (_session.IsLogin())
             {
+
+                appLogCreator.AddLog(this, "VIEWNEIGHBOURS", DateTime.Now);
                 model = (List<Household>) new HouseholdMapper().SelectAll();
                 return View(model);
             }
