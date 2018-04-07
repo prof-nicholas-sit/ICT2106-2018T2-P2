@@ -15,7 +15,7 @@ namespace UsageStatistics.Models
         public int LoginCount { get { return GetLoginCount(); } }
         public Dictionary<string, int> PageCount { get { return GetPageCount(); } }
         public int SchedulePageCount { get; set; }
-        public string CurrentLoginDuration { get; set; }
+        public string CurrentLoginDuration { get { return CalculateLoginDuration(); } }
 
         private readonly AppLogRetriever appLogRetriever;
 
@@ -27,8 +27,8 @@ namespace UsageStatistics.Models
         public string CalculateLoginDuration()
         {
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
-
-            AppLog log = (AppLog)logIter.Last();
+            Debug.WriteLine("LOG THIS: " + logIter.Last().Timestamp);
+            AppLog log = logIter.Last();
 
             DateTime startTime = log.Timestamp;
             DateTime endTime = DateTime.Now;

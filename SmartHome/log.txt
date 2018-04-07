@@ -386,3 +386,18 @@
 07-Apr-18 8:34:33 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
 ---with---
 { "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "passwords", "Email" : "l.kokleong1991@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "LEONG", "ContactNo" : "82006275", "IsResetPassword" : false }
+07-Apr-18 8:37:17 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "passwords", "Email" : "l.kokleong1991@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "LEONG", "ContactNo" : "82006275", "IsResetPassword" : false }
+07-Apr-18 8:39:23 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "passwords", "Email" : "l.kokleong1991@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "LEONG", "ContactNo" : "82006275", "IsResetPassword" : false }
+07-Apr-18 8:39:39 PM (CreateMongoDbQuery): Execute - { "_id" : ObjectId("5ac8bc0b29bb9fbda4115bab"), "ClassType" : "SmartHome.Models.AppLog", "LogType" : "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN", "Timestamp" : ISODate("2018-04-07T12:39:23.351Z"), "HouseholdId" : ObjectId("5ac61587c247ff0322e54530"), "DeviceType" : null, "Values" : null }
+07-Apr-18 8:41:37 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "passwords", "Email" : "l.kokleong1991@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "LEONG", "ContactNo" : "82006275", "IsResetPassword" : false }
+07-Apr-18 8:41:48 PM (CreateMongoDbQuery): Execute - { "_id" : ObjectId("5ac8bc8c023202a7acdd9667"), "ClassType" : "SmartHome.Models.AppLog", "LogType" : "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN", "Timestamp" : ISODate("2018-04-07T12:41:37.734Z"), "HouseholdId" : ObjectId("5ac61587c247ff0322e54530"), "DeviceType" : null, "Values" : null }
+07-Apr-18 8:43:37 PM (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "passwords", "Email" : "l.kokleong1991@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "LEONG", "ContactNo" : "82006275", "IsResetPassword" : false }
+07-Apr-18 8:43:45 PM (CreateMongoDbQuery): Execute - { "_id" : ObjectId("5ac8bd00ec1bf0b5ac697489"), "ClassType" : "SmartHome.Models.AppLog", "LogType" : "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN", "Timestamp" : ISODate("2018-04-07T12:43:37.432Z"), "HouseholdId" : ObjectId("5ac61587c247ff0322e54530"), "DeviceType" : null, "Values" : null }
