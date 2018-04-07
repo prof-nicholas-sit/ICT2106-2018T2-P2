@@ -24,7 +24,7 @@ namespace UsageStatistics.Models
          
             allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
 
-            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);            
+            // System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);            
         }
 
         public double IndividualEnergyUsage(string location, string deviceType, string timePeriod)
@@ -43,7 +43,7 @@ namespace UsageStatistics.Models
         }
 
         public double TotalEnergyUsage(string timePeriod)
-        {            
+        {
             double sum = 0;
 
             foreach (DeviceLog log in allDeviceLogs)

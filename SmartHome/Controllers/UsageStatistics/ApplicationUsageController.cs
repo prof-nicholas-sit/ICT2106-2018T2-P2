@@ -24,8 +24,9 @@ namespace UsageStatistics.Controllers
         public ActionResult Index()
         {
             _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
             
-            if (_session.IsLogin())
+            if (_session != null)
             {
                 return View(applicationUsage);
             }

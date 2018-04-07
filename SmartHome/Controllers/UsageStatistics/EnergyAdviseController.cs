@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
+using UsageStatistics.Models;
 
 namespace UsageStatistics.Controllers
 {
@@ -13,13 +14,14 @@ namespace UsageStatistics.Controllers
         protected Session _session;
 
         // GET: EnergyUsage
-        public ActionResult Index()
+        public ActionResult Index(int month = 1)
         {
             _session = Session.getInstance;
 
-            if (_session.IsLogin())
+            if (_session != null)
             {
-                return View();
+                EnergyAdvise energyAdvise = new EnergyAdvise(month);
+                return View(energyAdvise);
             }
             else
             {

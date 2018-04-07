@@ -16,7 +16,7 @@ namespace UsageStatistics.Controllers
         {
             _session = Session.getInstance;
 
-            if (_session.IsLogin())
+            if (_session != null)
             {
                 EnergyUsage result = new EnergyUsage();
 
@@ -29,9 +29,7 @@ namespace UsageStatistics.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }          
-            
-        }
-        
+            }            
+        }        
     }
 }
