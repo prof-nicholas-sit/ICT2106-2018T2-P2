@@ -21,14 +21,22 @@ namespace UsageStatistics.Models
         public string Model { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
+<<<<<<< HEAD
 
+=======
+        public string GraphPower { get { return GetGraphPower();  } }
+        
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
         private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
         private Session _session;
+        private DateTime start;
+        private DateTime end;
 
-        public EnergyUsage()
+        public EnergyUsage(string timePeriod = null)
         {
             _session = Session.getInstance;
             Household householduser = (Household)_session.GetUser();
+<<<<<<< HEAD
 
             allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
             Locations = GetLocationsInLogs();
@@ -67,6 +75,31 @@ namespace UsageStatistics.Models
         }
 
         public double IndividualEnergyUsage()
+=======
+            
+            if (timePeriod == "daily")
+            {
+                start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+                end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59, 999);
+            }
+            else if (timePeriod == "weekly")
+            {
+
+            }
+            else if (timePeriod == "monthly")
+            {
+                DateTime date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+                start = new DateTime(date.Year, date.Month, 1);
+                end = start.AddMonths(1).AddDays(-1);
+            }
+
+            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
+
+            // System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);            
+        }
+
+        public double IndividualEnergyUsage(string location, string deviceType)
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
         {
             // FOR THIS FUNCTION TO WORK,
             // LOGS ARE ASSUMED TO BE ACCURATELY LOGGED AND BE SORTED IN DATETIME WHEN RETRIEVING
@@ -83,6 +116,7 @@ namespace UsageStatistics.Models
             {
                 if (log.Location == Location && log.Name == Name)
                 {
+<<<<<<< HEAD
                     kwh = log.KWh;
 
                     if (log.State == "on")
@@ -105,6 +139,9 @@ namespace UsageStatistics.Models
                     }
 
                     State = log.State;
+=======
+                    sum += CalculateEnergyUsage(log);
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
                 }
             }
 
@@ -119,6 +156,7 @@ namespace UsageStatistics.Models
             return sum;
         }
 
+<<<<<<< HEAD
         private List<String> GetLocationsInLogs()
         {
             List<String> locationInLogs = new List<string>();
@@ -129,12 +167,25 @@ namespace UsageStatistics.Models
                 {
                     locationInLogs.Add(log.Location);
                 }
+=======
+        public double TotalEnergyUsage()
+        {
+            double sum = 0;
+
+            foreach (DeviceLog log in allDeviceLogs)
+            {
+                sum += CalculateEnergyUsage(log);
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
             }
 
             return locationInLogs;
         }
 
+<<<<<<< HEAD
         private List<String> GetDevicesInLocation()
+=======
+        private double CalculateEnergyUsage(DeviceLog log)
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
         {
             List<String> devicesInLocation = new List<string>();
 
@@ -146,7 +197,35 @@ namespace UsageStatistics.Models
                 }
             }
 
+<<<<<<< HEAD
             return devicesInLocation;
+=======
+            return sum;
+        }        
+        
+        private string GetGraphPower()
+        {
+            _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
+            double sum = 0;
+            start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            List<string> powerInterval = new List<string>();
+ 
+            for (int i = 0; i < 13; i ++)
+            {
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
+                System.Diagnostics.Debug.WriteLine("DATETIME: " + end.ToString());
+                foreach (DeviceLog log in allDeviceLogs)
+                {
+                    sum += CalculateEnergyUsage(log);
+                }
+                powerInterval.Add(sum.ToString());
+               
+                end = end.AddHours(2);
+            }
+            return string.Join(",", powerInterval);
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
         }
     }
 }

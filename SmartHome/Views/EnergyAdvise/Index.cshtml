@@ -14,6 +14,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="panel-title">Energy Consumption</h3>
+                            <p> HELLO TESTING @Model.AverageConsumption </p>
                         </div>
                         <div class="col-sm-6">
                             <!-- Single button -->
@@ -22,18 +23,18 @@
                                 Select Month <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Jan</a></li>
-                                <li><a href="#">Feb</a></li>
-                                <li><a href="#">March</a></li>
-                                <li><a href="#">April</a></li>
-                                <li><a href="#">May</a></li>
-                                <li><a href="#">Jun</a></li>
-                                <li><a href="#">July</a></li>
-                                <li><a href="#">Aug</a></li>
-                                <li><a href="#">Sept</a></li>
-                                <li><a href="#">Oct</a></li>
-                                <li><a href="#">Nov</a></li>
-                                <li><a href="#">Dec</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "1"})">Jan</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "2"})">Feb</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "3"})">March</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "4"})">April</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "5"})">May</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "6"})">Jun</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "7"})">July</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "8"})">Aug</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "9"})">Sept</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "10"})">Oct</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "11"})">Nov</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "12"})">Dec</a></li>
                               </ul>
                             </div>
                         </div>

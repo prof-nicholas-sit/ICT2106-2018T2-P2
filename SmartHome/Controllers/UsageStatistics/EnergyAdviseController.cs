@@ -14,14 +14,19 @@ namespace UsageStatistics.Controllers
         protected Session _session;
 
         // GET: EnergyUsage
-        public ActionResult Index()
+        public ActionResult Index(int month = 1)
         {
             _session = Session.getInstance;
 
-            if (_session.IsLogin())
+            if (_session != null)
             {
+<<<<<<< HEAD
 
                 return View();
+=======
+                EnergyAdvise energyAdvise = new EnergyAdvise(month);
+                return View(energyAdvise);
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
             }
             else
             {

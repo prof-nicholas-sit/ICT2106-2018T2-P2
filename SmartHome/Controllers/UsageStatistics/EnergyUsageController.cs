@@ -17,10 +17,11 @@ namespace UsageStatistics.Controllers
         {
             _session = Session.getInstance;
 
-            if (_session.IsLogin())
+            if (_session != null)
             {
-                EnergyUsage result = new EnergyUsage();
+                EnergyUsage result = new EnergyUsage(timePeriod);
 
+<<<<<<< HEAD
                 if (location == null)
                 {
                     result.Location = result.Locations[0];
@@ -47,15 +48,18 @@ namespace UsageStatistics.Controllers
                 {
                     result.TimePeriod = timePeriod;
                 }
+=======
+                // gets individal energy usage in kwh and rounding it off to 2dp
+                ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type), 2);
+                ViewBag.location = location;
+>>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
 
                 return View(result);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
-            }          
-            
-        }
-        
+            }            
+        }        
     }
 }

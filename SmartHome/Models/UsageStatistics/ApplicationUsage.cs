@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using SmartHome.AppLogging;
 
 namespace UsageStatistics.Models
 {
@@ -14,32 +15,39 @@ namespace UsageStatistics.Models
         public int LoginCount { get { return GetLoginCount(); } }
         public Dictionary<string, int> PageCount { get { return GetPageCount(); } }
         public int SchedulePageCount { get; set; }
-        public string CurrentLoginDuration { get; set; }
+        public string CurrentLoginDuration { get { return CalculateLoginDuration(); } }
 
         private readonly AppLogRetriever appLogRetriever;
 
         public ApplicationUsage(IAppLogRetriever ar)
         {
-            appLogRetriever = (AppLogRetriever) ar;
+            appLogRetriever = (AppLogRetriever)ar;
         }
-        
-        public string CalculateLoginDuration(DateTime login, DateTime logoff)
+
+        public string CalculateLoginDuration()
         {
-            return null;
+            AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
+            Debug.WriteLine("LOG THIS: " + logIter.Last().Timestamp);
+            AppLog log = logIter.Last();
+
+            DateTime startTime = log.Timestamp;
+            DateTime endTime = DateTime.Now;
+            TimeSpan span = endTime.Subtract(startTime);
+
+            //String sequence of days,hours, minutes and seconds together.
+            //Minues 8 hours for GMT
+            String timeString = (span.Days + " Days, " + (span.Hours - 8) + " Hours, " + span.Minutes + " Minutes, " + span.Seconds + " Seconds");
+
+            return timeString;
         }
 
         private string GetLastLogin()
         {
-            List<AppLog> logList = appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
-            
-            AppLog log = logList[logList.Count - 1];
-            
-            if (logList.Count > 1)
-            {
-                log = logList[logList.Count - 2];
-            }
-            
-            return log.Timestamp.ToShortDateString();
+            AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
+
+            AppLog lastLog = (AppLog)logIter.Last();
+
+            return lastLog.Timestamp.ToShortDateString();
         }
 
         private int GetLoginCount()
@@ -49,7 +57,7 @@ namespace UsageStatistics.Models
             int count = 0;
             foreach (String log in logList)
             {
-                if (log.Split("*/-")[2].Equals("LOGIN"))
+                if (log.Split("*/-")[2] == "LOGIN")
                 {
                     count++;
                 }
@@ -100,7 +108,7 @@ namespace UsageStatistics.Models
                 String[] logParts = log.Split("*/-");
                 String pageName = logParts[2].Replace("-", " ");
 
-                if (logParts[1].Equals("PAGE"))
+                if (logParts[1] == "PAGE")
                 {
                     // not in dictionary, initialise
                     if (!PageCount.ContainsKey(pageName))
