@@ -5,6 +5,9 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
+    /**
+     * Abstract class representing a decorator for MongoDbQuerys
+     */
     public abstract class MongoDbQueryDecorator : MongoDbQuery
     {
         protected MongoDbQuery DecoratedMongoDbQuery;

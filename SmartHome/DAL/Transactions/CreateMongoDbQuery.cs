@@ -3,6 +3,9 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
+    /**
+     * Represents a query that performs a create to a collection.
+     */
     public class CreateMongoDbQuery : MongoDbQuery
     {
         private BsonDocument NewDocument;
@@ -15,6 +18,7 @@ namespace SmartHome.DAL.Transactions
 
         public override void Execute()
         {
+            // execute insert query
             Collection.InsertOne(NewDocument);
         }
 

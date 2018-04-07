@@ -3,6 +3,11 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
+    /**
+     * Abstract mongodb query class that implements IMongoDbQuery
+     *
+     * Consists of constructor to take in the collection that will modified
+     */
     public abstract class MongoDbQuery : IMongoDbQuery
     {
         public IMongoCollection<BsonDocument> Collection { get; }

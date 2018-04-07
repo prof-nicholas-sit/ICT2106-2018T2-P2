@@ -16,8 +16,9 @@ namespace SmartHome.DAL.Transactions
 
         public override void Execute()
         {
+            // execute delete query
             DeleteResult result = Collection.DeleteMany(FilterDefinition);
-            
+            // print to console for debug purposes
             if (result.IsAcknowledged)
             {
                 Console.WriteLine("Deleted {0} document(s).", result.DeletedCount);

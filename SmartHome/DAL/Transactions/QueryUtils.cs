@@ -4,6 +4,9 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
+    /**
+     * Utility class for converting filterdefinitions and updatedefinitions to a more readable format.
+     */
     public static class QueryUtils
     {
         /**
