@@ -11,7 +11,7 @@ namespace SmartHome.AppLogging
     {
         string GetCurrentType();
         void SetHouseholdId(ObjectId inputId);
-        void AddLog(Controller controller, string logType, DateTime timeStamp, string extras = null);
+        bool AddLog(Controller controller, string logType, DateTime timeStamp, string deviceType = null, string extras = null);
         void PushLogs();
     }
 }
