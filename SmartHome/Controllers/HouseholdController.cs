@@ -47,14 +47,18 @@ namespace SmartHome.Controllers
             return View(nameof(Profile),householduser);
         }
 
-        public ActionResult ViewNeighbours()
+        public ActionResult ViewNeighbours([FromServices] IAppLogCreator appLogCreator)
         {
             _session = Session.getInstance;
             
            if (_session.IsLogin())
             {
                 model = (List<Household>) new HouseholdMapper().SelectAll();
+<<<<<<< HEAD
                 appLogCreator.AddLog(this, "VIEWNEIGHBOURS", DateTime.Now);
+=======
+                appLogCreator.AddLog(this, "PAGE*/-View-Neighbours", DateTime.Now);
+>>>>>>> origin/Team11-dev
                 return View(model);
             }
             else

@@ -57,8 +57,13 @@ namespace SmartHome.Controllers
                 new HouseholdMapper().Update(householduser).Save().Commit();
 
                 appLogRetriever.SetHouseholdId(householduser._id);
+<<<<<<< HEAD
                 appLogCreator.SetHouseholdId(householduser._id);
                 appLogCreator.AddLog(this, "LOGIN", DateTime.Now);
+=======
+                appLogCreator.setHouseholdId(householduser._id);
+                appLogCreator.AddLog(this, "ACTION*/-LOGIN", DateTime.Now);
+>>>>>>> origin/Team11-dev
 
                 return RedirectToAction("Profile", "Household");
 
