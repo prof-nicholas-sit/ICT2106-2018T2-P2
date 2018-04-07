@@ -3,10 +3,7 @@ using SmartHome.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
 using SmartHome.AppLogging;
-=======
->>>>>>> origin/Team11-dev
 
 namespace UsageStatistics.Models
 {
@@ -27,15 +24,10 @@ namespace UsageStatistics.Models
         
         public string CalculateLoginDuration()
         {
-<<<<<<< HEAD
             AppLogIterator logIter = (AppLogIterator) appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
 
             AppLog log = (AppLog)logIter.Last();
-=======
-            List<AppLog> logList = appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
 
-            AppLog log = logList[logList.Count - 1];
->>>>>>> origin/Team11-dev
             DateTime startTime = log.Timestamp;
             DateTime endTime = DateTime.Now;
             TimeSpan span = endTime.Subtract(startTime);
@@ -49,24 +41,11 @@ namespace UsageStatistics.Models
 
         private string GetLastLogin()
         {
-<<<<<<< HEAD
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-LOGIN");
 
             AppLog lastLog = (AppLog)logIter.Last();
 
             return lastLog.Timestamp.ToShortDateString();
-=======
-            List<AppLog> logList = appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
-            
-            AppLog log = logList[logList.Count - 1];
-            
-            if (logList.Count > 1)
-            {
-                log = logList[logList.Count - 2];
-            }
-            
-            return log.Timestamp.ToShortDateString();
->>>>>>> origin/Team11-dev
         }
 
         private int GetLoginCount()

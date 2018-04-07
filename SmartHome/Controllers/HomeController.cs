@@ -81,7 +81,7 @@ namespace SmartHome.Controllers
                     Console.WriteLine("Redirect to profile page from login");
                 } else
                 {
-                    appLogCreator.AddLog(this, "PAGE*/-PROFILE", DateTime.Now);
+                    appLogCreator.AddLog(this, "PAGE*/-View-Profile", DateTime.Now);
                 }
                 return View((Household)_session.GetUser());
             }

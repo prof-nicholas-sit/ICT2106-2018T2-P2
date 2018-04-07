@@ -43,7 +43,7 @@ namespace SmartHome.Controllers
             householduser.Email = email;
             
             new HouseholdMapper().Update(householduser).Save().Commit();
-            appLogCreator.AddLog(this, "UPDATEPROFILE", DateTime.Now);
+            appLogCreator.AddLog(this, "ACTION*/-UPDATEPROFILE", DateTime.Now);
             return View(nameof(Profile),householduser);
         }
 
@@ -54,11 +54,8 @@ namespace SmartHome.Controllers
            if (_session.IsLogin())
             {
                 model = (List<Household>) new HouseholdMapper().SelectAll();
-<<<<<<< HEAD
-                appLogCreator.AddLog(this, "VIEWNEIGHBOURS", DateTime.Now);
-=======
                 appLogCreator.AddLog(this, "PAGE*/-View-Neighbours", DateTime.Now);
->>>>>>> origin/Team11-dev
+
                 return View(model);
             }
             else
