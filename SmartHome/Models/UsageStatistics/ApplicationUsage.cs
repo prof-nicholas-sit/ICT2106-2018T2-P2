@@ -27,7 +27,6 @@ namespace UsageStatistics.Models
         public string CalculateLoginDuration()
         {
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
-            Debug.WriteLine("LOG THIS: " + logIter.Last().Timestamp);
             AppLog log = logIter.Last();
 
             DateTime startTime = log.Timestamp;

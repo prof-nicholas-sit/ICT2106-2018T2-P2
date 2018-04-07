@@ -47,10 +47,7 @@ namespace UsageStatistics.Controllers
                 {
                     result.TimePeriod = timePeriod;
                 }
-
-                Debug.WriteLine("HERE" );
-                Debug.WriteLine("HERE" + ": " + result.DevicesInLocation[0] + " " + result.DevicesInLocation[1]);
-                Debug.WriteLine("HERE" );
+                
                 return View(result);
             }
             else

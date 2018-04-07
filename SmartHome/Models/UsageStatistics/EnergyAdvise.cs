@@ -17,8 +17,8 @@ namespace UsageStatistics.Models
         private Session _session;
         private List<Household> allHouseholds = new List<Household>();
         private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
-        private DateTime firstDayOfMonth;
-        private DateTime lastDayOfMonth;
+        private DateTime start;
+        private DateTime end;
 
         public EnergyAdvise(int month)
         {
@@ -28,8 +28,8 @@ namespace UsageStatistics.Models
 
             // Based on month selected and current year, current day as throwaway
             DateTime date = new DateTime(DateTime.Now.Year, month, DateTime.Now.Day);
-            firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
-            lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            start = new DateTime(date.Year, date.Month, 1);
+            end = start.AddMonths(1).AddDays(-1);
         }
 
         public EnergyAdvise()
@@ -38,7 +38,6 @@ namespace UsageStatistics.Models
             Household householduser = (Household)_session.GetUser();
 
             allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
-            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
         }
 
         private double CalculateAverageConsumption()
@@ -47,8 +46,8 @@ namespace UsageStatistics.Models
             
             foreach (Household household in allHouseholds)
             {
-                allDeviceLogs.AddRange(new DeviceLogMapper().SelectFromDateRange(household.houseHoldId, firstDayOfMonth, lastDayOfMonth));                
-                System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
+                allDeviceLogs.AddRange(new DeviceLogMapper().SelectFromDateRange(household.houseHoldId, start, end));                
+                //System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
             }
 
             if (allDeviceLogs.Count != 0)
@@ -63,16 +62,15 @@ namespace UsageStatistics.Models
         {
             double sum = 0;
             int prevMonth = 0;
-            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
             
             // Assign to previous month
-            if (firstDayOfMonth.Month - 1 == 0)
+            if (start.Month - 1 == 0)
             {
                 prevMonth = 12;
             }
             else
             {
-                prevMonth = firstDayOfMonth.Month - 1;
+                prevMonth = start.Month - 1;
             }
 
             if (prevMonth != 0)
@@ -80,13 +78,13 @@ namespace UsageStatistics.Models
                 Household householduser = (Household)_session.GetUser();
 
                 // Based on month selected and current year
-                DateTime date = new DateTime(DateTime.Now.Year, prevMonth, DateTime.Now.Day);
-                firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
-                lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+                DateTime date = new DateTime(DateTime.Today.Year, prevMonth, DateTime.Today.Day);
+                start = new DateTime(date.Year, date.Month, 1);
+                end = start.AddMonths(1).AddDays(-1);
+                
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
 
-                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, firstDayOfMonth, lastDayOfMonth).ToList();
-
-                TotalEnergyUsage();
+                sum = TotalEnergyUsage();
             }
 
             return sum;

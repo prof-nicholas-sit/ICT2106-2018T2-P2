@@ -37,8 +37,7 @@ namespace UsageStatistics.Models
 
             allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
             Locations = GetLocationsInLogs();
-
-            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
+            
         }
 
 
