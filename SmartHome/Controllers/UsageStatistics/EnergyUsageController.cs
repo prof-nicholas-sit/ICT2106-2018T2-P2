@@ -18,10 +18,10 @@ namespace UsageStatistics.Controllers
 
             if (_session != null)
             {
-                EnergyUsage result = new EnergyUsage();
+                EnergyUsage result = new EnergyUsage(timePeriod);
 
                 // gets individal energy usage in kwh and rounding it off to 2dp
-                ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type, timePeriod), 2);
+                ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type), 2);
                 ViewBag.location = location;
 
                 return View(result);

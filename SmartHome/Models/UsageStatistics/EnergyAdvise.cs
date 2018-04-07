@@ -8,9 +8,9 @@ using UsageStatistics.Models;
 
 namespace UsageStatistics.Models
 {
-    public class EnergyAdvise : EnergyUsage
+    public class EnergyAdvise
     {
-        public double HouseholdConsumption { get { return TotalEnergyUsage(""); } }
+        public double HouseholdConsumption { get { return new EnergyUsage().TotalEnergyUsage(); } }
         public double AverageConsumption { get { return CalculateAverageConsumption(); } }
         public double PreviousMonthConsumption { get { return GetPreviousMonthConsumption(); } }
 
@@ -31,7 +31,7 @@ namespace UsageStatistics.Models
             firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
         }
-        
+
         private double CalculateAverageConsumption()
         {
             double sum = 0;            
@@ -46,7 +46,7 @@ namespace UsageStatistics.Models
             {
                 foreach (DeviceLog log in allDeviceLogs)
                 {
-                    sum += TotalEnergyUsage("");
+                    sum += new EnergyUsage().TotalEnergyUsage();
                 }
             }
             
@@ -81,7 +81,7 @@ namespace UsageStatistics.Models
 
                 foreach (DeviceLog log in allDeviceLogs)
                 {
-                    sum += TotalEnergyUsage("");
+                    sum += new EnergyUsage().TotalEnergyUsage();
                 }
             }
 
