@@ -3,6 +3,9 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
+    /**
+     * Domain Model for Device
+     */
     public abstract class Device : MongoDbObject
     {
         public ObjectId HouseholdId { get; set; }

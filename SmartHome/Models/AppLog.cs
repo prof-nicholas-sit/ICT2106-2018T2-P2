@@ -6,6 +6,9 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
+    /**
+     * Domain Model for AppLog
+     */
     public class AppLog : MongoDbObject
     {
         public string LogType { get; set; }

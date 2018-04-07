@@ -6,6 +6,9 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
+    /**
+     * Domain Model for Household
+     */
     public class Household : Account
     {
         public string Street { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace SmartHome.Models
 {
+    /**
+     * Abstract class representing an account, used for Household and Administrator
+     */
     public abstract class Account : MongoDbObject
     {
         public string Username { get; set; }

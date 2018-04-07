@@ -6,6 +6,9 @@ using MongoDB.Bson;
 
 namespace SmartHome.Models
 {
+    /**
+     * Domain Model for Schedule
+     */
     public class Schedule : MongoDbObject
     {
         public ObjectId DeviceId { get; set; }

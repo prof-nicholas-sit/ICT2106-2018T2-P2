@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace SmartHome.Models
 {
+    /**
+     * Domain Model for Administrator
+     */
     public class Administrator : Account
     {
     }
