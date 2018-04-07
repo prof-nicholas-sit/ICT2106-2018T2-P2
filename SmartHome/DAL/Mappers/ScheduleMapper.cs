@@ -7,6 +7,9 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * Concrete class for IScheduleMapper
+     */
     public class ScheduleMapper : BaseMapper<Schedule>, IScheduleMapper
     {
         public ScheduleMapper() : base("schedules")

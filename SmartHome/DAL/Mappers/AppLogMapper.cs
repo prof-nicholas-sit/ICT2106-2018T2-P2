@@ -8,6 +8,9 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * Concrete class for IAppLogMapper
+     */
     public class AppLogMapper : BaseMapper<AppLog>, IAppLogMapper
     {
         public AppLogMapper() : base("applogs")

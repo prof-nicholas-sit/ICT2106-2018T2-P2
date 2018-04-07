@@ -7,12 +7,16 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * IAdminMapper concrete class. Used to login as administrator.
+     */
     public class AdminMapper : BaseMapper<Administrator>, IAdminMapper
     {
         public AdminMapper() : base("administrators")
         {
         }
 
+        // login function
         public Administrator Login(string username, string password)
         {
             FilterDefinition<BsonDocument> filterDefinition = Builders<BsonDocument>.Filter.Eq("Username", username);

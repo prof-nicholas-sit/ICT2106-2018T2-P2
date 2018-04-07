@@ -10,6 +10,13 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * Abstract mapper class that accepts a generic type.
+     *
+     * Collection name in mongoDB must be specified in the constructor.
+     *
+     * Provides basic CRUD operations, if more customized functions are needed, you should extend this class.
+     */
     public abstract class BaseMapper<T> : IBaseMapper<T> where T : MongoDbObject
     {
         protected AbstractUnitOfWork Uow { get; }
@@ -74,7 +81,11 @@ namespace SmartHome.DAL.Mappers
         }
 
         /**
-         * TODO comments on reflection
+         * Specifying generic types for function calls need to be provided at compile time.
+         *
+         * However since we are using a "factory pattern", whereby the ClassType is specified at run-time, require to
+         * use reflection in order to input the correct class type to do the Bson deserialization. Deserializer
+         * will then be able to deserialize the BsonDocument to the specified class as output.
          */
         protected static TD DeserializeDocument<TD>(BsonDocument document) where TD : MongoDbObject
         {
@@ -92,7 +103,8 @@ namespace SmartHome.DAL.Mappers
         }
 
         /**
-         * TODO
+         * Checks if the object has been registered in the classmap for serialization/deserialization purposes.
+         * If it is not registered, automatically register the input object's classmap
          * https://stackoverflow.com/a/27858497
          */
         protected static void AddToBsonClassMap(MongoDbObject obj)

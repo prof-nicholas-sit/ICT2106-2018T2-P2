@@ -7,6 +7,9 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * Concrete class for IHouseholdMapper
+     */
     public class HouseholdMapper : BaseMapper<Household>, IHouseholdMapper
     {
         public HouseholdMapper() : base("households")

@@ -7,6 +7,9 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * Concrete class for IDeviceMapper
+     */
     public class DeviceMapper : BaseMapper<Device>, IDeviceMapper
     {
         public DeviceMapper() : base("devices")

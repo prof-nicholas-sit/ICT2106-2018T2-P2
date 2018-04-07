@@ -7,6 +7,9 @@ using SmartHome.Models;
 
 namespace SmartHome.DAL.Mappers
 {
+    /**
+     * Concrete class for IDeviceLogMapper
+     */
     public class DeviceLogMapper : BaseMapper<DeviceLog>, IDeviceLogMapper
     {
         public DeviceLogMapper() : base("devicelogs")
