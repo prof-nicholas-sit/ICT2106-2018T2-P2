@@ -21,6 +21,23 @@ namespace UsageStatistics.Controllers
             if (_session != null)
             {
                 EnergyAdvise energyAdvise = new EnergyAdvise(month);
+
+                switch (month)
+                {
+                    case 1:
+                        energyAdvise.month = "Jan";
+                        break;
+                    case 2:
+                        energyAdvise.month = "Feb";
+                        break;
+                    case 3:
+                        energyAdvise.month = "Mar";
+                        break;
+                    default:
+                        ViewBag.Period = null;
+                        break;
+                }
+
                 return View(energyAdvise);
             }
             else

@@ -19,6 +19,7 @@ namespace UsageStatistics.Models
         private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
         private DateTime firstDayOfMonth;
         private DateTime lastDayOfMonth;
+        public string month { get; set; }
 
         public EnergyAdvise(int month)
         {
