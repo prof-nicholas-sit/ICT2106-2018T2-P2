@@ -14,16 +14,13 @@ namespace SmartHome.Controllers
     {
         private readonly AppLogCreator appLogCreator;
 
-        HouseholdController()
+        public HouseholdController(IAppLogCreator ac)
         {
+            appLogCreator = (AppLogCreator)ac;
         }
 
         // POST: Household/Edit/5
-        public HouseholdController(IAppLogCreator ac)
-        {
-            appLogCreator = (AppLogCreator) ac;
-        }
-        
+
         public ActionResult Edit(int id)
         {
             _session = Session.getInstance;
@@ -46,9 +43,7 @@ namespace SmartHome.Controllers
             householduser.Email = email;
             
             new HouseholdMapper().Update(householduser).Save().Commit();
-            
             appLogCreator.AddLog(this, "UPDATEPROFILE", DateTime.Now);
-            
             return View(nameof(Profile),householduser);
         }
 
@@ -58,9 +53,8 @@ namespace SmartHome.Controllers
             
            if (_session.IsLogin())
             {
-
-                appLogCreator.AddLog(this, "VIEWNEIGHBOURS", DateTime.Now);
                 model = (List<Household>) new HouseholdMapper().SelectAll();
+                appLogCreator.AddLog(this, "VIEWNEIGHBOURS", DateTime.Now);
                 return View(model);
             }
             else
@@ -74,6 +68,7 @@ namespace SmartHome.Controllers
 
         public ActionResult Logout()
         {
+            appLogCreator.AddLog(this, "LOGOUT", DateTime.Now);
             _session = Session.getInstance;
             Household householdUser = (Household) _session.GetUser();
             householdUser.IsLogin = false;

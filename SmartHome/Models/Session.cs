@@ -5,6 +5,7 @@ namespace SmartHome.Models
     {
         private static Session instance =null;
         private IUser loggedUser;
+        private Boolean justLoggedIn = true;
 
         private Session()
         {
@@ -67,6 +68,19 @@ namespace SmartHome.Models
         {
             instance = null;
             loggedUser = null;
+        }
+
+        public Boolean isFromLogin()
+        {
+            if (justLoggedIn)
+            {
+                justLoggedIn = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

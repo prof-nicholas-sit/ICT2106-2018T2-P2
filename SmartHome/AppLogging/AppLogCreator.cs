@@ -27,6 +27,7 @@ namespace SmartHome.AppLogging
         {
             return this.GetType().ToString();
         }
+
         public void SetHouseholdId(ObjectId inputId) {
             householdId = inputId;
         }
@@ -38,7 +39,6 @@ namespace SmartHome.AppLogging
             if (Buffer.Count == MAX) { //When Nth log is added
                 PushLogs();
             }
-            Console.WriteLine("Current buffer: ");
             Buffer.ForEach(Console.WriteLine);
         }
 

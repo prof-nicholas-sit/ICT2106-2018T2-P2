@@ -65,6 +65,8 @@ namespace SmartHome.Controllers
             }
             else
             {
+
+
                 return View("Index");
             }
         }
@@ -74,13 +76,20 @@ namespace SmartHome.Controllers
             _session = Session.getInstance;
             if ( _session.GetUser().GetType()==typeof(Household))
             {
-                appLogCreator.AddLog(this, "PROFILE", DateTime.Now);
+                if (_session.isFromLogin()) //Do not count initial profile "Visit" upon login
+                {
+                    Console.WriteLine("Redirect to profile page from login");
+                } else
+                {
+                    appLogCreator.AddLog(this, "PROFILE", DateTime.Now);
+                }
                 return View((Household)_session.GetUser());
             }
             else if (_session.IsLogin()== true && _session.GetUser().GetType() == typeof(Administrator))
             {
                 return View(_session.GetUser());
             }
+
             return RedirectToAction("Index","Home");
         }
 
