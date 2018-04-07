@@ -11,8 +11,6 @@ namespace UsageStatistics.Models
     public class EnergyAdvise
     {
         public double HouseholdConsumption { get { return TotalEnergyUsage(); } }
-        //public double AverageConsumption { get { return CalculateAverageConsumption(); } }
-        //public double PreviousMonthConsumption { get { return GetPreviousMonthConsumption(); } }
         public string GraphData { get { return GenerateGraphData(); } }
         private Session _session;
         private List<Household> allHouseholds = new List<Household>();
@@ -42,6 +40,9 @@ namespace UsageStatistics.Models
             fourthWeekOfMonth = thirdWeekOfMonth.AddDays(10);
         }
 
+        /*This method retrieves a list of device logs of this household
+        * , then calls TotalEnergUsage() method to return the sum of the consumption.
+       */
         private double CalculateOwnConsumption(DateTime startDate, DateTime endDate)
         {
             double sum = 0;
@@ -55,6 +56,9 @@ namespace UsageStatistics.Models
             return sum;
         }
 
+        /*This method retrieves a list of device logs of all households
+         * , then calls TotalEnergUsage() method to return the sum of the consumption.
+        */
         private double CalculateAverageConsumption(DateTime startDate, DateTime endDate)
         {
             double sum = 0;            
@@ -75,29 +79,29 @@ namespace UsageStatistics.Models
             return sum /allHouseholds.Count;
         }
 
+        /*This method retrieves a list of device logs of this household,
+        * 1 month before the provided time range,
+        * then calls TotalEnergUsage() method to return the sum of the consumption.
+        */
         private double GetPreviousMonthConsumption(DateTime startDate, DateTime endDate)
         {
             double sum = 0;
             Household householduser = (Household)_session.GetUser();
 
-            // Assign to previous month
+            // If month is 1, go back to last year december 
             if (startDate.Month - 1 == 0)
             {
                 startDate = startDate.AddYears(-1).AddMonths(11);
                 endDate = endDate.AddYears(-1).AddMonths(11);
 
-                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();
-                System.Diagnostics.Debug.WriteLine("startDate: " + startDate);
-                System.Diagnostics.Debug.WriteLine("endDate: " + endDate);
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();           
             }
             else
             {
                 startDate = startDate.AddMonths(-1);
                 endDate = endDate.AddMonths(-1);
 
-                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();
-                System.Diagnostics.Debug.WriteLine("startDate: " + startDate);
-                System.Diagnostics.Debug.WriteLine("endDate: " + endDate);
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();             
             }
             sum = TotalEnergyUsage();
             return sum;
@@ -108,6 +112,7 @@ namespace UsageStatistics.Models
             return allDeviceLogs;
         }
 
+        //This method calculates total energy usage from list of device logs
         public double TotalEnergyUsage()
         {
             // FOR THIS FUNCTION TO WORK,
@@ -161,6 +166,8 @@ namespace UsageStatistics.Models
 
             return sum;
         }
+
+        //This method generates data to be passed to the graph API to generate the graphs
         private string GenerateGraphData()
         {
             //Init data list
@@ -168,17 +175,19 @@ namespace UsageStatistics.Models
             List<double> averageHouseholdData = new List<double>();
             List<double> previousMonthData = new List<double>();
 
-            //Algorithm to pull data from DB
+            //Get own household data by week
             myHouseholdData.Add(CalculateOwnConsumption(firstDayOfMonth, firstWeekOfMonth));
             myHouseholdData.Add(CalculateOwnConsumption(firstWeekOfMonth, secondWeekOfMonth));
             myHouseholdData.Add(CalculateOwnConsumption(secondWeekOfMonth, thirdWeekOfMonth));
             myHouseholdData.Add(CalculateOwnConsumption(thirdWeekOfMonth, lastDayOfMonth));
 
+            //Get average household consumption data by week
             averageHouseholdData.Add(CalculateAverageConsumption(firstDayOfMonth, firstWeekOfMonth));
             averageHouseholdData.Add(CalculateAverageConsumption(firstWeekOfMonth, secondWeekOfMonth));
             averageHouseholdData.Add(CalculateAverageConsumption(secondWeekOfMonth, thirdWeekOfMonth));
             averageHouseholdData.Add(CalculateAverageConsumption(thirdWeekOfMonth, lastDayOfMonth));
 
+            //Get previous month data by week
             previousMonthData.Add(GetPreviousMonthConsumption(firstDayOfMonth, firstWeekOfMonth));
             previousMonthData.Add(GetPreviousMonthConsumption(firstWeekOfMonth, secondWeekOfMonth));
             previousMonthData.Add(GetPreviousMonthConsumption(secondWeekOfMonth, thirdWeekOfMonth));

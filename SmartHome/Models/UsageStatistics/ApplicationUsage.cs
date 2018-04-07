@@ -19,11 +19,15 @@ namespace UsageStatistics.Models
 
         private readonly AppLogRetriever appLogRetriever;
 
+        //Constructor
         public ApplicationUsage(IAppLogRetriever ar)
         {
             appLogRetriever = (AppLogRetriever)ar;
         }
 
+        /*This method calculates the login duration of the user by
+         * subtracting current time with the last login logged time.
+        */
         public string CalculateLoginDuration()
         {
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
@@ -34,12 +38,13 @@ namespace UsageStatistics.Models
             TimeSpan span = endTime.Subtract(startTime);
 
             //String sequence of days,hours, minutes and seconds together.
-            //Minues 8 hours for GMT
+            //Minus 8 hours for GMT
             String timeString = (span.Days + " Days, " + (span.Hours - 8) + " Hours, " + span.Minutes + " Minutes, " + span.Seconds + " Seconds");
 
             return timeString;
         }
 
+        /*This method retrieves last login log and returns the time stamp as string*/
         private string GetLastLogin()
         {
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
@@ -49,6 +54,7 @@ namespace UsageStatistics.Models
             return lastLog.Timestamp.ToShortDateString();
         }
 
+        /*This method retrieves the list of all login logs and counts the number of login times*/
         private int GetLoginCount()
         {
             List<String> logList = GetLogs();
@@ -64,6 +70,7 @@ namespace UsageStatistics.Models
             return count;
         }
 
+        /*This method retrives login logs by selected time range*/
         private List<String> GetLogs()
         {
             // default is everything from the earliest date in DateTime to current time

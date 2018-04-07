@@ -30,6 +30,7 @@ namespace UsageStatistics.Models
         private DateTime start;
         private DateTime end;
 
+        /*Constructor*/
         public EnergyUsage(string timePeriod = null)
         {
             _session = Session.getInstance;
@@ -39,7 +40,8 @@ namespace UsageStatistics.Models
             Locations = GetLocationsInLogs();
             
         }
-        
+
+        /*This method retrives all login logs by selected time range*/
         private List<DeviceLog> GetLogs()
         {
             // default is everything from the earliest date in DateTime to current time
@@ -68,7 +70,10 @@ namespace UsageStatistics.Models
 
             return logList;
         }
-        
+
+        /*This method calculates the sum of energy usage of the household
+         The list of device logs is obtained by calling deviceLogs() method
+         */
         public double IndividualEnergyUsage()
         {
             // FOR THIS FUNCTION TO WORK,
@@ -111,7 +116,6 @@ namespace UsageStatistics.Models
                 }
             }
 
-
             if (dtOn != DateTime.MinValue)
             {
                 dtOff = DateTime.Now;
@@ -122,6 +126,7 @@ namespace UsageStatistics.Models
             return sum;
         }
 
+        /*This method adds the devices into a list of locations*/
         private List<string> GetDevicesInLocation()
         {
             List<string> devicesInLocation = new List<string>();
@@ -139,6 +144,8 @@ namespace UsageStatistics.Models
             return devicesInLocation;
         }
 
+        /*This method retrives all locations of the household by looping through all device logs
+         and tabulating the locations.*/
         private List<string> GetLocationsInLogs()
         {
             List<string> locationInLogs = new List<string>();
@@ -154,6 +161,7 @@ namespace UsageStatistics.Models
             return locationInLogs;
         }
 
+        //This method generates data to be passed to the graph API to generate the graphs
         private string GetGraphPower()
         {
             _session = Session.getInstance;
