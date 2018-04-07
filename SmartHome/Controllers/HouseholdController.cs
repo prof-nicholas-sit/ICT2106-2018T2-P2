@@ -39,13 +39,14 @@ namespace SmartHome.Controllers
             return View(nameof(Profile),householduser);
         }
 
-        public ActionResult ViewNeighbours()
+        public ActionResult ViewNeighbours([FromServices] IAppLogCreator appLogCreator)
         {
             _session = Session.getInstance;
             
            if (_session.IsLogin())
             {
                 model = (List<Household>) new HouseholdMapper().SelectAll();
+                appLogCreator.AddLog(this, "PAGE*/-View-Neighbours", DateTime.Now);
                 return View(model);
             }
             else
