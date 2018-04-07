@@ -27,7 +27,6 @@ namespace SmartHome.AppLogging
         {
             return this.GetType().ToString();
         }
-
         public void SetHouseholdId(ObjectId inputId) {
             householdId = inputId;
         }

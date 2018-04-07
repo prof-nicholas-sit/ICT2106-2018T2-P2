@@ -81,7 +81,6 @@ namespace SmartHome.Controllers
             {
                 return View(_session.GetUser());
             }
-
             return RedirectToAction("Index","Home");
         }
 
