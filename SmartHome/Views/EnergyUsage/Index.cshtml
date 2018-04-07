@@ -11,22 +11,18 @@
         </div>
         <div class="col-lg-12">
             <h3>Usage Statistics</h3>
-            <div class="btn-group btn-group-sm" id="tab_toggle" role="tablist" aria-label="...">
-                <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="daily">Daily</a>
-                <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="weekly">Weekly</a>
-                <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="monthly">Montly</a>
-            </div>
-            <div class="panel panel-default mt30 mb0">
+
+            <div class="panel panel-default mt30">
                 <div class="panel-heading">
                     <h3 class="panel-title">Devices Installed</h3>
                 </div>
-                <div class="panel-body text-center">
+                <div class="panel-body">
                     <div class="row" id="eu-dev-list">
                         @if (Model.DevicesInLocation.Count != 0)
                         {
                             @foreach (string deviceName in Model.DevicesInLocation)
                             {
-                                <div class="col-xs-6 col-sm-4 col-lg-2">
+                                <div class="col-xs-6 col-sm-4 col-lg-2 text-center">
                                     <!-- set default time period as daily -->
                                     @if (Model.Name.Equals(deviceName))
                                     {
@@ -59,6 +55,39 @@
                         }
 
                     </div>
+
+                    <hr>
+
+                    <div class="btn-group btn-group-sm mb20" id="tab_toggle" role="tablist" aria-label="...">
+                        <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="daily">Daily</a>
+                        <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="weekly">Weekly</a>
+                        <a class="btn btn-warning" asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location=@Model.Location asp-route-name="@Model.Name" asp-route-timePeriod="monthly">Montly</a>
+                    </div>
+                    <div class="well well-lg well-info">
+                        <div class="row" id="eu-dev-info-basic"> 
+                            <span>@Model.Name used @Model.EnergyUsed KwH</span>
+                          
+                            @if (Model.TimePeriod.Equals("daily"))
+                            {
+                                <span>today</span>
+                            }
+                            else if (Model.TimePeriod.Equals("weekly"))
+                            {
+                                <span>this week (MON-SUN)</span>
+                            }
+                            else
+                            {
+                                <span>in this month</span>
+                            }
+                           
+                            <br /><span>Status is @Model.State</span>
+
+                        </div>
+
+                        <hr>
+                        <div class="row" id="eu-dev-info"></div>
+                    </div>
+                    <!-- end well -->
                 </div>
             </div>
         </div>
@@ -66,72 +95,41 @@
     <!-- /.col-lg-12 -->
     <!-- /.row -->
 
-    <div id="device_1" class="panel panel-default mt30">
-        <div class="panel-body">
-            <div class="well well-lg well-info">
-                <div class="row" id="eu-dev-info-basic"> 
-                    <span>@Model.Name used @Model.EnergyUsed KwH</span>
-                  
-                    @if (Model.TimePeriod.Equals("daily"))
-                    {
-                        <span>today</span>
-                    }
-                    else if (Model.TimePeriod.Equals("weekly"))
-                    {
-                        <span>this week (MON-SUN)</span>
-                    }
-                    else
-                    {
-                        <span>in this month</span>
-                    }
-                   
-                    <br /><span>Status is @Model.State</span>
-
-                </div>
-
-                <hr>
-                <div class="row" id="eu-dev-info"></div>
-            </div>
-            <!-- end well -->
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <b>Energy Usage</b>
-                    <div class="pull-right">
-                        <b>Today: 21/01/18 &nbsp;</b>
-                    </div>
-                </div>
-                <!-- /.panel-heading -->
-
-                <div class="panel-body">
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active">
-                        @if (Model.TimePeriod.Equals("daily"))
-                        {
-                            <canvas id="daily_1"></canvas>
-                        }
-                        else if (Model.TimePeriod.Equals("weekly"))
-                        {
-                            <canvas id="weekly_1"></canvas>
-                        }
-                        else if (Model.TimePeriod.Equals("monthly"))
-                        {
-                            <canvas id="monthly_1"></canvas>
-                        }
-                        else 
-                        {
-                            <canvas id="daily_1"></canvas>
-                        }
-                        </div>
-                    </div>
-                </div>
-                <!-- /.panel-body -->
-
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <b>Energy Usage</b>
+            <div class="pull-right">
+                <b>Today: 21/01/18 &nbsp;</b>
             </div>
         </div>
+        <!-- /.panel-heading -->
 
+        <div class="panel-body">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active">
+                @if (Model.TimePeriod.Equals("daily"))
+                {
+                    <canvas id="daily_1"></canvas>
+                }
+                else if (Model.TimePeriod.Equals("weekly"))
+                {
+                    <canvas id="weekly_1"></canvas>
+                }
+                else if (Model.TimePeriod.Equals("monthly"))
+                {
+                    <canvas id="monthly_1"></canvas>
+                }
+                else 
+                {
+                    <canvas id="daily_1"></canvas>
+                }
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
 
-    </div>
+        </div>
 </div>
+
 
 <!-- Chart Js --> <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> <script>     $(document).ready(function(){        $('#device_2, #device_3').hide();                   $('#tab_toggle').on('shown.bs.tab', function (e) {           //call chart to render here         });     });      var ctx = document.getElementById('daily_1').getContext('2d');     var chart = new Chart(ctx, {         // The type of chart we want to create         type: 'line',          // The data for our dataset         data: {             labels: ["12AM", "2AM", "4AM", "6AM", "8AM", "10AM", "12PM", "2PM", "4PM", "6PM", "8PM", "10PM", "12AM"],             datasets: [{                 label: "Brightness Level",                 backgroundColor: 'rgba(255, 99, 132, 0.6)',                 borderColor: 'rgb(255, 99, 132)',                 data: [@Model.GraphPower],             }]         },          // Configuration options go here         options: {}     });      var ctx3 = document.getElementById('weekly_1').getContext('2d');     var chart3 = new Chart(ctx3, {         // The type of chart we want to create         type: 'line',          // The data for our dataset         data: {             labels: ["Week 1", "Week 2", "Week 3", "Week 4"],             datasets: [{                 label: "Brightness Level",                 backgroundColor: 'rgba(255, 99, 132, 0.6)',                 borderColor: 'rgb(255, 99, 132)',                 data: [20, 20, 20, 0, 0, 0, 0, 50, 0, 0, 60, 100, 20],             }]         },          // Configuration options go here         options: {}     });      var ctx5 = document.getElementById('monthly_1').getContext('2d');     var chart5 = new Chart(ctx5, {         // The type of chart we want to create         type: 'line',          // The data for our dataset         data: {             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],             datasets: [{                 label: "Brightness Level",                 backgroundColor: 'rgba(255, 99, 132, 0.6)',                 borderColor: 'rgb(255, 99, 132)',                 data: [20, 20, 20, 0, 0, 0, 0, 50, 0, 0, 60, 100, 20],             }]         },          // Configuration options go here         options: {}     }); </script> 
