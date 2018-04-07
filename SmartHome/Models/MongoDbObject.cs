@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 ﻿using MongoDB.Bson;
-=======
-﻿﻿using MongoDB.Bson;
->>>>>>> origin/Team12-Dev
+
 using MongoDB.Bson.Serialization;
 
 namespace SmartHome.Models
