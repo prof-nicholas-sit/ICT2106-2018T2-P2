@@ -108,7 +108,6 @@ namespace UsageStatistics.Models
             _session = Session.getInstance;
             Household householduser = (Household)_session.GetUser();
             double sum = 0;
-            int time = 0;
             start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
             end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
             List<string> powerInterval = new List<string>();
@@ -116,15 +115,15 @@ namespace UsageStatistics.Models
             for (int i = 0; i < 13; i ++)
             {
                 allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
+                System.Diagnostics.Debug.WriteLine("DATETIME: " + end.ToString());
                 foreach (DeviceLog log in allDeviceLogs)
                 {
                     sum += CalculateEnergyUsage(log);
                 }
-                powerInterval[i] = sum.ToString("0.##%");
-                time += 2;
-                end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, time, 0, 0);
+                powerInterval.Add(sum.ToString());
+               
+                end = end.AddHours(2);
             }
-
             return string.Join(",", powerInterval);
         }
     }

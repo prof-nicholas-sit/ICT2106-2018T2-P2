@@ -29,6 +29,7 @@ namespace UsageStatistics.Models
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
 
             AppLog log = (AppLog)logIter.Last();
+
             DateTime startTime = log.Timestamp;
             DateTime endTime = DateTime.Now;
             TimeSpan span = endTime.Subtract(startTime);
