@@ -57,7 +57,7 @@ namespace SmartHome.Controllers
 
                 appLogRetriever.SetHouseholdId(householduser._id);
                 appLogCreator.setHouseholdId(householduser._id);
-                appLogCreator.AddLog(this, "LOGIN", DateTime.Now);
+                appLogCreator.AddLog(this, "ACTION*/-LOGIN", DateTime.Now);
 
                 return RedirectToAction("Profile", "Household");
 
