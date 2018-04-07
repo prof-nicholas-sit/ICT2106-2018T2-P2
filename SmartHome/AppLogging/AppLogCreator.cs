@@ -20,7 +20,6 @@ namespace SmartHome.AppLogging
         public AppLogCreator()
         {
             Buffer = new List<AppLog>();
-            Console.WriteLine("New DataLogger created!");
         }
 
         public string GetCurrentType()
@@ -32,14 +31,16 @@ namespace SmartHome.AppLogging
             householdId = inputId;
         }
 
-        public void AddLog(Controller controller, string logType, DateTime timeStamp, string extras = null)
+        public bool AddLog(Controller controller, string logType, DateTime timeStamp, string deviceType = null, string extras = null )
         {
-            AppLog temp = new AppLog(controller.GetType().ToString() + DELIMITER + logType, timeStamp, householdId); //PARSE IN HOUSEHOLD ID.
+            AppLog temp = new AppLog(controller.GetType().ToString() + DELIMITER + logType, timeStamp, householdId, deviceType, extras); //PARSE IN HOUSEHOLD ID.
             Buffer.Add(temp);
             if (Buffer.Count == MAX) { //When Nth log is added
                 PushLogs();
+                return true;
+            } else {
+                return false;
             }
-            Buffer.ForEach(Console.WriteLine);
         }
 
         public void PushLogs()  //To be called when buffer hits max and upon logout.

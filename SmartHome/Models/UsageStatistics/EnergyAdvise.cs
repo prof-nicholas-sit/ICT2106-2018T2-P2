@@ -10,9 +10,9 @@ namespace UsageStatistics.Models
 {
     public class EnergyAdvise
     {
-        public double HouseholdConsumption { get { return new EnergyUsage().TotalEnergyUsage(); } }
+        public double HouseholdConsumption { get { return TotalEnergyUsage(); } }
         //public double AverageConsumption { get { return CalculateAverageConsumption(); } }
-        public double PreviousMonthConsumption { get { return GetPreviousMonthConsumption(); } }
+        //public double PreviousMonthConsumption { get { return GetPreviousMonthConsumption(); } }
         public string GraphData { get { return GenerateGraphData(); } }
         private Session _session;
         private List<Household> allHouseholds = new List<Household>();
@@ -39,7 +39,20 @@ namespace UsageStatistics.Models
             firstWeekOfMonth = firstDayOfMonth.AddDays(6);
             secondWeekOfMonth = firstWeekOfMonth.AddDays(7);
             thirdWeekOfMonth = secondWeekOfMonth.AddDays(7);
-            fourthWeekOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            fourthWeekOfMonth = thirdWeekOfMonth.AddDays(10);
+        }
+
+        private double CalculateOwnConsumption(DateTime startDate, DateTime endDate)
+        {
+            double sum = 0;
+            Household householduser = (Household)_session.GetUser();
+
+            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();
+            if (allDeviceLogs.Count != 0)
+            {
+                sum = TotalEnergyUsage();
+            }
+            return sum;
         }
 
         private double CalculateAverageConsumption(DateTime startDate, DateTime endDate)
@@ -48,11 +61,7 @@ namespace UsageStatistics.Models
             
             //Get all device fromeach household
             foreach (Household household in allHouseholds)
-            {
-                System.Diagnostics.Debug.WriteLine("HouseholdId: " + household.houseHoldId);
-                System.Diagnostics.Debug.WriteLine("startDate: " + startDate);
-                System.Diagnostics.Debug.WriteLine("endDate: " + endDate);
-
+            {               
                 allDeviceLogs.AddRange(new DeviceLogMapper().SelectFromDateRange(household.houseHoldId, startDate, endDate));                
                 System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
             }
@@ -60,45 +69,94 @@ namespace UsageStatistics.Models
             //Sum all energy usage for all devices from all household
             if (allDeviceLogs.Count != 0)
             {
-                foreach (DeviceLog log in allDeviceLogs)
-                {
-                    sum += new EnergyUsage().TotalEnergyUsage();
-                }
-            }
+                sum = TotalEnergyUsage();
 
+            }
             return sum /allHouseholds.Count;
         }
 
-        private double GetPreviousMonthConsumption()
+        private double GetPreviousMonthConsumption(DateTime startDate, DateTime endDate)
         {
             double sum = 0;
-            int prevMonth = 0;
+            Household householduser = (Household)_session.GetUser();
 
             // Assign to previous month
-            if (firstDayOfMonth.Month - 1 == 0)
+            if (startDate.Month - 1 == 0)
             {
-                prevMonth = 12;
+                startDate = startDate.AddYears(-1).AddMonths(11);
+                endDate = endDate.AddYears(-1).AddMonths(11);
+
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();
+                System.Diagnostics.Debug.WriteLine("startDate: " + startDate);
+                System.Diagnostics.Debug.WriteLine("endDate: " + endDate);
             }
             else
             {
-                prevMonth = firstDayOfMonth.Month - 1;
+                startDate = startDate.AddMonths(-1);
+                endDate = endDate.AddMonths(-1);
+
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, startDate, endDate).ToList();
+                System.Diagnostics.Debug.WriteLine("startDate: " + startDate);
+                System.Diagnostics.Debug.WriteLine("endDate: " + endDate);
+            }
+            sum = TotalEnergyUsage();
+            return sum;
+        }
+
+        private List<DeviceLog> GetLogs()
+        {
+            return allDeviceLogs;
+        }
+
+        public double TotalEnergyUsage()
+        {
+            // FOR THIS FUNCTION TO WORK,
+            // LOGS ARE ASSUMED TO BE ACCURATELY LOGGED AND BE SORTED IN DATETIME WHEN RETRIEVING
+
+            List<DeviceLog> deviceLogs = GetLogs();
+
+            double sum = 0;
+
+            DateTime dtOn = new DateTime();
+            DateTime dtOff = new DateTime();
+
+            Dictionary<string, DateTime> trackDeviceStates = new Dictionary<string, DateTime>();
+            Dictionary<string, double> trackDeviceKwh = new Dictionary<string, double>();
+
+            foreach (DeviceLog log in deviceLogs)
+            {
+                if (!trackDeviceKwh.ContainsKey(log.Name))
+                {
+                    trackDeviceKwh.Add(log.Name, log.KWh);
+                }
+
+                if (log.State.Equals("on") && !trackDeviceStates.ContainsKey(log.Name))
+                {
+                    trackDeviceStates.Add(log.Name, log.DateTime);
+                }
+                else if (log.State.Equals("off") && trackDeviceStates.ContainsKey(log.Name))
+                {
+                    dtOn = trackDeviceStates[log.Name];
+                    dtOff = log.DateTime;
+
+                    trackDeviceStates.Remove(log.Name);
+                    TimeSpan span = dtOff.Subtract(dtOn);
+                    sum += log.KWh * span.TotalHours;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("There is a problem with the log. Either it's off without being on (can be ignored), or there's two on in a row (problem with logging!)");
+                }
             }
 
-            if (prevMonth != 0)
+            // for states that are on and not yet off
+            foreach (KeyValuePair<string, DateTime> deviceState in trackDeviceStates)
             {
-                Household householduser = (Household)_session.GetUser();
+                dtOn = deviceState.Value;
+                dtOff = DateTime.Now;
 
-                // Based on month selected and current year
-                DateTime date = new DateTime(DateTime.Now.Year, prevMonth, DateTime.Now.Day);
-                firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
-                lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-
-                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, firstDayOfMonth, lastDayOfMonth).ToList();
-
-                foreach (DeviceLog log in allDeviceLogs)
-                {
-                    sum += new EnergyUsage().TotalEnergyUsage();
-                }
+                TimeSpan span = dtOff.Subtract(dtOn);
+                sum += trackDeviceKwh[deviceState.Key] * span.TotalHours;
             }
 
             return sum;
@@ -111,20 +169,20 @@ namespace UsageStatistics.Models
             List<double> previousMonthData = new List<double>();
 
             //Algorithm to pull data from DB
-            myHouseholdData.Add(5);
-            myHouseholdData.Add(15);
-            myHouseholdData.Add(55);
-            myHouseholdData.Add(25);
+            myHouseholdData.Add(CalculateOwnConsumption(firstDayOfMonth, firstWeekOfMonth));
+            myHouseholdData.Add(CalculateOwnConsumption(firstWeekOfMonth, secondWeekOfMonth));
+            myHouseholdData.Add(CalculateOwnConsumption(secondWeekOfMonth, thirdWeekOfMonth));
+            myHouseholdData.Add(CalculateOwnConsumption(thirdWeekOfMonth, lastDayOfMonth));
 
             averageHouseholdData.Add(CalculateAverageConsumption(firstDayOfMonth, firstWeekOfMonth));
             averageHouseholdData.Add(CalculateAverageConsumption(firstWeekOfMonth, secondWeekOfMonth));
             averageHouseholdData.Add(CalculateAverageConsumption(secondWeekOfMonth, thirdWeekOfMonth));
             averageHouseholdData.Add(CalculateAverageConsumption(thirdWeekOfMonth, lastDayOfMonth));
 
-            previousMonthData.Add(55);
-            previousMonthData.Add(33);
-            previousMonthData.Add(22);
-            previousMonthData.Add(77);
+            previousMonthData.Add(GetPreviousMonthConsumption(firstDayOfMonth, firstWeekOfMonth));
+            previousMonthData.Add(GetPreviousMonthConsumption(firstWeekOfMonth, secondWeekOfMonth));
+            previousMonthData.Add(GetPreviousMonthConsumption(secondWeekOfMonth, thirdWeekOfMonth));
+            previousMonthData.Add(GetPreviousMonthConsumption(thirdWeekOfMonth, lastDayOfMonth));
 
             //Parse to JSON format
             String myHouseholdJSON = string.Join(",", myHouseholdData);
@@ -136,3 +194,4 @@ namespace UsageStatistics.Models
         }
     }
 }
+
