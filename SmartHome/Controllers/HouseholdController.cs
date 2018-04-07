@@ -47,7 +47,7 @@ namespace SmartHome.Controllers
             return View(nameof(Profile),householduser);
         }
 
-        public ActionResult ViewNeighbours([FromServices] IAppLogCreator appLogCreator)
+        public ActionResult ViewNeighbours()
         {
             _session = Session.getInstance;
             
