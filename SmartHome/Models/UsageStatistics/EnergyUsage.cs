@@ -1,6 +1,9 @@
-﻿using SmartHome.Models;
+﻿using SmartHome.DAL.Mappers;
+using SmartHome.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using MongoDB.Bson;
 
 namespace UsageStatistics.Models
 {
@@ -11,50 +14,31 @@ namespace UsageStatistics.Models
         public string Type { get; set; }
         public string State { get; set; }
  
-        //List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
-        //List<Device> allDevices = new List<Device>();
-        
+        private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
+        private Session _session;
+
         public EnergyUsage()
         {
-            // --- DEVICE STUBS
-            // Creating fake devices and device logs for that device
-            //int device1 = 1;
-            //int device2 = 2;
-            //Device myDevice1 = new Device(device1, "Living room", 90, "Lightbulb");
-            //Device myDevice2 = new Device(device2, "Kitchen", 85, "Fridge");
+            _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
+         
+            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
 
-            //allDevices.Add(myDevice1);
-            //allDevices.Add(myDevice2);
-
-            //// --- DEVICE LOG STUBS
-            //DeviceLog deviceLog1 = new DeviceLog(1, device1, new DateTime(2018, 02, 10, 11, 00, 00), "on");
-            //DeviceLog deviceLog2 = new DeviceLog(2, device1, new DateTime(2018, 02, 10, 13, 32, 00), "off");
-            //DeviceLog deviceLog3 = new DeviceLog(3, device2, new DateTime(2018, 02, 11, 15, 08, 00), "on");
-            //DeviceLog deviceLog4 = new DeviceLog(4, device2, new DateTime(2018, 02, 11, 15, 10, 00), "off");
-
-            //allDeviceLogs.Add(deviceLog1);
-            //allDeviceLogs.Add(deviceLog2);
-            //allDeviceLogs.Add(deviceLog3);
-            //allDeviceLogs.Add(deviceLog4);
+            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);            
         }
-        
+
         public double IndividualEnergyUsage(string location, string deviceType, string timePeriod)
         {
-            //Device dev = new Device();
-
-            //// getDeviceByCategory(location, deviceType)
-            //// store to an int variable
-            //foreach (Device device in allDevices)
-            //{
-            //    if (device.Location == location && device.Type == deviceType)
-            //    {
-            //        dev = device;
-            //    }
-            //}
-
-            //double sum = CalculateEnergyUsage(timePeriod, dev);
-
             double sum = 0;
+
+            foreach (DeviceLog log in allDeviceLogs)
+            {
+                if (log.Location == location && log.Type == deviceType)
+                {
+                    sum += CalculateEnergyUsage(timePeriod, log);
+                }
+            }
+
             return sum;
         }
 
@@ -62,46 +46,41 @@ namespace UsageStatistics.Models
         {            
             double sum = 0;
 
-            //foreach (Device dev in allDevices)
-            //{
-            //    sum += CalculateEnergyUsage(timePeriod, dev);
-            //}
+            foreach (DeviceLog log in allDeviceLogs)
+            {
+                sum += CalculateEnergyUsage(timePeriod, log);
+            }
 
             return sum;
         }
 
-        private double CalculateEnergyUsage(string timePeriod, Device dev)
+        private double CalculateEnergyUsage(string timePeriod, DeviceLog log)
         {
             DateTime dtOn = new DateTime();
             DateTime dtOff = new DateTime();
             double sum = 0;
-            
-            // For each device log, calculate energy usage
-            // MISSING TO CHECK IF WITHIN TIME PERIOD (or can it be done during retrieval?)
-            //foreach (DeviceLogs log in allDeviceLogs)
-            //{
-            //    if (log.DeviceId == dev.Id)
-            //    {
-            //        if (log.Status == "on")
-            //        {
-            //            dtOn = log.Datetime;
-            //        }
-            //        else if (log.Status == "off")
-            //        {
-            //            dtOff = log.Datetime;
 
-            //            if (dtOn != null)
-            //            {
-            //                TimeSpan span = dtOff.Subtract(dtOn);
-            //                sum += dev.Energy * span.TotalHours;
-            //            }
+            if (log.State == "on")
+            {
+                dtOn = log.DateTime;
+                System.Diagnostics.Debug.WriteLine("Datetime on: " + dtOn);
 
-            //            // clear
-            //            dtOn = new DateTime();
-            //            dtOff = new DateTime();
-            //        }
-            //    }
-            //}
+            }
+            else if (log.State == "off")
+            {
+                dtOff = log.DateTime;
+
+                if (dtOn != null)
+                {
+                    TimeSpan span = dtOff.Subtract(dtOn);
+                    sum += log.KWh * span.TotalHours;
+                }
+
+                // clear
+                dtOn = new DateTime();
+                dtOff = new DateTime();
+            }
+
             return sum;
         }        
     }

@@ -22,23 +22,22 @@
                 </div>
                 <div class="panel-body text-center">
                     <div class="row" id="eu-dev-list">
-                        @if (ViewBag.location == "Living room")
+                        @if (ViewBag.location == "bedroom")
                         {
                             <div class="col-xs-6 col-sm-4 col-lg-2">
-                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "Living room", type = "Lightbulb", timePeriod = "daily"})" class="active">
+                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "bedroom", type = "light", timePeriod = "daily"})" class="active">
                                     <div class="wrap-icon">
                                         <i class="far fa-lightbulb fa-3x"></i><br>
                                         <strong>Lightbulb</strong>
                                     </div>
                                 </a>
                             </div>
-
                         }
-                        else if (ViewBag.location == "Kitchen")
+                        else if (ViewBag.location == "kitchen")
                         {
                             <div class="col-xs-6 col-sm-4 col-lg-2">
                                 <!-- set default time period as daily -->
-                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "Kitchen", type = "Fridge", timePeriod = "daily"})" class="active">
+                                <a class="wrap-icon-href" href="@Url.Action("Index", new { location = "kitchen", type = "fan", timePeriod = "daily"})" class="active">
                                     <div class="wrap-icon">
                                         <i class="far fa-lightbulb fa-3x"></i><br>
                                         <strong>Fridge</strong>
