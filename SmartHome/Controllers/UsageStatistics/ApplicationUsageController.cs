@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -18,21 +19,27 @@ namespace UsageStatistics.Controllers
         public ApplicationUsageController([FromServices] IAppLogCreator ac, [FromServices] IAppLogRetriever ar) {
             ac.PushLogs();
             applicationUsage = new ApplicationUsage(ar);
-        } 
+        }
 
         // GET: EnergyUsage
-        public ActionResult Index()
+        public ActionResult Index(string period = null)
         {
-            _session = Session.getInstance;
-            
-            if (_session.IsLogin())
+            switch (period)
             {
-                return View(applicationUsage);
+                case "daily":
+                    applicationUsage.timePeriod = "daily";
+                    break;
+                case "weekly":
+                    applicationUsage.timePeriod = "weekly";
+                    break;
+                case "monthly":
+                    applicationUsage.timePeriod = "monthly";
+                    break;
+                default:
+                    ViewBag.Period = null;
+                    break;
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return View(applicationUsage);
         }
     }
 }
