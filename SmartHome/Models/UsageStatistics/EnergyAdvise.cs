@@ -11,8 +11,6 @@ namespace UsageStatistics.Models
     public class EnergyAdvise
     {
         public double HouseholdConsumption { get { return TotalEnergyUsage(); } }
-        //public double AverageConsumption { get { return CalculateAverageConsumption(); } }
-        //public double PreviousMonthConsumption { get { return GetPreviousMonthConsumption(); } }
         public string GraphData { get { return GenerateGraphData(); } }
         private Session _session;
         private List<Household> allHouseholds = new List<Household>();
