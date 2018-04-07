@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartHome
+namespace SmartHome.AppLogging
 {
     public class AppLogRetriever : IAppLogRetriever
     {
@@ -38,13 +38,11 @@ namespace SmartHome
             return result;
         }
 
-        public List<AppLog> SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null)
+        public IAppLogIterator SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null)
         {
             var DB = new AppLogMapper();
-            List<AppLog> result = 
-                DB.SelectQuery(householdId, start, end, logType, deviceType).ToList();
-            
-            return result;
+            List<AppLog> result = DB.SelectQuery(householdId, start, end, logType, deviceType).ToList();
+            return new AppLogIterator(result);
         }
     }
 }
