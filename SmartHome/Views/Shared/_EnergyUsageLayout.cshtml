@@ -57,7 +57,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="EnergyUsage" asp-action="Index">Energy Usage</a></li>
+                            <li><a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="@Model.Locations[0]">Energy Usage</a></li>
                             <li><a asp-area="" asp-controller="EnergyAdvise" asp-action="Index">Energy Advise</a></li>
                             <li><a asp-area="" asp-controller="ApplicationUsage" asp-action="Index">Application Usage</a></li>
                         </ul>
@@ -65,6 +65,22 @@
                     <li><a asp-area="" asp-controller="Household" asp-action="Logout">Logout</a></li>
                 </ul>
             </div>
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav">
+
+                        <ul class="nav" id="side-menu">
+                            @foreach (String location in Model.Locations)
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="EnergyUsage" asp-action="Index" asp-route-location="@location" asp-route-timePeriod="@Model.TimePeriod"><i class="fas fa-utensils fa-fw"></i> @location</a>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
         </div>
     </nav>
     <div class="container body-content">

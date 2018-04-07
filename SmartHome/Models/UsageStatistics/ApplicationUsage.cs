@@ -10,7 +10,7 @@ namespace UsageStatistics.Models
 {
     public class ApplicationUsage
     {
-        public string timePeriod { get; set; }
+        public string TimePeriod { get; set; }
         public string LastLogin { get { return GetLastLogin(); } }
         public int LoginCount { get { return GetLoginCount(); } }
         public Dictionary<string, int> PageCount { get { return GetPageCount(); } }
@@ -52,7 +52,7 @@ namespace UsageStatistics.Models
 
         private int GetLoginCount()
         {
-            List<String> logList = appLogRetriever.ListLogTypes(DateTime.MinValue, DateTime.Now);
+            List<String> logList = GetLogs();
 
             int count = 0;
             foreach (String log in logList)
@@ -71,19 +71,18 @@ namespace UsageStatistics.Models
             var startTime = DateTime.MinValue;
             var endTime = DateTime.Now;
 
-            switch (timePeriod)
+            switch (TimePeriod)
             {
                 case "daily":
+                    startTime = DateTime.Now.Date;
+                    break;
+                case "weekly":
                     // monday this week (12:00AM)
                     startTime = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
                     break;
-                case "weekly":
+                case "monthly":
                     // first day this month (12:00AM)
                     startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                    break;
-                case "monthly":
-                    // Jan 1 (12:00 AM) of this year
-                    startTime = new DateTime(DateTime.Now.Year, 1, 1);
                     break;
                 default:
                     break;

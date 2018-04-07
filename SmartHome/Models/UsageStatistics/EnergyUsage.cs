@@ -4,17 +4,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
+using System.Diagnostics;
 
 namespace UsageStatistics.Models
 {
-    public class EnergyUsage 
+    public class EnergyUsage
     {
+        public string Location { get; set; }
+        public string TimePeriod { get; set; }
+        public List<string> Locations { get; set; }
+
+        public double EnergyUsed { get { return Math.Round(IndividualEnergyUsage(), 2); } }
+        public List<string> DevicesInLocation { get { return GetDevicesInLocation(); } }
+
         public string Name { get; set; }
         public string Model { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
-        public string GraphPower { get { return GetGraphPower();  } }
+
+        //public string GraphPower { get { return GetGraphPower();  } }
         
+
         private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
         private Session _session;
         private DateTime start;
@@ -24,85 +34,129 @@ namespace UsageStatistics.Models
         {
             _session = Session.getInstance;
             Household householduser = (Household)_session.GetUser();
-            
-            if (timePeriod == "daily")
-            {
-                start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-                end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59, 999);
-            }
-            else if (timePeriod == "weekly")
-            {
 
-            }
-            else if (timePeriod == "monthly")
-            {
-                DateTime date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-                start = new DateTime(date.Year, date.Month, 1);
-                end = start.AddMonths(1).AddDays(-1);
-            }
+            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
+            Locations = GetLocationsInLogs();
 
-            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
-
-            // System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);            
+            System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);
         }
 
-        public double IndividualEnergyUsage(string location, string deviceType)
-        {
-            double sum = 0;
 
-            foreach (DeviceLog log in allDeviceLogs)
+        private List<DeviceLog> GetLogs()
+        {
+            // default is everything from the earliest date in DateTime to current time
+            var startTime = DateTime.MinValue;
+            var endTime = DateTime.Now;
+
+            switch (TimePeriod)
             {
-                if (log.Location == location && log.Type == deviceType)
+                case "daily":
+                    startTime = DateTime.Now.Date;
+                    break;
+                case "weekly":
+                    // monday this week (12:00AM)
+                    startTime = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+                    break;
+                case "monthly":
+                    // first day this month (12:00AM)
+                    startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    break;
+                default:
+                    break;
+            }
+
+            // retrieve logs from appLog module
+            List<DeviceLog> logList = new DeviceLogMapper().SelectFromDateRange(((Household)_session.GetUser()).houseHoldId, startTime, endTime).ToList();
+
+            return logList;
+        }
+
+
+        public double IndividualEnergyUsage()
+        {
+            // FOR THIS FUNCTION TO WORK,
+            // LOGS ARE ASSUMED TO BE ACCURATELY LOGGED AND BE SORTED IN DATETIME WHEN RETRIEVING
+
+            List<DeviceLog> deviceLogs = GetLogs();
+
+            double sum = 0;
+            double kwh = 0;
+
+            DateTime dtOn = DateTime.MinValue;
+            DateTime dtOff = DateTime.MinValue;
+
+            foreach (DeviceLog log in deviceLogs)
+            {
+                if (log.Location == Location && log.Name == Name)
                 {
-                    sum += CalculateEnergyUsage(log);
+                    kwh = log.KWh;
+
+                    if (log.State == "on")
+                    {
+                        dtOn = log.DateTime;
+                    }
+                    else if (log.State == "off")
+                    {
+                        dtOff = log.DateTime;
+
+                        if (dtOn != DateTime.MinValue)
+                        {
+                            TimeSpan span = dtOff.Subtract(dtOn);
+                            sum += log.KWh * span.TotalHours;
+                        }
+
+                        // clear
+                        dtOn = DateTime.MinValue;
+                        dtOff = DateTime.MinValue;
+                    }
+
+                    State = log.State;
                 }
             }
 
+
+            if (dtOn != DateTime.MinValue)
+            {
+                dtOff = DateTime.Now;
+
+                TimeSpan span = dtOff.Subtract(dtOn);
+                sum += kwh * span.TotalHours;
+            }
             return sum;
         }
 
-        public double TotalEnergyUsage()
+        private List<string> GetDevicesInLocation()
         {
-            double sum = 0;
+            List<string> devicesInLocation = new List<string>();
 
             foreach (DeviceLog log in allDeviceLogs)
             {
-                sum += CalculateEnergyUsage(log);
+                if (!devicesInLocation.Contains(log.Name) && log.Location.Equals(Location))
+                {
+                    devicesInLocation.Add(log.Name);
+                    Debug.WriteLine("added" + log.Name);
+                }
             }
 
-            return sum;
+            Debug.WriteLine("added" + devicesInLocation);
+            return devicesInLocation;
         }
 
-        private double CalculateEnergyUsage(DeviceLog log)
+        private List<string> GetLocationsInLogs()
         {
-            DateTime dtOn = new DateTime();
-            DateTime dtOff = new DateTime();
-            double sum = 0;
+            List<string> locationInLogs = new List<string>();
 
-            if (log.State == "on")
+            foreach (DeviceLog log in allDeviceLogs)
             {
-                dtOn = log.DateTime;
-                System.Diagnostics.Debug.WriteLine("Datetime on: " + dtOn);
-
-            }
-            else if (log.State == "off")
-            {
-                dtOff = log.DateTime;
-
-                if (dtOn != null)
+                if (!locationInLogs.Contains(log.Location))
                 {
-                    TimeSpan span = dtOff.Subtract(dtOn);
-                    sum += log.KWh * span.TotalHours;
+                    locationInLogs.Add(log.Location);
                 }
-
-                // clear
-                dtOn = new DateTime();
-                dtOff = new DateTime();
             }
 
-            return sum;
-        }        
-        
+            return locationInLogs;
+        }
+
         private string GetGraphPower()
         {
             _session = Session.getInstance;
@@ -118,7 +172,7 @@ namespace UsageStatistics.Models
                 System.Diagnostics.Debug.WriteLine("DATETIME: " + end.ToString());
                 foreach (DeviceLog log in allDeviceLogs)
                 {
-                    sum += CalculateEnergyUsage(log);
+                    //sum += CalculateEnergyUsage(log);
                 }
                 powerInterval.Add(sum.ToString());
                

@@ -67,6 +67,7 @@ namespace SmartHome.Controllers
         public ActionResult Logout()
         {
             appLogCreator.AddLog(this, "ACTION*/-LOGOUT", DateTime.Now);
+            appLogCreator.PushLogs();
             _session = Session.getInstance;
             Household householdUser = (Household) _session.GetUser();
             householdUser.IsLogin = false;
