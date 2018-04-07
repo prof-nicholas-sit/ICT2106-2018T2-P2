@@ -14,7 +14,7 @@ namespace SmartHome.Models.SmartDevice
     {
       
 
-        public SmartDevice getDevice(int DeviceID,int HouseHoldID,String DeviceName,String Location,String Brand,String Model,String Type,int UsageKwH)
+        public SmartDevice getDevice(int DeviceID,int HouseHoldID,String DeviceName,String Location,String Brand,String Model,String Type,double UsageKwH)
         {
             switch (Type)
             {
