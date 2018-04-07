@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SmartHome.Models.Household>
+
+@{
+    ViewData["Title"] = "ViewNeighbours";
+    Layout = "~/Views/Shared/_HouseholdLayout.cshtml";
+}
+
+<div class="jumbotron text-center" style="background-color:transparent;height:70px">
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Profile", "Household",new { id ="1"})'">Back</button>
+    <h2 style="color:#006dcc;text-align:center;text-transform:uppercase"><b>My Neighbours</b></h2>
+
+</div>
+
+<style>
+    button {
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        border: none;
+        float: left;
+    }
+</style>
+<br />
+<table class="table" align="center" style="background-color:lightskyblue;width:70%;padding-top:20px">
+    <tbody style="text-align:center">
+        @foreach (var item in Model)
+        {
+            
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>

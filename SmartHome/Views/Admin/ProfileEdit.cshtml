@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model SmartHome.Models.Administrator
+
+@{
+    ViewData["Title"] = "ProfileEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="jumbotron text-center" style="background-color:transparent;height:70px">
+    <h2 style="color:#006dcc;text-align:center; text-transform:uppercase"><b>Edit Admin Profile</b></h2>
+</div>
+<hr />
+@Html.ActionLink("Back", "Dashboard", "Admin", null, new { @class = "btn btn-primary btn-large" })
+
+<div class="container">
+    <div class="col-md-4"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="ProfileUpdate">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label">USERNAME</label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">EMAIL</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">PASSWORD</label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
