@@ -10,7 +10,7 @@ namespace UsageStatistics.Models
 {
     public class EnergyAdvise
     {
-        public double HouseholdConsumption { get { return new EnergyUsage().TotalEnergyUsage(); } }
+        public double HouseholdConsumption { get { return TotalEnergyUsage(); } }
         public double AverageConsumption { get { return CalculateAverageConsumption(); } }
         public double PreviousMonthConsumption { get { return GetPreviousMonthConsumption(); } }
 
@@ -31,9 +31,6 @@ namespace UsageStatistics.Models
             firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
         }
-
-        private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
-        private Session _session;
 
         public EnergyAdvise()
         {
@@ -56,10 +53,7 @@ namespace UsageStatistics.Models
 
             if (allDeviceLogs.Count != 0)
             {
-                foreach (DeviceLog log in allDeviceLogs)
-                {
-                    sum += new EnergyUsage().TotalEnergyUsage();
-                }
+                TotalEnergyUsage();
             }
             
             return sum/allHouseholds.Count;
@@ -91,20 +85,24 @@ namespace UsageStatistics.Models
 
                 allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, firstDayOfMonth, lastDayOfMonth).ToList();
 
-                foreach (DeviceLog log in allDeviceLogs)
-                {
-                    sum += new EnergyUsage().TotalEnergyUsage();
-                }
+                TotalEnergyUsage();
             }
 
             return sum;
         }
 
+        private List<DeviceLog> GetLogs()
+        {
+            return allDeviceLogs;
+        }
 
         public double TotalEnergyUsage()
         {
             // FOR THIS FUNCTION TO WORK,
             // LOGS ARE ASSUMED TO BE ACCURATELY LOGGED AND BE SORTED IN DATETIME WHEN RETRIEVING
+
+            List<DeviceLog> deviceLogs = GetLogs();
+
             double sum = 0;
 
             DateTime dtOn = new DateTime();
@@ -113,7 +111,7 @@ namespace UsageStatistics.Models
             Dictionary<string, DateTime> trackDeviceStates = new Dictionary<string, DateTime>();
             Dictionary<string, double> trackDeviceKwh = new Dictionary<string, double>();
 
-            foreach (DeviceLog log in allDeviceLogs)
+            foreach (DeviceLog log in deviceLogs)
             {
                 if (!trackDeviceKwh.ContainsKey(log.Name))
                 {
@@ -138,8 +136,8 @@ namespace UsageStatistics.Models
                     System.Diagnostics.Debug.WriteLine("There is a problem with the log. Either it's off without being on (can be ignored), or there's two on in a row (problem with logging!)");
                 }
             }
-            System.Diagnostics.Debug.WriteLine("tOTAL: " + sum);
-            // for states that are on but not yet off
+
+            // for states that are on and not yet off
             foreach (KeyValuePair<string, DateTime> deviceState in trackDeviceStates)
             {
                 dtOn = deviceState.Value;

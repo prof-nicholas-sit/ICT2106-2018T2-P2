@@ -20,13 +20,8 @@ namespace UsageStatistics.Controllers
 
             if (_session != null)
             {
-<<<<<<< HEAD
-
-                return View();
-=======
                 EnergyAdvise energyAdvise = new EnergyAdvise(month);
                 return View(energyAdvise);
->>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
             }
             else
             {

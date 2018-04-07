@@ -21,7 +21,6 @@ namespace UsageStatistics.Controllers
             {
                 EnergyUsage result = new EnergyUsage(timePeriod);
 
-<<<<<<< HEAD
                 if (location == null)
                 {
                     result.Location = result.Locations[0];
@@ -48,12 +47,10 @@ namespace UsageStatistics.Controllers
                 {
                     result.TimePeriod = timePeriod;
                 }
-=======
-                // gets individal energy usage in kwh and rounding it off to 2dp
-                ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type), 2);
-                ViewBag.location = location;
->>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
 
+                Debug.WriteLine("HERE" );
+                Debug.WriteLine("HERE" + ": " + result.DevicesInLocation[0] + " " + result.DevicesInLocation[1]);
+                Debug.WriteLine("HERE" );
                 return View(result);
             }
             else

@@ -33,38 +33,22 @@ namespace UsageStatistics.Controllers
                 switch (period)
                 {
                     case "daily":
-                        applicationUsage.timePeriod = "daily";
+                        applicationUsage.TimePeriod = "daily";
                         break;
                     case "weekly":
-                        applicationUsage.timePeriod = "weekly";
+                        applicationUsage.TimePeriod = "weekly";
                         break;
                     case "monthly":
-                        applicationUsage.timePeriod = "monthly";
+                        applicationUsage.TimePeriod = "monthly";
                         break;
                     default:
-                        ViewBag.Period = null;
                         break;
                 }
                 return View(applicationUsage);
             }
             else
             {
-<<<<<<< HEAD
-                case "daily":
-                    applicationUsage.TimePeriod = "daily";
-                    break;
-                case "weekly":
-                    applicationUsage.TimePeriod = "weekly";
-                    break;
-                case "monthly":
-                    applicationUsage.TimePeriod = "monthly";
-                    break;
-                default:
-                    ViewBag.Period = null;
-                    break;
-=======
                 return RedirectToAction("Index", "Home");
->>>>>>> 6404fea4306eb812f59c6de216739c7d0ee44800
             }
         }
     }
