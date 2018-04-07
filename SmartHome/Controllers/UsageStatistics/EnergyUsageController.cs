@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
@@ -12,7 +13,7 @@ namespace UsageStatistics.Controllers
         private Session _session;
 
         // GET: EnergyUsage
-        public ActionResult Index(string location, string type, string timePeriod)
+        public ActionResult Index(string location, string name, string timePeriod)
         {
             _session = Session.getInstance;
 
@@ -20,9 +21,32 @@ namespace UsageStatistics.Controllers
             {
                 EnergyUsage result = new EnergyUsage();
 
-                // gets individal energy usage in kwh and rounding it off to 2dp
-                ViewBag.sum = Math.Round(result.IndividualEnergyUsage(location, type, timePeriod), 2);
-                ViewBag.location = location;
+                if (location == null)
+                {
+                    result.Location = result.Locations[0];
+                } 
+                else
+                {
+                    result.Location = location;
+                }
+
+                if (name == null)
+                {
+                    result.Name = result.DevicesInLocation[0];
+                }
+                else
+                {
+                    result.Name = name;
+                }
+
+                if (timePeriod == null)
+                {
+                    result.TimePeriod = "daily";
+                }
+                else
+                {
+                    result.TimePeriod = timePeriod;
+                }
 
                 return View(result);
             }

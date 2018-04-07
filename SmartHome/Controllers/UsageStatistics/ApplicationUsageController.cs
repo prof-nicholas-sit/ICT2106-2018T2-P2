@@ -27,13 +27,13 @@ namespace UsageStatistics.Controllers
             switch (period)
             {
                 case "daily":
-                    applicationUsage.timePeriod = "daily";
+                    applicationUsage.TimePeriod = "daily";
                     break;
                 case "weekly":
-                    applicationUsage.timePeriod = "weekly";
+                    applicationUsage.TimePeriod = "weekly";
                     break;
                 case "monthly":
-                    applicationUsage.timePeriod = "monthly";
+                    applicationUsage.TimePeriod = "monthly";
                     break;
                 default:
                     ViewBag.Period = null;

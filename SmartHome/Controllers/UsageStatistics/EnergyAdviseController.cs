@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
+using UsageStatistics.Models;
 
 namespace UsageStatistics.Controllers
 {
@@ -19,6 +20,7 @@ namespace UsageStatistics.Controllers
 
             if (_session.IsLogin())
             {
+
                 return View();
             }
             else
