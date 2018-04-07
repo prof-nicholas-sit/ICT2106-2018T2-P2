@@ -726,3 +726,6 @@
 7/4/2018 11:11:07 PM (CreateMongoDbQuery): Execute - { "_id" : ObjectId("5ac8df8b57f97e4280062e28"), "ClassType" : "SmartHome.Models.AppLog", "LogType" : "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN", "Timestamp" : ISODate("2018-04-07T15:10:55.343Z"), "HouseholdId" : ObjectId("5ac61587c247ff0322e54530"), "DeviceType" : null, "Values" : null }
 7/4/2018 11:11:08 PM (CreateMongoDbQuery): Execute - { "_id" : ObjectId("5ac8df8b57f97e4280062e29"), "ClassType" : "SmartHome.Models.AppLog", "LogType" : "SmartHome.Controllers.HouseholdController*/-PAGE*/-View-Profile", "Timestamp" : ISODate("2018-04-07T15:10:55.422Z"), "HouseholdId" : ObjectId("5ac61587c247ff0322e54530"), "DeviceType" : null, "Values" : null }
 >>>>>>> ef922ef5b48596e4761aa67cab91bf660b6a3306
+04/07/2018 23:45:24 (ReplaceMongoDbQuery): Execute - { "_id" : ObjectId("5ac61587c247ff0322e54530") }
+---with---
+{ "_id" : ObjectId("5ac61587c247ff0322e54530"), "ClassType" : "SmartHome.Models.Household", "Username" : "670140-06-328", "Password" : "passwords", "Email" : "l.kokleong1991@gmail.com", "IsLogin" : true, "houseHoldId" : ObjectId("000000000000000000000000"), "Street" : "Petir Road Block 140 #06-328", "PostalCode" : 670140, "UnitNo" : "#06-328", "Surname" : "LEONG", "ContactNo" : "82006275", "IsResetPassword" : false }
