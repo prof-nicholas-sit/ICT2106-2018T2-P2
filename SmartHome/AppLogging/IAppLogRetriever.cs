@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartHome
+namespace SmartHome.AppLogging
 {
     public interface IAppLogRetriever
     {
@@ -13,6 +13,6 @@ namespace SmartHome
         int AggregateQuery(DateTime start, DateTime end, string logType = null, string deviceType = null);
         List<string> ListLogTypes(DateTime start, DateTime end, string deviceType = null);
         List<string> ListDeviceTypes(DateTime start, DateTime end, string logType = null);
-        List<AppLog> SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null);
+        IAppLogIterator SelectQuery(DateTime start, DateTime end, string logType = null, string deviceType = null);
     }
 }
