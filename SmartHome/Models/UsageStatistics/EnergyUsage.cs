@@ -13,21 +13,40 @@ namespace UsageStatistics.Models
         public string Model { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
- 
+        public string GraphPower { get { return GetGraphPower();  } }
+        
         private List<DeviceLog> allDeviceLogs = new List<DeviceLog>();
         private Session _session;
+        private DateTime start;
+        private DateTime end;
 
-        public EnergyUsage()
+        public EnergyUsage(string timePeriod = null)
         {
             _session = Session.getInstance;
             Household householduser = (Household)_session.GetUser();
-         
-            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, DateTime.MinValue, DateTime.Now).ToList();
+            
+            if (timePeriod == "daily")
+            {
+                start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+                end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59, 999);
+            }
+            else if (timePeriod == "weekly")
+            {
+
+            }
+            else if (timePeriod == "monthly")
+            {
+                DateTime date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+                start = new DateTime(date.Year, date.Month, 1);
+                end = start.AddMonths(1).AddDays(-1);
+            }
+
+            allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
 
             // System.Diagnostics.Debug.WriteLine("Instantiated how many: " + allDeviceLogs.Count);            
         }
 
-        public double IndividualEnergyUsage(string location, string deviceType, string timePeriod)
+        public double IndividualEnergyUsage(string location, string deviceType)
         {
             double sum = 0;
 
@@ -35,26 +54,26 @@ namespace UsageStatistics.Models
             {
                 if (log.Location == location && log.Type == deviceType)
                 {
-                    sum += CalculateEnergyUsage(timePeriod, log);
+                    sum += CalculateEnergyUsage(log);
                 }
             }
 
             return sum;
         }
 
-        public double TotalEnergyUsage(string timePeriod)
+        public double TotalEnergyUsage()
         {
             double sum = 0;
 
             foreach (DeviceLog log in allDeviceLogs)
             {
-                sum += CalculateEnergyUsage(timePeriod, log);
+                sum += CalculateEnergyUsage(log);
             }
 
             return sum;
         }
 
-        private double CalculateEnergyUsage(string timePeriod, DeviceLog log)
+        private double CalculateEnergyUsage(DeviceLog log)
         {
             DateTime dtOn = new DateTime();
             DateTime dtOff = new DateTime();
@@ -83,5 +102,30 @@ namespace UsageStatistics.Models
 
             return sum;
         }        
+        
+        private string GetGraphPower()
+        {
+            _session = Session.getInstance;
+            Household householduser = (Household)_session.GetUser();
+            double sum = 0;
+            int time = 0;
+            start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            List<string> powerInterval = new List<string>();
+ 
+            for (int i = 0; i < 13; i ++)
+            {
+                allDeviceLogs = new DeviceLogMapper().SelectFromDateRange(householduser.houseHoldId, start, end).ToList();
+                foreach (DeviceLog log in allDeviceLogs)
+                {
+                    sum += CalculateEnergyUsage(log);
+                }
+                powerInterval[i] = sum.ToString("0.##%");
+                time += 2;
+                end = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, time, 0, 0);
+            }
+
+            return string.Join(",", powerInterval);
+        }
     }
 }
