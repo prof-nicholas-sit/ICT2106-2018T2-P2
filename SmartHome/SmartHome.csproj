@@ -3,6 +3,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="DAL\Mappers\DeviceMapper.cs" />
+    <Compile Remove="DAL\Mappers\IDeviceMapper.cs" />
+    <Compile Remove="DAL\Mappers\IScheduleMapper.cs" />
+    <Compile Remove="DAL\Mappers\ScheduleMapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
 
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />

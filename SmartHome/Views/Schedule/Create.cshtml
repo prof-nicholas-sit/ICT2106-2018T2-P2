@@ -2,11 +2,6 @@
 <link href="~/css/scheduler.css" rel="Stylesheet" />
 @{
     ViewData["Title"] = "Create";
-}
-
-<!-- Passing Data From Controller to View using ViewData
-    https://www.c-sharpcorner.com/article/asp-net-mvc-passing-data-from-controller-to-view/-->
-@{
     var data = (Device)ViewData["Device"];
     var dataSerialize = ViewData["DeviceSerialize"];
 }
@@ -77,12 +72,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Device ID</label>
-
-                <input class="form-control" value=@data._id readonly />
+                <input asp-for="deviceId" class="form-control" value=@data.DeviceId readonly />
             </div>
             <div class="form-group">
                 <label class="control-label">Device name</label>
-                <input class="form-control" value=@data.Name readonly />
+                <input class="form-control" value=@data.DeviceName readonly />
             </div>
             <div class="form-group">
                 <label class="control-label">Device Type</label>
@@ -104,61 +98,259 @@
                 }
                 else if (@data.Type.Equals("Aircon"))
                 {
-                    <label class="control-label">Aircon Temperature</label>
-                    @Html.DropDownListFor(model => model.StatusWhenOn, AirconTemperatureItems, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.StartTime)
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="automateSettings" value="check" />Automate Aircon Temperature based on Sensor
-                            </label>
+                        <label class="control-label">Aircon Temperature</label>
+                        @Html.DropDownListFor(model => model.StatusWhenOn, AirconTemperatureItems, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StartTime)
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="automateSettings" value="check" />Automate Aircon Temperature based on Sensor
+                                </label>
+                            </div>
                         </div>
-                    </div>
                 }
                 else if (@data.Type.Equals("Light"))
                 {
-                    <label class="control-label">Light Brightness</label>
-                    @Html.DropDownListFor(model => model.StatusWhenOn, LightBrightnessItems, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.StartTime)
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="automateSettings" value="check" />Automate Light Brightness based on Sensor
-                            </label>
+                        <label class="control-label">Light Brightness</label>
+                        @Html.DropDownListFor(model => model.StatusWhenOn, LightBrightnessItems, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StartTime)
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="automateSettings" value="check" />Automate Light Brightness based on Sensor
+                                </label>
+                            </div>
                         </div>
-                    </div>
                 }
-            </div>
-            <div class="form-group">
-                <label asp-for="StartTime" class="control-label">Start time</label>
-                @Html.DropDownListFor(model => model.StartTime, TimeItems, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StartTime)
-            </div>
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label">End time</label>
-                @Html.DropDownListFor(model => model.EndTime, TimeItems, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EndTime)
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="ApplyToEveryWeek" />Schedule every week
-                    </label>
                 </div>
-            </div>
-            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="StartTime" class="control-label">Start time</label>
+                    @Html.DropDownListFor(model => model.StartTime, TimeItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartTime)
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndTime" class="control-label">End time</label>
+                    @Html.DropDownListFor(model => model.EndTime, TimeItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EndTime)
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="ApplyToEveryWeek" />Schedule every week
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
                 <label asp-for="DayOfWeek" class="control-label">Day</label>
+
                 @if (@ViewBag.dDay != null)
                 {
-                    <input asp-for="DayOfWeek" class="form-control" value="@ViewBag.dDay" readonly />
+                    //if added from scheduler page, have to check which day checkbox to lock
+                    @if (@ViewBag.dDay.Equals("Sunday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SunCheckbox" value="Sunday" onclick="return false" checked />Sunday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SunCheckbox" value="Sunday" />Sunday
+                                </label>
+                            </div>
+                        </div>
+
+                    }
+                    @if (@ViewBag.dDay.Equals("Monday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="Moncheckbox" value="Monday" onclick="return false" checked />Monday
+                                </label>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="Moncheckbox" value="Monday" />Monday
+                                </label>
+                            </div>
+                        </div>
+
+                    }
+                    @if (@ViewBag.dDay.Equals("Tuesday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="TueCheckbox" value="Tuesday" onclick="return false" checked />Tuesday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="TueCheckbox" value="Tuesday" />Tuesday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    @if (@ViewBag.dDay.Equals("Wednesday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="WedCheckbox" value="Wednesday" onclick="return false" checked />Wednesday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="WedCheckbox" value="Wednesday" />Wednesday
+                                </label>
+                            </div>
+                        </div>
+
+                    }
+                    @if (@ViewBag.dDay.Equals("Thursday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="ThursCheckbox" value="Thursday" onclick="return false" checked />Thursday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="ThursCheckbox" value="Thursday" />Thursday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    @if (@ViewBag.dDay.Equals("Friday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="FriCheckbox" value="Friday" onclick="return false" checked />Friday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="FriCheckbox" value="Friday" />Friday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    @if (@ViewBag.dDay.Equals("Saturday"))
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SatCheckbox" value="Saturday" onclick="return false" checked />Saturday
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SatCheckbox" value="Saturday" />Saturday
+                                </label>
+                            </div>
+                        </div>
+
+                    }
+
                 }
+                // show only checkboxes without locking
                 else
                 {
-                    <input asp-for="DayOfWeek" class="form-control" />
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SunCheckbox" value="Sunday" />Sunday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="Moncheckbox" value="Monday" />Monday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="TueCheckbox" value="Tuesday" />Tuesday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="WedCheckbox" value="Wednesday" />Wednesday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="ThursCheckbox" value="Thursday" />Thursday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="FriCheckbox" value="Friday" />Friday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SatCheckbox" value="Saturday" />Saturday
+                                </label>
+                            </div>
+                        </div>
+
+
                 }
                 <span asp-validation-for="DayOfWeek" class="text-danger"></span>
             </div>
-            <input asp-for="DeviceId" class="form-control" value=@data._id type="hidden" />
+            <input asp-for="device" class="form-control" value=@dataSerialize type="hidden" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

@@ -61,7 +61,6 @@
                     <a asp-action="SelectDay" asp-controller="Schedule" asp-route-day="@day"><img src="~/images/addButton.png" /></a>
                     </h2>               
                 </th>
-                <th></th>
             </tr>
         </thead>
 
@@ -70,25 +69,32 @@
                 @foreach (var item in Model)
                 {
 
-                    if (item.DayOfWeek.Equals(day))
+                    //split total days into seperate days
+                    string[] partsFromString = item.DayOfWeek.Split(new string[] { "," }, StringSplitOptions.None);
+                    for (int j = 0; j < partsFromString.Length; j++)
                     {
-                        <tr>
 
-                            <td>
-                                <a asp-action="Details" asp-route-id="@item.ScheduleId">
-                                    @Html.DisplayFor(modelItem => item.DeviceId)
-                                </a>
+
+                        if (partsFromString[j].Equals(day))
+                        {
+                            <tr>
+
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.ScheduleId">
+                                        @Html.DisplayFor(modelItem => item.deviceId)
+                                    </a>
                                     <div style="float:right; padding-right:3px;">
-                                        <a asp-action="Edit" asp-route-asp-route-id="@item.ScheduleId">
+                                        <a asp-action="Edit" asp-route-id="@item.ScheduleId">
                                             <img width="15" height="15" src="~/images/editButton.png" />
-                                        </a> 
+                                        </a>
                                         <a asp-action="Delete" asp-route-id="@item.ScheduleId">
                                             <img width="15" height="15" src="~/images/deleteButton.png" />
                                         </a>
                                     </div>
-                            </td>
-                        </tr>
-                        
+                                </td>
+                            </tr>
+
+                        }
                     }
                 }
             </tbody>
@@ -96,5 +102,4 @@
     </div>
         }
     }
-
 </div>

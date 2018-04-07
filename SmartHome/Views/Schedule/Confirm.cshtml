@@ -18,23 +18,22 @@
                 Device ID
             </dt>
             <dd>
-                @data._id
+                @ViewBag.deviceId
             </dd>
             <dt>
                 Device name
             </dt>
             <dd>
-                @data.Name
+                @ViewBag.deviceName
             </dd>
             <dt>
-                Starting 
-
+                Start Time
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.StartTime)
             </dd>
             <dt>
-                Ending Time
+                End Time
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.EndTime)
@@ -54,6 +53,6 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" asp-route-id="@Model._id">Edit</a>
+        <a asp-action="Edit" asp-route-id="@Model.ScheduleId">Edit</a>
         <a asp-action="Index">Back to List</a>
     </div>

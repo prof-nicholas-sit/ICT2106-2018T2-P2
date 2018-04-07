@@ -19,40 +19,36 @@ namespace SmartHome.Controllers
 {
     public class ScheduleController : Controller
     {
-        /*internal DataGateway<Schedule> dataGateway;
+        internal DataGateway<Schedule> dataGateway;
         internal DataGateway<Device> dataGateway2;
 
         public ScheduleController(SmartHomeDbContext context)
         {
             dataGateway = new ScheduleGateway(context);
             dataGateway2 = new DeviceGateway(context);
-        }*/
-
-        private static IScheduleMapper _ScheduleMapper = new ScheduleMapper();
-        private static IHouseholdMapper _HouseholdMapper = new HouseholdMapper();
-        private static IDeviceMapper _DeviceMapper = new DeviceMapper();
+        }
 
         // GET: Scheduler
         public ActionResult Index()
         {
-            return View(_ScheduleMapper.SelectAll());
+            return View(dataGateway.SelectAll());
         }
 
         // GET: Scheduler
         public ActionResult Index1()
         {
-            return View(_ScheduleMapper.SelectAll());
+            return View(dataGateway.SelectAll());
         }
 
         // GET: Scheduler/Details/5
-        public ActionResult Details(ObjectId id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Schedule schedule = _ScheduleMapper.SelectById(id);
+            Schedule schedule = dataGateway.SelectById(id);
             if (schedule == null)
             {
                 return NotFound();
@@ -64,9 +60,11 @@ namespace SmartHome.Controllers
         // GET: Tours/Confirm
         public ActionResult Confirm(Schedule schedule)
         {
-            ViewData["Device"] = ADevice();
-            //return View("Confirm", schedule);
-            return View();
+            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            ViewBag.deviceId = aDevice.DeviceId;
+            ViewBag.deviceName = aDevice.DeviceName;
+
+            return View("Confirm", schedule);
         }
 
         [HttpGet]
@@ -88,16 +86,12 @@ namespace SmartHome.Controllers
             return View();
         }*/
         
-        public ActionResult Create()
+        public ActionResult Create(Device device)
         {
-            //ViewBag.dDay = TempData["selectedDay"];
+            ViewBag.dDay = TempData["selectedDay"];
 
-            //// store the device object to a view data
-            ViewData["Device"] = ADevice();
-            //ViewBag.abc = device;
-
-            //// store the serialized device object to a view data
-            //ViewData["DeviceSerialize"] = Serialize(device);
+            // store the device object to a view data
+            ViewData["Device"] = device;
 
             return View();
         }
@@ -174,36 +168,37 @@ namespace SmartHome.Controllers
 
             if (ModelState.IsValid)
             {
-                Console.WriteLine(schedule.ToString());
-                _ScheduleMapper.Create(schedule).Save().Commit();
-                
-                return RedirectToAction("Index1");
+                String totalDays = getDays();
+                schedule.DayOfWeek = totalDays;
+
+                dataGateway.Insert(schedule);
+
+                return RedirectToAction(nameof(Confirm), schedule);
             }
             return View(schedule);
         }
 
         // GET: Scheduler/Edit/5
-        public ActionResult Edit(ObjectId id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Schedule schedule = _ScheduleMapper.SelectById(id);
+            Schedule schedule = dataGateway.SelectById(id);
             if (schedule == null)
             {
                 return NotFound();
             }
-            //Device aDevice = dataGateway2.SelectById(schedule.deviceId);
-            //ViewBag.dID = schedule.deviceId;
-            //ViewBag.dName = aDevice.DeviceName;
-            //ViewBag.dType = aDevice.Type;
-            //ViewBag.dStatusWhenOn = schedule.statusWhenOn;
-            //ViewBag.dStartTime = schedule.startTime;
-            //ViewBag.dEndTime = schedule.endTime;
-            //return View(schedule;
-            return View();
+            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            ViewBag.dID = schedule.deviceId;
+            ViewBag.dName = aDevice.DeviceName;
+            ViewBag.dType = aDevice.Type;
+            ViewBag.dStatusWhenOn = schedule.StatusWhenOn;
+            ViewBag.dStartTime = schedule.StartTime;
+            ViewBag.dEndTime = schedule.EndTime;
+            return View(schedule);
         }
 
         // POST: Scheduler/Edit/5
@@ -242,14 +237,14 @@ namespace SmartHome.Controllers
         }
 
         // GET: Scheduler/Delete/5
-        public ActionResult Delete(ObjectId id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Schedule schedule = _ScheduleMapper.SelectById(id);
+            Schedule schedule = dataGateway.SelectById(id);
             if (schedule == null)
             {
                 return NotFound();
@@ -263,16 +258,16 @@ namespace SmartHome.Controllers
         // POST: Scheduler/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(ObjectId id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            _ScheduleMapper.Delete(id);
+            dataGateway.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ScheduleExists(ObjectId id)
+        private bool ScheduleExists(int id)
         {
             Schedule schedule = new Schedule();
-            if ((schedule = _ScheduleMapper.SelectById(id)) != null)
+            if ((schedule = dataGateway.SelectById(id)) != null)
                 return true;
             return false;
         }
@@ -315,28 +310,49 @@ namespace SmartHome.Controllers
             }
         }
 
-        //Temporary Device Object
-        public Device ADevice()
-        { 
-            FanDevice sampleDevice = new FanDevice();
+        public string getDays()
+        {
+            String SelectSun = Request.Form["SunCheckbox"];
+            String SelectMon = Request.Form["MonCheckbox"];
+            String SelectTue = Request.Form["TueCheckbox"];
+            String SelectWed = Request.Form["WedCheckbox"];
+            String SelectThurs = Request.Form["ThursCheckbox"];
+            String SelectFri = Request.Form["FriCheckbox"];
+            String SelectSat = Request.Form["SatCheckbox"];
 
-            ObjectId houseId = new ObjectId("5ac26535276cca1f46f54bc3");
-            ObjectId scheduleId = new ObjectId("5ac5abcf630e212034b3a32c");
+            String totalSelectedDays = "";
 
-            sampleDevice._id = new ObjectId("5ac609b14589ec02bcff878c");
-            sampleDevice.HouseholdId = houseId;
-            sampleDevice.Name = "Living Room Fan";
-            sampleDevice.Location = "Living Room";
-            sampleDevice.Type = "Fan";
-            sampleDevice.State = "Off";
-            sampleDevice.KWh = 20;
-            sampleDevice.Brand = "Akira";
-            sampleDevice.Model = "ST-88F";
-            sampleDevice.IsFavourite = true;
-            sampleDevice.TimeStamp = new DateTime(2009, 01, 01, 06, 36, 00);
-            sampleDevice.FanSpeed = 3;
+            if (SelectSun != null)
+            {
+                totalSelectedDays += SelectSun;
+            }
+            if (SelectMon != null)
+            {
+                totalSelectedDays += "," + SelectMon;
+            }
+            if (SelectTue != null)
+            {
+                totalSelectedDays += "," + SelectTue;
+            }
+            if (SelectWed != null)
+            {
+                totalSelectedDays += "," + SelectWed;
+            }
+            if (SelectThurs != null)
+            {
+                totalSelectedDays += "," + SelectThurs;
+            }
+            if (SelectFri != null)
+            {
+                totalSelectedDays += "," + SelectFri;
+            }
+            if (SelectSat != null)
+            {
+                totalSelectedDays += "," + SelectSat;
+            }
 
-            return sampleDevice;
+            return totalSelectedDays;
+
         }
     }
 }
