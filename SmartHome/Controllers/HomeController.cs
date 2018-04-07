@@ -61,7 +61,6 @@ namespace SmartHome.Controllers
                 appLogCreator.AddLog(this, "ACTION*/-LOGIN", DateTime.Now);
 
                 return RedirectToAction("Profile", "Household");
-
             }
             else
             {

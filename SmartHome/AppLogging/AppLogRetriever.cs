@@ -42,6 +42,7 @@ namespace SmartHome.AppLogging
         {
             var DB = new AppLogMapper();
             List<AppLog> result = DB.SelectQuery(householdId, start, end, logType, deviceType).ToList();
+            Console.WriteLine("HERERWRERE" + result.Count);
             return new AppLogIterator(result);
         }
     }
