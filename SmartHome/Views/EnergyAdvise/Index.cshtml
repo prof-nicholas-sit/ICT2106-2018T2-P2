@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="panel-title">Energy Consumption</h3>
-                            <p> HELLO TESTING @Model.AverageConsumption </p>
+                            <p> HELLO TESTING</p>
                         </div>
                         <div class="col-sm-6">
                             <!-- Single button -->
@@ -42,8 +42,45 @@
                     </div>
               </div>
               <div class="panel-body">
-                <canvas id="trend_1" class="mb30"></canvas>
+                <canvas id="advise" class="mb30"></canvas>
               </div>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+<script>
+var data = @Model.GraphData;
+var advise = document.getElementById('advise').getContext('2d');
+window.myHorizontalBar = new Chart(advise, {
+    type: 'horizontalBar',
+    data: {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        datasets: [{
+            label: 'My Household',
+            backgroundColor: 'rgba(252,145,58,0.6)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data[0]
+        }, {
+            label: 'Average Household',
+            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+            borderColor: 'rgb(252,145,58)',
+            data: data[1]
+        }, {
+            label: 'Previous Month',
+            backgroundColor: 'rgba(100,80,60,0.6)',
+            borderColor: 'rgb(252,145,58)',
+            data: data[2]
+        }]  
+    },
+    options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: false,
+        },
+    }
+});
+</script>
