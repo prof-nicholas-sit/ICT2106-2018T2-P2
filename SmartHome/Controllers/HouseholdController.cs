@@ -13,7 +13,7 @@ namespace SmartHome.Controllers
     {
         // POST: Household/Edit/5
         
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             _session = Session.getInstance;
             Household householduser = (Household)_session.GetUser();

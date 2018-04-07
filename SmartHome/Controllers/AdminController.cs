@@ -264,7 +264,7 @@ namespace SmartHome.Controllers
 
         public ActionResult ProfileEdit(int id)
         {
-            _session = Session.getInstance;
+            _session = (Session)TempData["Session"];
             return View((Administrator) _session.GetUser());
         }
 

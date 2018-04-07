@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
 using System.Text.RegularExpressions;
+ using System.Xml.Linq;
  using SmartHome.DAL.Mappers;
 
 namespace SmartHome.Controllers
@@ -44,6 +45,7 @@ namespace SmartHome.Controllers
                 AdminUser.IsLogin = true;
                 _session= Session.getInstance;
                 _session.setCurrentUser(AdminUser);
+                TempData["Session"] = _session;
                 new AdminMapper().Update(AdminUser).Save().Commit();
                 return RedirectToAction("Profile","Admin");
             }
@@ -53,6 +55,7 @@ namespace SmartHome.Controllers
                 householduser.IsLogin = true;
                 _session = Session.getInstance;
                 _session.setCurrentUser(householduser);
+                TempData["Session"] = _session;
                 new HouseholdMapper().Update(householduser).Save().Commit();
                 return RedirectToAction("Profile", "Household");
 
@@ -75,7 +78,7 @@ namespace SmartHome.Controllers
             }
             else if (_session.IsLogin()== true && _session.GetUser().GetType() == typeof(Administrator))
             {
-                return View(_session.GetUser());
+                return View((Administrator)_session.GetUser());
             }
 
             return RedirectToAction("Index","Home");
