@@ -1,0 +1,8 @@
+{
+	"_id" : ObjectId("5ac615175a62f70319a00b05"),
+	"ClassType" : "SmartHome.Models.Administrator",
+	"Email" : "admin01@gmail.com",
+	"IsLogin" : false,
+	"Password" : "password",
+	"Username" : "admin01"
+},

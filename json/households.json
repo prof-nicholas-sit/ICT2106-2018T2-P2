@@ -1,0 +1,15 @@
+{
+	"_id" : ObjectId("5ac61587c247ff0322e54530"),
+	"ClassType" : "SmartHome.Models.Household",
+	"ContactNo" : "82006275",
+	"Email" : "l.kokleong1991@gmail.com",
+	"houseHoldId" : ObjectId("000000000000000000000000"),
+	"IsLogin" : false,
+	"IsResetPassword" : false,
+	"Password" : "passwords",
+	"PostalCode" : NumberInt("670140"),
+	"Street" : "Petir Road Block 140 #06-328",
+	"Surname" : "LEONG",
+	"UnitNo" : "#06-328",
+	"Username" : "670140-06-328"
+},
