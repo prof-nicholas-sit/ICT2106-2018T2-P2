@@ -68,7 +68,7 @@ namespace UsageStatistics.Models
         /* This method calculates the sum of energy usage of the household
          * The list of device logs is obtained by calling deviceLogs() method
          * */
-        public double IndividualEnergyUsage()
+        private double IndividualEnergyUsage()
         {
             // FOR THIS FUNCTION TO WORK,
             // LOGS ARE ASSUMED TO BE ACCURATELY LOGGED AND BE SORTED IN DATETIME WHEN RETRIEVING

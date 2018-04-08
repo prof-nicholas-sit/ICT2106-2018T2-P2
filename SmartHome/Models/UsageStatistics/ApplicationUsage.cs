@@ -24,7 +24,7 @@ namespace UsageStatistics.Models
         /* This method calculates the login duration of the user by
          * subtracting current time with the last login logged time.
          * */
-        public string CalculateLoginDuration()
+        private string CalculateLoginDuration()
         {
             AppLogIterator logIter = (AppLogIterator)appLogRetriever.SelectQuery(DateTime.MinValue, DateTime.Now, "SmartHome.Controllers.HomeController*/-ACTION*/-LOGIN");
             AppLog log = logIter.Last();
