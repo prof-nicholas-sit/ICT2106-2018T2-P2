@@ -8,7 +8,7 @@ namespace UsageStatistics.Controllers
     public class ApplicationUsageController : Controller
     {
         private readonly ApplicationUsage applicationUsage;
-        protected Session _session;
+        private Session _session;
 
         // Push application usage logs and pass model with app log retriever 
         public ApplicationUsageController([FromServices] IAppLogCreator ac, [FromServices] IAppLogRetriever ar) {
