@@ -1,8 +1,13 @@
 # ICT2106-2018T2-P2
-SMART Home Manager
+### This branch contains the modules for Team 10 and 11.
+*However do note that it also includes the integrated modules for Team 9, 12, and 13.*
 
-The main application is stored in the SmartHome folder. You may add other folders for other applications
-such as test programs or helper applications.
+Please look at the following files for the evaluation of Team 10:
+- All files under AppLogging folder
 
-See the Git Repositories document in the Project area on xSiTe for further advice on how to use this
-repository.
+Please look at the following files for the evaluation of Team 11:
+- All files under Controllers/UsageStatistics
+- All files under Models/UsageStatistics
+- Views/ApplicationUsage/Index.cshtml
+- Views/EnergyAdvise/Index.cshtml
+- Views/EnergyUsage/Index.cshtml
