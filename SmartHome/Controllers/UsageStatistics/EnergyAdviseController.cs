@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartHome.Models;
 using UsageStatistics.Models;
 
@@ -11,7 +6,7 @@ namespace UsageStatistics.Controllers
 {
     public class EnergyAdviseController : Controller
     {
-        protected Session _session;
+        private Session _session;
 
         // GET: EnergyUsage
         public ActionResult Index(int month = 1)

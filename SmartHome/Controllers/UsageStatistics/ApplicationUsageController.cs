@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SmartHome;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartHome.AppLogging;
 using SmartHome.Models;
 using UsageStatistics.Models;
@@ -17,6 +10,7 @@ namespace UsageStatistics.Controllers
         private readonly ApplicationUsage applicationUsage;
         protected Session _session;
 
+        // Push application usage logs and pass model with app log retriever 
         public ApplicationUsageController([FromServices] IAppLogCreator ac, [FromServices] IAppLogRetriever ar) {
             ac.PushLogs();
             applicationUsage = new ApplicationUsage(ar);
