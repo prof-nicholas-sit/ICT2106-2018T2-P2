@@ -13,12 +13,12 @@ namespace UsageStatistics.Models
         public Dictionary<string, int> PageCount { get { return GetPageCount(); } }
         public string CurrentLoginDuration { get { return CalculateLoginDuration(); } }
 
-        private readonly AppLogRetriever appLogRetriever;
+        private readonly IAppLogRetriever appLogRetriever;
 
         // Constructor
         public ApplicationUsage(IAppLogRetriever ar)
         {
-            appLogRetriever = (AppLogRetriever)ar;
+            appLogRetriever = ar;
         }
 
         /* This method calculates the login duration of the user by

@@ -12,11 +12,11 @@ namespace SmartHome.Controllers
 {
     public class HouseholdController : HomeController
     {
-        private readonly AppLogCreator appLogCreator;
+        private readonly IAppLogCreator appLogCreator;
 
         public HouseholdController(IAppLogCreator ac)
         {
-            appLogCreator = (AppLogCreator)ac;
+            appLogCreator = ac;
         }
 
         // POST: Household/Edit/5
