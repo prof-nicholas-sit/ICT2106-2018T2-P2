@@ -28,15 +28,14 @@ namespace SmartHome.Controllers
             dataGateway2 = new DeviceGateway(context);
         }
 
+        // commented out and use Entity Framework for easy testing
+        //IScheduleMapper scheduleMapper = new ScheduleMapper();
+        //IDeviceMapper scheduleMapper = new DeviceMapper();
+
         // GET: Scheduler
         public ActionResult Index()
         {
-            return View(dataGateway.SelectAll());
-        }
-
-        // GET: Scheduler
-        public ActionResult Index1()
-        {
+            //return View(scheduleMapper.SelectAll());
             return View(dataGateway.SelectAll());
         }
 
@@ -48,6 +47,7 @@ namespace SmartHome.Controllers
                 return NotFound();
             }
 
+            // Schedule schedule = scheduleMapper.SelectById(id);
             Schedule schedule = dataGateway.SelectById(id);
             if (schedule == null)
             {
@@ -73,18 +73,6 @@ namespace SmartHome.Controllers
             TempData["selectedDay"] = day;
             return RedirectToAction("Index", "Device");
         }
-
-        // GET: Scheduler/Create
-        /*[HttpGet]
-        public ActionResult Create(int id, string deviceName)
-        {
-
-            @ViewBag.dID = id;
-            @ViewBag.dName = deviceName;
-            ViewBag.dDay = TempData["selectedDay"];
-
-            return View();
-        }*/
         
         public ActionResult Create(Device device)
         {
@@ -95,24 +83,22 @@ namespace SmartHome.Controllers
 
             return View();
         }
-
-
+        
 
         // POST: Scheduler/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Schedule schedule, string automateSettings)
-        //public ActionResult Create(IFormCollection form)
+        public ActionResult Create([Bind("ScheduleId,deviceId,StartTime,EndTime,ApplyToEveryWeek,DayOfWeek,StatusWhenOn")] Schedule schedule, string automateSettings)
         {
             //[Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")]
 
             if(automateSettings == "check")
             {
-                /*AbstractScheduleEngine scheduleEngine;
+                AbstractScheduleEngine scheduleEngine;
 
-                Device aDevice = ADevice();
+                Device aDevice = dataGateway2.SelectById(schedule.deviceId);
                 if(aDevice.Type.Equals("Fan"))
                 {
                     scheduleEngine = new FanScheduleEngineTemplate();
@@ -130,41 +116,10 @@ namespace SmartHome.Controllers
                     scheduleEngine = new LightScheduleEngineTemplate();
                     int suggestLightSpeed = scheduleEngine.sensorRecommendedValue(schedule.StartTime);
                     schedule.StatusWhenOn = suggestLightSpeed;
-                }*/
+                }
 
                     
             }
-
-
-
-            //[Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] 
-
-
-            /*TimeSpan startTime = Convert.ToDateTime(form["startTime"].ToString());
-            TimeSpan endTime = Convert.ToDateTime(form["endTime"].ToString());
-            bool applyToEveryWeek = Convert.ToBoolean(form["applyToEveryWeek"].ToString());
-            string dayOfWeek = form["dayOfWeek"].ToString();
-            int deviceId = Convert.ToInt32(form["deviceId"].ToString());
-            Device device = Deserialize<Device>(form["device"].ToString());
-
-            Schedule schedule = new Schedule();
-            schedule.startTime = startTime;
-            schedule.endTime = endTime;
-            schedule.applyToEveryWeek = applyToEveryWeek;
-            schedule.dayOfWeek = dayOfWeek;
-            schedule.deviceId = deviceId;
-            schedule.device = device;*/
-
-            //double commmeeeOut = deviceFromCreate.UsageKwH;
-
-            //Console.WriteLine("HELLLOOOOOOO" + form["startTime"].ToString());
-            //DateTime startTime = Convert.ToDateTime(form["startTime"].ToString());
-            //String abc = form["startTime"].ToString();
-            //Schedule schedule = new Schedule();
-
-            //Console.WriteLine("ByeBye" + schedule.endTime);
-
-
 
             if (ModelState.IsValid)
             {
@@ -206,34 +161,33 @@ namespace SmartHome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("ScheduleId,deviceId,startTime,endTime,applyToEveryWeek,dayOfWeek,statusWhenOn")] Schedule schedule)
+        public ActionResult Edit(int id, [Bind("ScheduleId,deviceId,StartTime,EndTime,ApplyToEveryWeek,DayOfWeek,StatusWhenOn")] Schedule schedule)
         {
-            //if (id != schedule.ScheduleId)
-            //{
-            //    return NotFound();
-            //}
+            if (id != schedule.ScheduleId)
+            {
+                return NotFound();
+            }
 
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        dataGateway.Update(schedule);
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!ScheduleExists(schedule.ScheduleId))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(schedule);
-            return View();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    dataGateway.Update(schedule);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ScheduleExists(schedule.ScheduleId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(schedule);
         }
 
         // GET: Scheduler/Delete/5
@@ -249,10 +203,9 @@ namespace SmartHome.Controllers
             {
                 return NotFound();
             }
-            //Device aDevice = dataGateway2.SelectById(schedule.deviceId);
-            //ViewBag.dName = aDevice.DeviceName;
-            //return View(schedule);
-            return View();
+            Device aDevice = dataGateway2.SelectById(schedule.deviceId);
+            ViewBag.dName = aDevice.DeviceName;
+            return View(schedule);
         }
 
         // POST: Scheduler/Delete/5
