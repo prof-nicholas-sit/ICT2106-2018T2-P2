@@ -1,0 +1,84 @@
+﻿@model UsageStatistics.Models.EnergyAdvise
+
+@{
+    ViewData["Title"] = "Energy Advise";
+    Layout = "~/Views/Shared/_HouseholdLayout.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Energy Advisor</h3>
+            <div class="panel panel-default mt30 mb0">
+              <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="panel-title">Energy Consumption</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- Single button -->
+                            <div class="btn-group btn-group-xs pull-right">
+                              <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select Month <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Index", new { month = "1"})">Jan</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "2"})">Feb</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "3"})">March</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "4"})">April</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "5"})">May</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "6"})">Jun</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "7"})">July</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "8"})">Aug</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "9"})">Sept</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "10"})">Oct</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "11"})">Nov</a></li>
+                                <li><a href="@Url.Action("Index", new { month = "12"})">Dec</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+              <div class="panel-body">
+                <canvas id="advise" class="mb30"></canvas>
+              </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+<script>
+var data = @Model.GraphData;
+var advise = document.getElementById('advise').getContext('2d');
+window.myHorizontalBar = new Chart(advise, {
+    type: 'horizontalBar',
+    data: {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        datasets: [{
+            label: 'My Household',
+            backgroundColor: 'rgba(252,145,58,0.6)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data[0]
+        }, {
+            label: 'Average Household',
+            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+            borderColor: 'rgb(252,145,58)',
+            data: data[1]
+        }, {
+            label: 'Previous Month',
+            backgroundColor: 'rgba(100,80,60,0.6)',
+            borderColor: 'rgb(252,145,58)',
+            data: data[2]
+        }]  
+    },
+    options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: false,
+        },
+    }
+});
+</script>

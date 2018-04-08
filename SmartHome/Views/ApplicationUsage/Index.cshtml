@@ -1,0 +1,74 @@
+﻿@model UsageStatistics.Models.ApplicationUsage
+
+@{
+    ViewData["Title"] = "Application Usage";
+    Layout = "~/Views/Shared/_HouseholdLayout.cshtml";
+}
+
+<div id="page-wrapper">
+   <div class="row">   
+        <div class="col-lg-12">
+            <h3>Application Statistics</h3>
+				
+			<div id="stats-login-cont" class="panel panel-default mt30">
+			<div class="panel-heading">
+				<h3 class="panel-title">Login Statistics</h3>
+			</div>
+			  <div class="panel-body">
+				  <div class="well well-lg well-info">
+				<div class="row">
+					<div class="col-sm-4">
+                        <p class="text-big">@Model.LoginCount</p>
+							Login Count
+					</div>
+					<div class="col-sm-4">
+						<p class="text-big">@Model.LastLogin</p>
+						Last Login
+					</div>
+					<div class="col-sm-4">
+						<p class="text-big">@Model.CurrentLoginDuration</p>
+						Current Login Duration
+					</div>				
+				</div>
+			</div>
+			</div>
+			</div>
+			<div id="stats-device-cont" class="panel panel-default mt30">
+				<div class="panel-heading">
+                    <h3 class="panel-title">Number of Times Visited</h3>
+				</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="btn-group btn-group-sm" id="tab_toggle" role="tablist" aria-label="...">
+                                <a class="btn btn-warning" asp-area="" asp-controller="ApplicationUsage" asp-action="Index" asp-route-period="daily">Daily</a>
+                                <a class="btn btn-warning" asp-area="" asp-controller="ApplicationUsage" asp-action="Index" asp-route-period="weekly">Weekly</a>
+                                <a class="btn btn-warning" asp-area="" asp-controller="ApplicationUsage" asp-action="Index" asp-route-period="monthly">Montly</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Table to display each page's total times of visit (page count) -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Page</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.PageCount)
+                            {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.Value</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!--End of table-->
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+

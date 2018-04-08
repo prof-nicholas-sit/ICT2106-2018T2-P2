@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Globalization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
+using SmartHome.DAL.Mappers;
+using SmartHome.Models;
 
 namespace SmartHome
 {
@@ -14,6 +12,9 @@ namespace SmartHome
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Starting Program");
+            Console.WriteLine(DateTime.Now.ToString(CultureInfo.CurrentCulture));
+
             BuildWebHost(args).Run();
         }
 
