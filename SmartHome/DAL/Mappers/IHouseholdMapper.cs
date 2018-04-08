@@ -5,7 +5,7 @@ namespace SmartHome.DAL.Mappers
 {
     public interface IHouseholdMapper : IBaseMapper<Household>
     {
-        // login as a household account
+		// login as a household account
         Household Login(string username, string password);
         // get household with that specified username
         Household SelectByUsername(string username);

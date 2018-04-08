@@ -2,6 +2,9 @@
 using System.Globalization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using MongoDB.Bson;
+using SmartHome.DAL.Mappers;
+using SmartHome.Models;
 
 namespace SmartHome
 {

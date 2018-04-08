@@ -1,0 +1,178 @@
+{
+  "list": [
+    {
+      "id": "0",
+	  "name": "Samsung Fridge",
+	  "location": "Kitchen",
+	  "type": "Fridge",
+	  "power": "256",
+	  "state": "On",
+	  "model": "S579-23",
+	  "brand": "Samsung",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		},
+		{
+		"log2": 1,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    },
+	{
+      "id": "1",
+	  "name": "Toyota LightBulb",
+	  "location": "Kitchen",
+	  "type": "LightBulb",
+	  "power": "12",
+	  "state": "On",
+	  "model": "L235",
+	  "brand": "Toyota",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		},
+		{
+		"log2": 1,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    },
+	{
+      "id": "2",
+	  "name": "Apple Television",
+	  "location": "Kitchen",
+	  "type": "Television",
+	  "power": "1456",
+	  "state": "Off",
+	  "model": "A2315",
+	  "brand": "Apple",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		},
+		{
+		"log2": 1,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    },
+	{
+      "id": "3",
+	  "name": "Amazon Echo",
+	  "location": "Living Room",
+	  "type": "Voice Control",
+	  "power": "1456",
+	  "state": "Off",
+	  "model": "A2315",
+	  "brand": "Apple",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    },
+	{
+      "id": "4",
+	  "name": "Kettle",
+	  "location": "Kitchen",
+	  "type": "Kettle",
+	  "power": "1456",
+	  "state": "Off",
+	  "model": "LFJ 214-24525",
+	  "brand": "Packard Bell",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    },
+	{
+      "id": "5",
+	  "name": "Favourite Phone",
+	  "location": "Kitchen",
+	  "type": "Phone",
+	  "power": "1456",
+	  "state": "Off",
+	  "model": "DA6",
+	  "brand": "Microsoft",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    },
+	{
+      "id": "6",
+	  "name": "Alex computer",
+	  "location": "Room",
+	  "type": "Computer",
+	  "power": "1456",
+	  "state": "Off",
+	  "model": "Z124",
+	  "brand": "Asus",
+	  "deviceLogs": [
+		{
+		"log1": 0,
+		"year": 2018,
+		"month": 10,
+		"day": 10,
+		"hour": 15,
+		"minute": 20,
+		"second": 30		
+		}
+	  ]
+    }
+  ]
+}

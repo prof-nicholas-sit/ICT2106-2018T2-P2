@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SmartHome.AppLogging;
 
 namespace SmartHome
 {
@@ -22,6 +23,9 @@ namespace SmartHome
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSingleton<IAppLogCreator, AppLogCreator>();
+            services.AddSingleton<IAppLogRetriever, AppLogRetriever>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

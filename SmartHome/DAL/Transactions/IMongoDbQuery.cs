@@ -1,6 +1,6 @@
 ﻿namespace SmartHome.DAL.Transactions
 {
-    /**
+	/**
      * Interface for a mongodb query
      */
     public interface IMongoDbQuery

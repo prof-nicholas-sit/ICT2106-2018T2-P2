@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
-    /**
+	/**
      * Represents a query that performs an update to a collection.
      */
     public class UpdateMongoDbQuery : MongoDbQuery

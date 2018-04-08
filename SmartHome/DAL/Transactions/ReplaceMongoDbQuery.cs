@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace SmartHome.DAL.Transactions
 {
-    /**
+	/**
      * Represents a query that replaces a document in a collection. Replace is an update query.
      */
     public class ReplaceMongoDbQuery : MongoDbQuery

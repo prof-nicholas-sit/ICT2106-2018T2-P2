@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 
 namespace SmartHome.Models
 {
-    /**
+	/**
      * Abstract class needed for all objects to be stored in mongodb as documents.
      * Consists of attributes that are needed for serialization and deserialization, such as document _id,
      * and ClassType meant for Reflection.
@@ -12,6 +12,7 @@ namespace SmartHome.Models
      */
     public abstract class MongoDbObject
     {
+		public MongoDbObject() {}
         public ObjectId _id { get; set; }
         public string ClassType { get; set; }
     }

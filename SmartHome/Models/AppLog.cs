@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using SmartHome;
+using SmartHome.AppLogging;
 
 namespace SmartHome.Models
 {
-    /**
+	/**
      * Domain Model for AppLog
      */
-    public class AppLog : MongoDbObject
+    public class AppLog : MongoDbObject, IAppLog
     {
         public string LogType { get; set; }
         public DateTime Timestamp { get; set; }
@@ -25,6 +27,11 @@ namespace SmartHome.Models
             HouseholdId = householdId;
             DeviceType = deviceType;
             Values = values;
+        }
+        
+        public string toAppLogString()
+        {
+            return "AppLog: " + LogType + ", " + Timestamp.ToString() + ", " + HouseholdId + ", " + DeviceType + ", " + Values;
         }
     }
 }
